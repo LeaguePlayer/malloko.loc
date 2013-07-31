@@ -42,7 +42,7 @@ class Controller extends CController
 		$this->cs->registerCoreScript('jquery');
 
 		//Change theme
-		Yii::app()->theme = 'sofia';
+		Yii::app()->theme = 'default';
 
 		if(Yii::app()->getRequest()->getParam('update_assets')) $this->forceCopyAssets = true;
 
@@ -63,7 +63,7 @@ class Controller extends CController
 
 	//Check home page
 	public function is_home(){
-		return (Yii::app()->controller->getId().'/'.Yii::app()->controller->getAction()->getId()) == 'site/index';
+		return $this->route == 'site/index';
 	}
 
 /*	protected function beforeAction($action){
@@ -83,7 +83,7 @@ class Controller extends CController
 
 	public function beforeRender($view)
     {
-        $this->renderPartial('//layouts/clips/_main_menu'); 
+        $this->renderPartial('//layouts/clips/_main_menu');
 
         return parent::beforeRender($view);
     }
