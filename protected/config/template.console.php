@@ -22,6 +22,7 @@ return array(
 			'username' => 'x',
 			'password' => 'x',
 			'charset' => 'utf8',
+			'tablePrefix' => 'tbl_',
 		),
 		
 		'log'=>array(
@@ -33,5 +34,31 @@ return array(
 				),
 			),
 		),
+	),
+		
+	'commandMap' => array(
+		'migrate' => array(
+			// псевдоним директории, в которую распаковано расширение
+			'class' => 'application.cli.commands.EMigrateCommand',
+			// путь для хранения общих миграций
+			'migrationPath' => 'application.cli.migrations',
+			// имя таблицы с версиями
+			'migrationTable' => '{{migration}}',
+			// имя псевдомодуля для общих миграций. По умолчанию равно "core".
+			'applicationModuleName' => 'core',
+			// определяем все модули, для которых нужны миграции
+			'modulePaths' => array(
+				//'алиас модуля'      => 'путь.к.папке.с.миграциями.для.модуля',
+				// ...
+			),
+			// отключаем некоторые модули
+			'disabledModules' => array(
+					//'admin', 'anOtherModule', // ...
+			),
+			// название компонента для подключения к базе данных
+			'connectionID'=>'db',
+			// алиас шаблона для новых миграций
+			'templateFile'=>'application.cli.migrations.MigrationTemplate',
+		)
 	),
 );
