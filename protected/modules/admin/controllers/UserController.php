@@ -2,10 +2,8 @@
 
 class UserController extends AdminController
 {
-	public $layout = '//layouts/login';
-
 	public function actionIndex(){
-		$this->redirect('/admin/catalog/admin');
+		$this->redirect('/admin/start/index');
 	}
 
 	public function actionError()
@@ -24,6 +22,7 @@ class UserController extends AdminController
 	 */
 	public function actionLogin()
 	{
+		$this->layout = '/layouts/login';
 		$model=new LoginForm;
 
 		// if it is ajax validation request

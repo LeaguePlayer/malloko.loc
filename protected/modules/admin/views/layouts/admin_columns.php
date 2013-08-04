@@ -1,8 +1,8 @@
 <?php $this->beginContent('/layouts/main'); ?>
 <div class="span12" id="main-content">
-	<?php $this->widget('bootstrap.widgets.TbBreadcrumbs', array(
+	<?php $this->widget('bootstrap.widgets.TbBreadcrumb', array(
 	    'links'=>$this->breadcrumbs,
-	    'homeLink'=>CHtml::link('Главная',array('/admin')),
+	    'homeUrl'=>CHtml::link('Главная',array('/admin')),
 	)); ?>
     <?php echo $content; ?>
 </div><!-- content -->

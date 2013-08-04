@@ -30,11 +30,16 @@ class m130731_083150_employees extends CDbMigration
  
         $this->createTable('{{employees}}', array(
             'id' => 'pk', // auto increment
-            'fio' => 'varchar(256) NOT NULL',
-        	'position' => 'varchar(256) NOT NULL',
-        	'quote' => 'text'
+			'image' => 'text COMMENT \'Фото сотрудника\'',
+            'fio' => 'varchar(256) NOT NULL COMMENT \'ФИО\'',
+        	'position' => 'varchar(256) NOT NULL COMMENT \'Должность\'',
+        	'html_quote' => 'text COMMENT \'Высказывание\'',
+			'status' => 'tinyint COMMENT \'Статус\'',
+			'sort' => 'integer COMMENT \'Вес для сортировки\'',
+            'create_time' => 'integer',
+            'update_time' => 'integer',
         ),
-        'ENGINE=MyISAM');
+        "ENGINE=MyISAM COMMENT 'Работники ресторана'");
     }
  
     public function safeDown()

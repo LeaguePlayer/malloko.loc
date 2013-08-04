@@ -10,6 +10,7 @@ themes/classic/views/
 protected/config/main.php
 protected/config/console.php
 /uploads
+/media
 /gallery
 *~
 /index.php

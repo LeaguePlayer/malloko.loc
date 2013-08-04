@@ -6,9 +6,9 @@ $form = $this->beginWidget('bootstrap.widgets.TbActiveForm', array(
 
 	<h2 class="form-signin-heading">Вход</h2>
 	 
-	<?php echo $form->textFieldRow($model, 'username', array('class'=>'span3')); ?>
-	<?php echo $form->passwordFieldRow($model, 'password', array('class'=>'span3')); ?>
-	<?php echo $form->checkboxRow($model, 'rememberMe'); ?>
-	<?php $this->widget('bootstrap.widgets.TbButton', array('buttonType'=>'submit', 'label'=>'Войти')); ?>
+	<?php echo $form->textFieldControlGroup($model, 'username', array('class'=>'span3')); ?>
+	<?php echo $form->passwordFieldControlGroup($model, 'password', array('class'=>'span3')); ?>
+	<?php echo $form->checkboxControlGroup($model, 'rememberMe'); ?>
+	<?php echo TbHtml::submitButton('Войти'); ?>
  
 <?php $this->endWidget(); ?>

@@ -10,7 +10,7 @@ class AdminModule extends CWebModule
 
 	public function preinit()
     {
-        Yii::setPathOfAlias('bootstrap', 'protected/modules/admin/extensions/bootstrap');
+        //Yii::setPathOfAlias('bootstrap', 'protected/modules/admin/extensions/yiistrap');
 
         // Reset the front-end's client script because we don't want
         // both front-end styles being applied in this module.
@@ -19,6 +19,9 @@ class AdminModule extends CWebModule
 
 	public function init()
 	{
+		Yii::setPathOfAlias('admin_ext', dirname(__FILE__).'/extensions');
+		Yii::setPathOfAlias('bootstrap', dirname(__FILE__).'/extensions/yiistrap');
+		Yii::setPathOfAlias('yiiwheels', dirname(__FILE__).'/extensions/yiiwheels');
 		// this method is called when the module is being created
 		// you may place code here to customize the module or the application
 
@@ -27,20 +30,26 @@ class AdminModule extends CWebModule
 			'admin.models.*',
 			'admin.components.*',
             'admin.helpers.*',
+			'admin.behaviors.*',
+			'bootstrap.helpers.*',
+			'admin_ext.EPhpThumb.EPhpThumb',
 		));
-
+		
 		$this->setComponents(array(
             'errorHandler' => array(
                 'errorAction' => 'admin/user/error'),
             'user' => array(
-                'class' => 'CWebUser',             
+                'class' => 'CWebUser',
                 'loginUrl' => Yii::app()->createUrl('admin/user/login'),
                 'returnUrl' => Yii::app()->createUrl('admin/start/index'),
             ),
             'bootstrap' => array(
-                'class' => 'AdminBootstrap',
+                'class' => 'bootstrap.components.TbApi',
                 'forceCopyAssets' => $this->forceCopyAssets
             ),
+			'yiiwheels' => array(
+				'class' => 'yiiwheels.YiiWheels',
+			),
         ));
  
 		Yii::app()->user->setStateKeyPrefix('_admin');

@@ -5,8 +5,6 @@
 
 // This is the main Web application configuration. Any writable
 // CWebApplication properties can be configured here.
-Yii::setPathOfAlias('admin_ext', dirname(__FILE__).'/../modules/admin/extensions');
-Yii::setPathOfAlias('bootstrap', dirname(__FILE__).'/../modules/admin/extensions/bootstrap');
 
 return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
