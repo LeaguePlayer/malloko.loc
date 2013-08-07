@@ -19,7 +19,7 @@
 class GalleryPhoto extends CActiveRecord
 {
     /** @var string directory in web root for galleries */
-    public $galleryDir = 'gallery';
+    public $galleryDir = 'media/images';
 
     /**
      * Returns the static model of the specified AR class.
@@ -36,9 +36,9 @@ class GalleryPhoto extends CActiveRecord
      */
     public function tableName()
     {
-        if ($this->dbConnection->tablePrefix !== null)
-            return '{{gallery_photo}}';
-        else
+        //if ($this->dbConnection->tablePrefix !== null)
+        //    return '{{gallery_photo}}';
+        //else
             return 'gallery_photo';
 
     }

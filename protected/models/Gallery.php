@@ -43,9 +43,9 @@ class Gallery extends CActiveRecord
      */
     public function tableName()
     {
-        if ($this->dbConnection->tablePrefix !== null)
-            return '{{gallery}}';
-        else
+        //if ($this->dbConnection->tablePrefix !== null)
+        //    return '{{gallery}}';
+        //else
             return 'gallery';
     }
 

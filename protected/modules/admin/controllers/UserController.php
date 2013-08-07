@@ -2,6 +2,8 @@
 
 class UserController extends AdminController
 {
+	public $defaultAction = 'index';
+	
 	public function actionIndex(){
 		$this->redirect('/admin/start/index');
 	}

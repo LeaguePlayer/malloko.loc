@@ -46,6 +46,9 @@ return array(
 		'bootstrap'=>array(
             'class'=>'admin_ext.bootstrap.components.Bootstrap',
         ),
+		'yiiwheels' => array(
+			'class' => 'yiiwheels.YiiWheels',
+		),
         'phpThumb'=>array(
 		    'class'=>'admin_ext.EPhpThumb.EPhpThumb',
 		    'options'=>array()

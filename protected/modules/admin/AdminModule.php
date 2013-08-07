@@ -47,13 +47,9 @@ class AdminModule extends CWebModule
                 'class' => 'bootstrap.components.TbApi',
                 'forceCopyAssets' => $this->forceCopyAssets
             ),
-			'yiiwheels' => array(
-				'class' => 'yiiwheels.YiiWheels',
-			),
         ));
  
 		Yii::app()->user->setStateKeyPrefix('_admin');
-
         $this->registerBootstrap();
         $this->registerCoreCss();
 	}
@@ -88,7 +84,9 @@ class AdminModule extends CWebModule
     protected function registerCoreCss()
     {
         Yii::app()->clientScript->registerCssFile($this->getAssetsUrl() . '/css/admin.css');
-        Yii::app()->clientScript->registerScriptFile($this->getAssetsUrl() . '/js/knockout.js', CClientScript::POS_END);
+		Yii::app()->clientScript->registerCssFile($this->getAssetsUrl() . '/css/jquery-ui-bootstrap/custom-theme/jquery-ui-1.9.2.custom.css');
+        Yii::app()->clientScript->registerCssFile($this->getAssetsUrl() . '/css/jquery-ui-bootstrap/custom-theme/jquery.ui.1.9.2.ie.css');
+		Yii::app()->clientScript->registerScriptFile($this->getAssetsUrl() . '/js/knockout.js', CClientScript::POS_END);
     }
 
     public function getAssetsUrl()

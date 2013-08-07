@@ -18,19 +18,18 @@ class MagicModelCode extends CCodeModel
 	 */
 	protected $relations;
 
-	public function rules()
-	{
+	public function rules() {
 		return array_merge(parent::rules(), array(
-			array('tablePrefix, baseClass, tableName, modelClass, modelPath, connectionId, translition', 'filter', 'filter'=>'trim'),
+			array('tablePrefix, baseClass, tableName, modelClass, modelPath, connectionId, translition', 'filter', 'filter' => 'trim'),
 			array('connectionId, tableName, modelPath, baseClass', 'required'),
-			array('tablePrefix, tableName, modelPath', 'match', 'pattern'=>'/^(\w+[\w\.]*|\*?|\w+\.\*)$/', 'message'=>'{attribute} should only contain word characters, dots, and an optional ending asterisk.'),
-			array('connectionId', 'validateConnectionId', 'skipOnError'=>true),
-			array('tableName', 'validateTableName', 'skipOnError'=>true),
-			array('tablePrefix, modelClass', 'match', 'pattern'=>'/^[a-zA-Z_]\w*$/', 'message'=>'{attribute} should only contain word characters.'),
-		    array('baseClass', 'match', 'pattern'=>'/^[a-zA-Z_][\w\\\\]*$/', 'message'=>'{attribute} should only contain word characters and backslashes.'),
-			array('modelPath', 'validateModelPath', 'skipOnError'=>true),
-			array('baseClass, modelClass', 'validateReservedWord', 'skipOnError'=>true),
-			array('baseClass', 'validateBaseClass', 'skipOnError'=>true),
+			array('tablePrefix, tableName, modelPath', 'match', 'pattern' => '/^(\w+[\w\.]*|\*?|\w+\.\*)$/', 'message' => '{attribute} should only contain word characters, dots, and an optional ending asterisk.'),
+			array('connectionId', 'validateConnectionId', 'skipOnError' => true),
+			array('tableName', 'validateTableName', 'skipOnError' => true),
+			array('tablePrefix, modelClass', 'match', 'pattern' => '/^[a-zA-Z_]\w*$/', 'message' => '{attribute} should only contain word characters.'),
+			array('baseClass', 'match', 'pattern' => '/^[a-zA-Z_][\w\\\\]*$/', 'message' => '{attribute} should only contain word characters and backslashes.'),
+			array('modelPath', 'validateModelPath', 'skipOnError' => true),
+			array('baseClass, modelClass', 'validateReservedWord', 'skipOnError' => true),
+			array('baseClass', 'validateBaseClass', 'skipOnError' => true),
 			array('connectionId, tablePrefix, modelPath, baseClass, buildRelations, commentsAsLabels', 'sticky'),
 		));
 	}
@@ -38,14 +37,14 @@ class MagicModelCode extends CCodeModel
 	public function attributeLabels()
 	{
 		return array_merge(parent::attributeLabels(), array(
-			'tablePrefix'=>'Префикс таблиц',
-			'tableName'=>'Название таблицы',
-			'modelPath'=>'Путь к модели',
-			'modelClass'=>'Класс модели',
-			'translition'=>'Русский перевод',
-			'baseClass'=>'Базовый класс модели',
-			'buildRelations'=>'Сгенерировать связи таблиц',
-			'commentsAsLabels'=>'Использовать комментарии полей в качестве подписей атоибутов',
+			'tablePrefix' => 'Префикс таблиц',
+			'tableName' => 'Название таблицы',
+			'modelPath' => 'Путь к модели',
+			'modelClass' => 'Класс модели',
+			'translition' => 'Русский перевод',
+			'baseClass' => 'Базовый класс модели',
+			'buildRelations' => 'Сгенерировать связи таблиц',
+			'commentsAsLabels' => 'Использовать комментарии полей в качестве подписей атоибутов',
 			'connectionId'=>'Database Connection',
 		));
 	}
@@ -106,6 +105,7 @@ class MagicModelCode extends CCodeModel
 				'columns'=>$table->columns,
 				'labels'=>$this->generateLabels($table),
 				'rules'=>$this->generateRules($table),
+				'behaviors'=>$this->generateBehaviorsArray($table->columns),
 				'relations'=>isset($this->relations[$className]) ? $this->relations[$className] : array(),
 				'connectionId'=>$this->connectionId,
 			);
@@ -430,5 +430,36 @@ class MagicModelCode extends CCodeModel
 	{
 		if(Yii::app()->hasComponent($this->connectionId)===false || !(Yii::app()->getComponent($this->connectionId) instanceof CDbConnection))
 			$this->addError('connectionId','A valid database connection is required to run this generator.');
+	}
+	
+	public function generateBehaviorsArray($columns)
+	{
+	$behaviors = array();
+	foreach ($columns as $name=>$column) {
+		if (stripos($name, 'image') !== false ) {
+			$behaviors[] = "\t\t\t'UploadableImageBehavior' => array(
+				'class' => 'admin.behaviors.UploadableImageBehavior',
+			),\n";
+			continue;
+		}
+		if (stripos($name, 'gallery') !== false ) {
+			$behaviors[] = "\t\t\t'galleryManager' => array(
+				'class' => 'admin.extensions.imagesgallery.GalleryBehavior',
+				'idAttribute' => '{$name}',
+				'versions' => array(
+					'small' => array(
+						'adaptiveResize' => array(90, 90),
+					),
+					'medium' => array(
+						'resize' => array(600, 500),
+					)
+				),
+				'name' => true,
+				'description' => true,
+			),\n";
+			continue;
+		}
+	}
+		return empty($behaviors) ? null : $behaviors;
 	}
 }

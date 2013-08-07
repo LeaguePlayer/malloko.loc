@@ -112,12 +112,40 @@ class MagicCrudCode extends CrudCode
 	
 	public function generateActiveRow($modelClass, $column)
 	{
+		if (stripos($column->dbType, 'time')) {
+			$genRow = "<div class='control-group'>\n";
+			$genRow .= "\t\t<?php echo CHtml::activeLabelEx(\$model, '{$column->name}'); ?>\n";
+			$genRow .= "\t\t<?php \$this->widget('admin.extensions.yiiwheels.widgets.datepicker.WhDatePicker', array(
+			'model' => '\$model',
+			'attribute' => '{$column->name}',
+			'pluginOptions' => array(
+				'format' => 'mm.dd.yyyy'
+			)
+		)); ?>\n";
+			$genRow .= "\t\t<?php echo \$form->error(\$model, '{$column->name}'); ?>\n";
+			$genRow .= "\t</div>\n";
+			return $genRow;
+		}
 		if ($column->name === 'image') {
 			$genRow = "<div class='control-group'>\n";
 			$genRow .= "\t\t<?php echo CHtml::activeLabelEx(\$model, '{$column->name}'); ?>\n";
 			$genRow .= "\t\t<?php echo TbHtml::imageRounded(\$model->getThumb('medium')); ?><br>\n";
 			$genRow .= "\t\t<?php echo \$form->fileField(\$model,'{$column->name}', array('class'=>'span8')); ?>\n";
 			$genRow .= "\t\t<?php echo \$form->error(\$model, '{$column->name}'); ?>\n";
+			$genRow .= "\t</div>\n";
+			return $genRow;
+		}
+		if (stripos($column->name, 'gallery') !==false) {
+			$genRow = "<div class='control-group'>\n";
+			$genRow .= "\t\t<?php echo CHtml::activeLabelEx(\$model, '{$column->name}'); ?>\n";
+			$genRow .= "\t\t<?php if (\$model->galleryManager->getGallery() === null) {
+			echo '<p class=\"help-block\">Прежде чем загружать изображения, нужно сохранить текущее состояние</p>';
+		} else {
+			\$this->widget('admin_ext.imagesgallery.GalleryManager', array(
+				'gallery' => \$model->galleryManager->getGallery(),
+				'controllerRoute' => '/admin/gallery',
+			));
+		} ?>\n";
 			$genRow .= "\t</div>\n";
 			return $genRow;
 		}
@@ -158,6 +186,13 @@ class MagicCrudCode extends CrudCode
 	{
 		if ( $column->autoIncrement)
 			return '';
+		if ( stripos($column->dbType, 'time') ) {
+			return "\t\tarray(\n".
+				"\t\t\t'name'=>'{$column->name}',\n".
+				"\t\t\t'type'=>'raw',\n".
+				"\t\t\t'value'=>'SiteHelper::russianDate(\$data->{$column->name})'\n".
+			"\t\t),\n";
+		}
 		if ( $column->name === 'image' ) {
 			return "\t\tarray(\n".
 				"\t\t\t'header'=>'Фото',\n".

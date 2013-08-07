@@ -90,19 +90,16 @@ class <?php echo $modelClass; ?> extends <?php echo $this->baseClass."\n"; ?>
 	}
 	
 	
-<?php foreach ($columns as $name=>$column): ?>
-<?php if ($name === 'image'): ?>
+<?php if ( $behaviors !== null ): ?>
 	public function behaviors()
 	{
 		return CMap::mergeArray(parent::behaviors(), array(
-			'UploadableImageBehavior' => array(
-				'class' => 'UploadableImageBehavior',
-			),
+<?php foreach ($behaviors as $behavior)
+			echo $behavior;
+?>
 		));
 	}
-<?php break; ?>
 <?php endif; ?>
-<?php endforeach; ?>
 
 	
 	public function search()
