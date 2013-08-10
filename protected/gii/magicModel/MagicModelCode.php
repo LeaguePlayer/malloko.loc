@@ -434,16 +434,16 @@ class MagicModelCode extends CCodeModel
 	
 	public function generateBehaviorsArray($columns)
 	{
-	$behaviors = array();
-	foreach ($columns as $name=>$column) {
-		if (stripos($name, 'image') !== false ) {
-			$behaviors[] = "\t\t\t'UploadableImageBehavior' => array(
+		$behaviors = array();
+		foreach ($columns as $name=>$column) {
+			if (stripos($name, 'image') !== false ) {
+				$behaviors[] = "\t\t\t'UploadableImageBehavior' => array(
 				'class' => 'admin.behaviors.UploadableImageBehavior',
 			),\n";
-			continue;
-		}
-		if (stripos($name, 'gallery') !== false ) {
-			$behaviors[] = "\t\t\t'galleryManager' => array(
+				continue;
+			}
+			if (stripos($name, 'gallery') !== false ) {
+				$behaviors[] = "\t\t\t'galleryManager' => array(
 				'class' => 'admin.extensions.imagesgallery.GalleryBehavior',
 				'idAttribute' => '{$name}',
 				'versions' => array(
@@ -457,9 +457,25 @@ class MagicModelCode extends CCodeModel
 				'name' => true,
 				'description' => true,
 			),\n";
-			continue;
+				continue;
+			}
 		}
-	}
 		return empty($behaviors) ? null : $behaviors;
+	}
+
+	public function generateBeforeSave($columns)
+	{
+		foreach ($columns as $name=>$column) {
+			if (stripos($name, '_date') !== false) {
+				$genCalls = "\$this->{$name} = Yii::app()->date->toMysql(\$this->{$name});";
+			}
+		}
+		if ( $genCalls !== null ) {
+			return "\tpublic function beforeSave()
+	{
+		{$genCalls}
+		return parent::beforeSave();
+	}\n";
+		}
 	}
 }

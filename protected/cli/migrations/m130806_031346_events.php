@@ -30,11 +30,13 @@ class m130806_031346_events extends CDbMigration
  
         $this->createTable('{{events}}', array(
             'id' => 'pk', // auto increment
-			'title' => 'varchar(256) COMMENT \'Загловок\'',
-			'html_content' => 'text COMMENT \'Контент\'',
+			'title' => 'varchar(256) NOT NULL COMMENT \'Загловок\'',
+			'image' => 'text COMMENT \'Превью к новости\'',
+            'description' => 'text COMMENT \'Краткое описание\'',
+			'html_content' => 'text NOT NULL COMMENT \'Контент\'',
 			'gallery' => 'integer COMMENT \'Галерея\'',
-			'place_id' => 'integer',
-			'type' => 'tinyint COMMENT \'Новость или хроника\'',
+			'place_id' => 'integer NOT NULL',
+			'type' => 'tinyint NOT NULL COMMENT \'Новость или хроника\'',
 			'public_date' => 'datetime COMMENT \'Дата публикации\'',
 			'status' => 'tinyint COMMENT \'Статус\'',
 			'sort' => 'integer COMMENT \'Вес для сортировки\'',

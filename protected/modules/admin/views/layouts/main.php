@@ -8,6 +8,7 @@
 	<body>
 	  
 		<?php
+			/*
 			$menuItems = array();
 			foreach (SiteHelper::scanNameModels() as $modelClass) {
 				$controllerId = strtolower($modelClass);
@@ -16,11 +17,30 @@
 					array('label'=>'Список', 'url'=>"/admin/{$controllerId}/list"),
 				));
 			}
+			 */
+			$menuItems = array(
+				array('label'=>'Сотрудники', 'url'=>'#', 'items' => array(
+					array('label'=>'Создать', 'url'=>"/admin/employees/create"),
+					array('label'=>'Список', 'url'=>"/admin/employees/list"),
+				)),
+				array('label'=>'Новости', 'url'=>'#', 'items' => array(
+					array('label'=>'Создать', 'url'=>"/admin/events/create"),
+					array('label'=>'Список', 'url'=>"/admin/events/list"),
+				)),
+				array('label'=>'Рестораны', 'url'=>'#', 'items' => array(
+					array('label'=>'Создать', 'url'=>"/admin/places/create"),
+					array('label'=>'Список', 'url'=>"/admin/places/list"),
+				)),
+				array('label'=>'Слайдер', 'url'=>'#', 'items' => array(
+					array('label'=>'Создать', 'url'=>"/admin/slider/create"),
+					array('label'=>'Список', 'url'=>"/admin/slider/list"),
+				)),
+			)
 		?>
 		<?php $this->widget('bootstrap.widgets.TbNavbar', array(
 			'color'=>'inverse', // null or 'inverse'
 			'brandLabel'=> CHtml::encode(Yii::app()->name),
-			'brandUrl'=>'#',
+			'brandUrl'=>'/',
 			'fluid' => true,
 			'collapse'=>true, // requires bootstrap-responsive.css
 			'items'=>array(

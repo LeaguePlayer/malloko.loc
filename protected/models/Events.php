@@ -6,6 +6,8 @@
  * The followings are the available columns in table '{{events}}':
  * @property integer $id
  * @property string $title
+ * @property string $image
+ * @property string $description
  * @property string $html_content
  * @property integer $gallery
  * @property integer $place_id
@@ -33,6 +35,7 @@ class Events extends EActiveRecord
 		return $types[$type];
 	}
 	
+	
 	public function tableName()
 	{
 		return '{{events}}';
@@ -42,11 +45,12 @@ class Events extends EActiveRecord
 	public function rules()
 	{
 		return array(
+			array('title, html_content, place_id, type', 'required'),
 			array('gallery, place_id, type, status, sort, create_time, update_time', 'numerical', 'integerOnly'=>true),
 			array('title', 'length', 'max'=>256),
-			array('html_content, public_date', 'safe'),
+			array('description, public_date', 'safe'),
 			// The following rule is used by search().
-			array('id, title, html_content, gallery, place_id, type, public_date, status, sort, create_time, update_time', 'safe', 'on'=>'search'),
+			array('id, title, image, description, html_content, gallery, place_id, type, public_date, status, sort, create_time, update_time', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -64,11 +68,13 @@ class Events extends EActiveRecord
 		return array(
 			'id' => 'ID',
 			'title' => 'Загловок',
+			'image' => 'Превью к новости',
+			'description' => 'Краткое описание',
 			'html_content' => 'Контент',
 			'gallery' => 'Галерея',
-			'place_id' => 'Ресторан',
+			'place_id' => 'Place',
 			'type' => 'Новость или хроника',
-			'public_date' => 'Дата публикации',
+			'public_date' => 'Дата проведения',
 			'status' => 'Статус',
 			'sort' => 'Вес для сортировки',
 			'create_time' => 'Дата создания',
@@ -80,15 +86,23 @@ class Events extends EActiveRecord
 	public function behaviors()
 	{
 		return CMap::mergeArray(parent::behaviors(), array(
+			'UploadableImageBehavior' => array(
+				'class' => 'admin.behaviors.UploadableImageBehavior',
+				'thumbs' => array(
+					'small' => array(90, 90),
+					'medium' => array(167, 101),
+					'big' => array(322, 322),
+				),
+			),
 			'galleryManager' => array(
 				'class' => 'admin.extensions.imagesgallery.GalleryBehavior',
 				'idAttribute' => 'gallery',
 				'versions' => array(
 					'small' => array(
-						'adaptiveResize' => array(90, 90),
+						'resize' => array(90, 90),
 					),
 					'medium' => array(
-						'resize' => array(600, 500),
+						'adapriveResize' => array(167, 101),
 					)
 				),
 				'name' => true,
@@ -104,6 +118,8 @@ class Events extends EActiveRecord
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('title',$this->title,true);
+		$criteria->compare('image',$this->image,true);
+		$criteria->compare('description',$this->description,true);
 		$criteria->compare('html_content',$this->html_content,true);
 		$criteria->compare('gallery',$this->gallery);
 		$criteria->compare('place_id',$this->place_id);
@@ -126,12 +142,76 @@ class Events extends EActiveRecord
 	
 	public function translition()
 	{
-		return 'Новости ресторана';
+		return 'События ресторана';
 	}
-	
+
 	public function beforeSave()
 	{
 		$this->public_date = Yii::app()->date->toMysql($this->public_date);
 		return parent::beforeSave();
+	}
+	
+	public static function lastNews($place_id, $limit = 10)
+	{
+		$criteria = new CDbCriteria;
+		$criteria->order = 'public_date DESC';
+		$criteria->limit = $limit;
+		$criteria->addCondition('place_id=:place_id AND type=:type AND status=:status');
+		$criteria->params[':place_id'] = $place_id;
+		$criteria->params[':type'] = self::TYPE_NEWS;
+		$criteria->params[':status'] = self::STATUS_PUBLISH;
+		return new CActiveDataProvider(__CLASS__, array(
+			'criteria'=>$criteria,
+		));
+	}
+	
+	public static function lastChronicles($place_id, $limit = 5)
+	{
+		$criteria = new CDbCriteria;
+		$criteria->order = 'public_date DESC';
+		$criteria->limit = $limit;
+		$criteria->addCondition('place_id=:place_id AND type=:type AND status=:status');
+		$criteria->params[':place_id'] = $place_id;
+		$criteria->params[':type'] = self::TYPE_CHRONICLE;
+		$criteria->params[':status'] = self::STATUS_PUBLISH;
+		return new CActiveDataProvider(__CLASS__, array(
+			'criteria'=>$criteria,
+		));
+	}
+	
+	public function viewUrl()
+	{
+		return Yii::app()->urlManager->createUrl('events/view', array('id' => $this->id));
+	}
+	
+	private $_dateArray;
+	protected function getDateArray()
+	{
+		if ($this->_dateArray === null) {
+			$this->_dateArray = explode('.', date('d.m.Y.H.i', strtotime($this->public_date)) );
+		}
+		return $this->_dateArray;
+	}
+	public function getPublicDay()
+	{
+		$dateArray = $this->dateArray;
+		return $dateArray[0];
+	}
+	public function getPublicMonth()
+	{
+		$dateArray = $this->dateArray;
+		return SiteHelper::russianMonth($dateArray[1]);
+	}
+	public function getPublicYear()
+	{
+		$dateArray = $this->dateArray;
+		return $dateArray[2];
+	}
+	public function getPublicTime()
+	{
+		$dateArray = $this->dateArray;
+		if (($dateArray[3] == 0) and ($dateArray[4] == 0))
+			return null;
+		return $dateArray[3].'.'.$dateArray[4];
 	}
 }

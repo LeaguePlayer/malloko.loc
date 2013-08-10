@@ -12,6 +12,11 @@ $this->menu=array(
 	'filter'=>$model,
 	'type'=>TbHtml::GRID_TYPE_HOVER,
 	'columns'=>array(
+		array(
+            'header'=>'Фото',
+            'type'=>'raw',
+            'value'=>'TbHtml::imageRounded($data->getThumb("small"))'
+        ),
 		'title',
 		array(
 			'name'=>'public_date',

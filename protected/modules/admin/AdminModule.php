@@ -67,7 +67,7 @@ class AdminModule extends CWebModule
                 'user/error',
             );
             if (Yii::app()->user->isGuest && !in_array($route, $publicPages)){            
-                Yii::app()->getModule('admin')->user->loginRequired();                
+                Yii::app()->getModule('admin')->user->loginRequired();
             }
             else
                 return true;

@@ -30,6 +30,12 @@ class UploadableImageBehavior extends CActiveRecordBehavior
      * @var string типы файлов, которые можно загружать (нужно для валидации)
      */
     public $fileTypes='jpg, png, jpeg, gif';
+	
+	public function events(){
+        return array(
+            'onBeforeSave' => 'beforeSave',
+        );
+    }  
  
     /**
      * Шорткат для Yii::getPathOfAlias($this->savePathAlias).DIRECTORY_SEPARATOR.

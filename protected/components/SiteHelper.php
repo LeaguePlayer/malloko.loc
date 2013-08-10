@@ -63,6 +63,37 @@ class SiteHelper {
 		else
 			return substr(md5($result . time()), 0);
 	}
+	
+	public static function russianMonth($monthNumber)
+	{
+		$n = (int) $monthNumber;
+		switch ($n) {
+			case 1:
+				return 'января';
+			case 2: 
+				return 'февраля';
+			case 3: 
+				return 'марта';
+			case 4: 
+				return 'апреля';
+			case 5: 
+				return 'мая';
+			case 6: 
+				return 'июня';
+			case 7: 
+				return 'июля';
+			case 8: 
+				return 'августа';
+			case 9: 
+				return 'сентября';
+			case 10: 
+				return 'октября';
+			case 11: 
+				return 'ноября';
+			case 12: 
+				return 'декабря';
+		}
+	}
 
 	public static function russianDate($datetime = null) {
 		if (is_integer($datetime) ) {
@@ -73,32 +104,7 @@ class SiteHelper {
 			$timestamp = time();
 		}
 		$date = explode(".", date("d.m.Y", $timestamp));
-		switch ($date[1]) {
-			case 1: $m = 'января';
-				break;
-			case 2: $m = 'февраля';
-				break;
-			case 3: $m = 'марта';
-				break;
-			case 4: $m = 'апреля';
-				break;
-			case 5: $m = 'мая';
-				break;
-			case 6: $m = 'июня';
-				break;
-			case 7: $m = 'июля';
-				break;
-			case 8: $m = 'августа';
-				break;
-			case 9: $m = 'сентября';
-				break;
-			case 10: $m = 'октября';
-				break;
-			case 11: $m = 'ноября';
-				break;
-			case 12: $m = 'декабря';
-				break;
-		}
+		$m = self::russianMonth($date[1]);
 		return $date[0] . '&nbsp;' . $m . '&nbsp;' . $date[2];
 	}
 

@@ -143,4 +143,6 @@ foreach($columns as $name=>$column)
 		return '<?php echo $this->translition; ?>';
 	}
 <? endif; ?>
+
+<?php echo $this->generateBeforeSave($columns); ?>
 }

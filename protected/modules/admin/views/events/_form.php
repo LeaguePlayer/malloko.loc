@@ -1,9 +1,19 @@
 <?php $form=$this->beginWidget('bootstrap.widgets.TbActiveForm',array(
 	'id'=>'events-form',
 	'enableAjaxValidation'=>false,
+	'htmlOptions' => array('enctype'=>'multipart/form-data'), 
 )); ?>
 
 	<?php echo $form->textFieldControlGroup($model,'title',array('class'=>'span8','maxlength'=>256)); ?>
+
+	<div class='control-group'>
+        <?php echo CHtml::activeLabelEx($model, 'image'); ?>
+        <?php echo TbHtml::imageRounded($model->getThumb('medium')); ?><br>
+        <?php echo $form->fileField($model,'image', array('class'=>'span8')); ?>
+        <?php echo $form->error($model, 'image'); ?>
+    </div>
+
+	<?php echo $form->textAreaControlGroup($model,'description',array('rows'=>6, 'cols'=>50, 'class'=>'span8')); ?>
 
 	<div class='control-group'>
 		<?php echo CHtml::activeLabelEx($model, 'html_content'); ?>
@@ -32,7 +42,7 @@
 		<?php $this->widget('application.extensions.datetimepicker.BJuiDateTimePicker', array(
 			'model' => $model,
 			'attribute' => 'public_date',
-			'type' => 'date',
+			'type' => 'datetime',
 			'options' => array(
 				'controlType' => 'select',
 			),

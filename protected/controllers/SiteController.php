@@ -3,10 +3,7 @@
 class SiteController extends Controller
 {
 	public $layout = "//layouts/home";
-
-	//public $count;
-
-	public $city_block_rooms;
+	
 	/**
 	 * Declares class-based actions.
 	 */
@@ -32,7 +29,11 @@ class SiteController extends Controller
 	 */
 	public function actionIndex()
 	{
-
+		$this->layout = '//layouts/col_1';
+		$slider = Slider::model()->findByAttributes(array('place_id'=>$this->place['id']));
+		if ( $slider !== null and $slider->status == Slider::STATUS_PUBLISH ) {
+			$this->sliderManager = $slider->galleryManager->getGallery();
+		}
 		$this->render('index');
 	}
 
@@ -111,5 +112,11 @@ class SiteController extends Controller
 	{
 		Yii::app()->user->logout();
 		$this->redirect(Yii::app()->homeUrl);
+	}
+	
+	public function actionAbout()
+	{
+		$this->layout = '//layouts/col_2';
+		$this->render('about');
 	}
 }

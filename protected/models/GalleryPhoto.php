@@ -122,9 +122,9 @@ class GalleryPhoto extends CActiveRecord
         return true;
     }
 
-    public function getPreview()
+    public function getPreview($version = '')
     {
-        return Yii::app()->request->baseUrl . '/' . $this->galleryDir . '/_' . $this->getFileName('') . '.' . $this->ext;
+        return Yii::app()->request->baseUrl . '/' . $this->galleryDir . '/_' . $this->getFileName($version) . '.' . $this->ext;
     }
 
     private function getFileName($version = '')
@@ -205,6 +205,4 @@ class GalleryPhoto extends CActiveRecord
             $image->save($this->galleryDir . '/' . $this->getFileName($version) . '.' . $this->ext);
         }
     }
-
-
 }

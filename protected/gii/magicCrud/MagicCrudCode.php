@@ -186,7 +186,7 @@ class MagicCrudCode extends CrudCode
 	{
 		if ( $column->autoIncrement)
 			return '';
-		if ( stripos($column->dbType, 'time') ) {
+		if ( stripos($column->dbType, 'time') or stripos($column->name, 'create_time') or stripos($column->name, 'update_time') ) {
 			return "\t\tarray(\n".
 				"\t\t\t'name'=>'{$column->name}',\n".
 				"\t\t\t'type'=>'raw',\n".

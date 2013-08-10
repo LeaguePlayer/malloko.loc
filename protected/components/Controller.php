@@ -26,9 +26,19 @@ class Controller extends CController
 
 	public $cs;
 
-	protected $forceCopyAssets = false;
+	protected $forceCopyAssets = true;
 
 	protected $assetsUrl;
+	
+	/*
+	 * Текущее заведение
+	 */
+	public $place;
+	
+	/*
+	 * Слайдер
+	 */
+	public $sliderManager;
 
 	protected function preinit()
 	{
@@ -53,6 +63,22 @@ class Controller extends CController
 		$cs->registerCssFile($this->getAssetsUrl().'/css/buttons.css');
 		$cs->registerCssFile($this->getAssetsUrl().'/css/chosen.css');*/
 
+		
+		// Определение текущего заведения
+		$placeState;
+		$cookie = Yii::app()->request->cookies['CURRENT_PLACE'];
+		if ( isset($cookie) ) {
+			$placeState = CJSON::decode($cookie->value);
+		} else {
+			$place = Places::model()->find(array('order'=>'id'));
+			if ($place !== null) {
+				$placeState['id'] = $place->id;
+				$placeState = $place->attributes;
+				$cookie = new CHttpCookie('CURRENT_PLACE', CJSON::encode($placeState));
+				Yii::app()->request->cookies['CURRENT_PLACE'] = $cookie;
+			}
+		}
+		$this->place = $placeState;
 	}
 
 	//Get Clip

@@ -46,7 +46,7 @@ class BJuiDateTimePicker extends CJuiDatePicker
      */
     private $_assetsUrl=null;
 
-    public function init(){
+	public function init(){
         parent::init();
 		
 		if(!isset($this->language))
@@ -55,6 +55,21 @@ class BJuiDateTimePicker extends CJuiDatePicker
         $this->registerAssets();
         $this->registerTheme();
     }
+	
+	protected function registerCoreScripts()
+	{
+		$cs=Yii::app()->getClientScript();
+		if(is_string($this->cssFile))
+			$cs->registerCssFile($this->themeUrl.'/'.$this->theme.'/'.$this->cssFile);
+		elseif(is_array($this->cssFile))
+		{
+			foreach($this->cssFile as $cssFile)
+				$cs->registerCssFile($this->themeUrl.'/'.$this->theme.'/'.$cssFile);
+		}
+
+		$cs->registerCoreScript('jquery');
+		$cs->registerCoreScript('jquery.ui');
+	}
 
     /**
      * inherit in CJuiDatePicker concept
