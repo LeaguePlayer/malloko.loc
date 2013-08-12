@@ -2,6 +2,7 @@
 
 	$cs = Yii::app()->clientScript;
 	$cs->registerCssFile($this->getAssetsUrl().'/css/style.css');
+	$cs->registerCssFile($this->getAssetsUrl().'/css/adipoli.css');
 	$cs->registerCssFile($this->getAssetsUrl().'/css/fancybox/jquery.fancybox.css');
 	$cs->registerCssFile($this->getAssetsUrl().'/css/fancybox/jquery.fancybox-buttons.css');
 	
@@ -9,6 +10,7 @@
 	$cs->registerScriptFile($this->getAssetsUrl().'/js/lib/jquery.stalactite.js', CClientScript::POS_END);
 	$cs->registerScriptFile($this->getAssetsUrl().'/js/lib/jquery.fancybox.js', CClientScript::POS_END);
 	$cs->registerScriptFile($this->getAssetsUrl().'/js/lib/jquery.fancybox-buttons.js', CClientScript::POS_END);
+	$cs->registerScriptFile($this->getAssetsUrl().'/js/lib/jquery.adipoli.min.js', CClientScript::POS_END);
 	$cs->registerScriptFile($this->getAssetsUrl().'/js/common.js', CClientScript::POS_END);
 ?>
 
@@ -39,11 +41,11 @@
 						<li class="separator"></li>
 						<li><a href="<?php echo Pages::getUrlByAlias('contacti'); ?>">Контакты</a></li>
 						<li class="separator"></li>
-						<li><a href="#">Вакансии</a></li>
+						<li><a href="<?php echo $this->createUrl('/jobs/index'); ?>">Вакансии</a></li>
 						<li class="separator"></li>
 						<li><a href="<?php echo Banners::listUrl(); ?>">Реклама</a></li>
 						<li class="separator"></li>
-						<li><a href="#">Партнеры</a></li>
+						<li><a href="<?php echo $this->createUrl('/partners/index'); ?>">Партнеры</a></li>
 					</ul>
 
 					<div class="clear"></div>
@@ -100,7 +102,7 @@
 				<li><a href="<?php echo Pages::getUrlByAlias('about'); ?>">О нас</a></li>
 				<li><a href="<?php echo Pages::getUrlByAlias('about'); ?>">Контакты</a></li>
 				<li><a href="<?php echo Banners::listUrl(); ?>">Реклама</a></li>
-				<li><a href="#">Партнеры</a></li>
+				<li><a href="<?php echo $this->createUrl('/partners/index'); ?>">Партнеры</a></li>
 			</ul>
 			<ul class="socials">
 				<!-- <li><a class="twitter" href="#" target="_blank"></a></li> -->

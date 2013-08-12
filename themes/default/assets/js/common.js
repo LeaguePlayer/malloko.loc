@@ -59,6 +59,8 @@ $(document).ready(function() {
 			btnEvent( $this.inner.find('button') );
 		}
 	});
+	
+	$('.adipoli').adipoli({ startEffect:'overlay', hoverEffect:'foldLeft' });
 });
 
 

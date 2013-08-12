@@ -1,22 +1,26 @@
-<?php
-$this->breadcrumbs=array(
-	'Dishes'=>array('index'),
-	$model->title,
-);
+<?php $this->beginClip('r_sidebar'); ?>
+	<section class="other_dishes">
+		<?php $this->widget('zii.widgets.CListView', array(
+			'dataProvider'=>$othersDishes,
+			'itemsCssClass'=>'items galleries_list',
+			'itemView'=>'_view',
+			'template'=>'{items}',
+		)); ?>
+	</section>
+<?php $this->endClip(); ?>
 
-<h1>View Dishes #<?php echo $model->id; ?></h1>
+<h1 class="title"><?php echo $model->title; ?></h1>
 
-<?php $this->widget('bootstrap.widgets.TbDetailView',array(
-	'data'=>$model,
-	'attributes'=>array(
-		'id',
-		'title',
-		'description',
-		'gallery',
-		'place_id',
-		'status',
-		'sort',
-		'create_time',
-		'update_time',
-	),
-)); ?>
+<article class="chronicle event">
+	<div class="content">
+		<div class="text">
+			<p><?php echo $model->description; ?></p>
+		</div>
+		<div class="photos stalactite">
+			<?php foreach ($model->getGallery()->galleryPhotos as $photo): ?>
+				<a rel="photo-group" class="fancy" title="<?php echo $photo->description; ?>" href="<?php echo $photo->getPreview(); ?>"><img src="<?php echo $photo->getPreview('medium'); ?>"></a>
+			<?php endforeach; ?>
+		</div>
+		<div class="clear"></div>
+	</div>
+</article>

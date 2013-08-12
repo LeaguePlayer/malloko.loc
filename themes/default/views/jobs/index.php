@@ -1,13 +1,13 @@
 <?php
-/* @var $this DishesController */
+/* @var $this JobsController */
 /* @var $dataProvider CActiveDataProvider */
 ?>
 
-<h1 class="title">Фото блюд</h1>
+<h1 class="title">Вакансии в Тюмени</h1>
 
 <?php $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$dataProvider,
-	'itemsCssClass'=>'galleries_list',
+	'itemsCssClass'=>'jobs-list',
 	'itemView'=>'_view',
 	'template'=>'{items}{pager}',
 	'pager'=>array(

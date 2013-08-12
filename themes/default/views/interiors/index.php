@@ -1,5 +1,5 @@
 <?php
-/* @var $this DishesController */
+/* @var $this InteriorsController */
 /* @var $dataProvider CActiveDataProvider */
 ?>
 
@@ -7,7 +7,7 @@
 
 <?php $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$dataProvider,
-	'itemsCssClass'=>'galleries_list',
+	'itemsCssClass'=>'interiors_list',
 	'itemView'=>'_view',
 	'template'=>'{items}{pager}',
 	'pager'=>array(
