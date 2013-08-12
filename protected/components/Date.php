@@ -19,7 +19,7 @@ class Date extends CComponent{
     public $offset = null;
 
     public function  __construct(){
-        $this->offset = 4;
+        $this->offset = 2;
     }
     
     public function init(){

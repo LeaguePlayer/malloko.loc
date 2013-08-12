@@ -36,6 +36,7 @@ class CkeditorWidget extends CInputWidget{
 		$config = CMap::mergeArray(array(
 			'height' => 400,
 			'width' => '65.812%',
+			'extraPlugins' => 'filebrowser',
 		), $this->config);
 		$configObject = CJSON::encode($config);
 		Yii::app()->clientScript->registerScript('#ckeditor'.$this->id, '

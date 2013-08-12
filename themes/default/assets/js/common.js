@@ -80,27 +80,30 @@ var myWidgets = {
 		var nextBtn;
 		var currentPos = 0;
 		
+		
+		
 		var checkPos = function() {
-			if ( items.size() <= 2 ) {
-				prevBtn.hide();
-				nextBtn.hide();
-				return;
-			}
-			
-			if ( currentPos == 0 ) {
-				prevBtn.hide();
-				nextBtn.show();
-			} else if ( currentPos >= items.size() - 2 ) {
+			if (currentPos > 0) {
 				prevBtn.show();
+			} else {
+				prevBtn.hide();
+			}
+			if ( currentPos  == items.size() - 2 ) {
 				nextBtn.hide();
+			} else {
+				nextBtn.show();
 			}
 		}
+		
+		
 		
 		var slide = function(direction) {
 			currentPos += direction;
 			checkPos();
-			feed.stop().animate({left: -options.itemWidth * currentPos}, 300);
+			feed.stop().animate({left: -currentPos * options.itemWidth}, 300);
 		}
+		
+		
 		
 		this.init = function() {
 			rounder = $('.news_rounder');
@@ -108,24 +111,37 @@ var myWidgets = {
 				return;
 			}
 			feed = rounder.find('ul.round');
-			items = rounder.find('ul.round > li');
 			prevBtn = rounder.find('a.prev');
 			nextBtn = rounder.find('a.next');
+			items = rounder.find('ul.round > li');
 			
-			var startTimestamp = rounder.data('startTimestamp');
+			if ( items.size() <= 2 ) {
+				return;
+			}
+			
+			currentPos = 0;
+			var startTimestamp = rounder.data('start_timestamp');
 			items.each(function() {
-				var timestamp = $(this).data('timestamp');
-				console.log(timestamp);
-				if ( timestamp >= startTimestamp )
+				if ( startTimestamp < $(this).data('timestamp') ) {
 					return false;
+				}
 				currentPos++;
 			});
-			currentPos -= 2;
-			if ( currentPos < 0 ) currentPos = 0;
+			
+			if ( currentPos > 1 ) {
+				if ( currentPos == items.size() ) {
+					currentPos = items.size() - 2;
+				} else {
+					currentPos -= 1;
+				}
+			} else if ( currentPos == 1 ) {
+				currentPos = 0;
+			}
+			
 			checkPos();
 			
 			feed.css({
-				left: -options.itemWidth * currentPos,
+				left: -currentPos * options.itemWidth,
 			});
 			
 			nextBtn.click(function() {

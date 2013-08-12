@@ -39,7 +39,7 @@
 	<div class="widget"><img src="/assets/img/tmp/soc_likes.png" alt=""></div>
 </div>
 
-<div class="news_rounder" data-startTimestamp="<?php echo strtotime($model->public_date); ?>">
+<div class="news_rounder" data-start_timestamp="<?php echo strtotime($model->public_date); ?>">
 	<a href="#" class="prev"></a>
 	<a href="#" class="next"></a>
 	<div class="round_wrapper">
