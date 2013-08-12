@@ -10,9 +10,12 @@ class BannerWidget extends CWidget
 	public function init()
 	{
 		if ( $this->firstBanner === null ) {
-			$this->firstBanner = Banners::model()->findByAttributes(array(
-				'status' => Banners::STATUS_PUBLISH
-			), array('order' => 'rand()'));
+			$criteria = new CDbCriteria;
+			$criteria->addCondition('status=:status and (ISNULL(place_id) OR place_id=0 OR place_id=:place_id)');
+			$criteria->params[':status'] = Banners::STATUS_PUBLISH;
+			$criteria->params[':place_id'] = $this->owner->place['id'];
+			$criteria->order = 'rand()';
+			$this->firstBanner = Banners::model()->find($criteria);
 			if ( $this->firstBanner === null ) {
 				$this->_run = false;
 				return true;
@@ -63,10 +66,12 @@ class BannerWidget extends CWidget
 						var newBanner = $(data.html).hide();
 						var oldBanner = \$this.children();
 						\$this.append(newBanner);
-						\$this.animate({height: newBanner.height()}, 400);
-						oldBanner.fadeOut(200, function() {
-							newBanner.fadeIn(200);
-							oldBanner.remove();
+						newBanner.find('img').load(function() {
+							\$this.animate({height: newBanner.height()}, 400);
+							oldBanner.fadeOut(200, function() {
+								newBanner.fadeIn(200);
+								oldBanner.remove();
+							});
 						});
 					}
 				});

@@ -115,6 +115,7 @@ var myWidgets = {
 			var startTimestamp = rounder.data('startTimestamp');
 			items.each(function() {
 				var timestamp = $(this).data('timestamp');
+				console.log(timestamp);
 				if ( timestamp >= startTimestamp )
 					return false;
 				currentPos++;

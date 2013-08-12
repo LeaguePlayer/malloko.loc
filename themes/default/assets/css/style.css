@@ -839,7 +839,6 @@ ul.socials li a.vkontakte:hover {
 		padding: 16px;
 		background-color: rgba(219,219,219,0.44);
 		width: 130px;
-		height: 130px;
 	}
 	.r_side .face .img_round {
 		display: inline-block;
@@ -848,7 +847,6 @@ ul.socials li a.vkontakte:hover {
 	}
 	.r_side .face img {
 		width: 130px;
-		height: 130px;
 	}
 	.r_side .face .name {
 		font-size: 16px;
@@ -889,6 +887,7 @@ ul.socials li a.vkontakte:hover {
 		font-size: 14px;
 		font-weight: normal;
 		margin-bottom: 15px;
+		font-weight: bold;
 	}
 	.r_side .reviews .item .date {
 		position: absolute;
@@ -980,6 +979,12 @@ ul.socials li a.vkontakte:hover {
 		display: inline-block;
 		vertical-align: middle;
 		margin-right: 6px;
+	}
+	.r_side .reviews .add_review a:hover {
+		text-decoration: none;
+	}
+	.r_side .reviews .add_review a:hover:before {
+		
 	}
 
 
@@ -1235,7 +1240,6 @@ ul.contacts li.email p a {
 	min-width: 1000px;
 	height: 464px;
 	background-color: #fff;
-	background-image: url('../img/tmp/map.jpg');
 	background-position: center center;
 	background-repeat: no-repeat;
 	margin-bottom: 35px;
@@ -1518,10 +1522,7 @@ ul.round {
 }
 
 
-@media print {
-	.printSelected > * { display: none; }
-	.printSelected > .printSelection { display: block; }
-}
+
 
 
 /**********************
@@ -1683,4 +1684,73 @@ ul.round {
 	line-height: 1.3;
 	text-align: center;
 	margin: 15px 0 40px;
+}
+
+
+.interiors_list {
+	margin-right: -100px;
+}
+.interiors_list .item {
+	display: inline-block;
+	vertical-align: top;
+	margin-bottom: 40px;
+	margin-right: 40px;
+}
+.interiors_list .item .photo {
+	border: 8px solid #fff;
+	-moz-box-shadow: 0 0 3px 1px #d3d3d3;
+	-webkit-box-shadow: 0 0 3px 1px #d3d3d3;
+	box-shadow: 0 0 3px 1px #d3d3d3;
+	display: inline-block;
+	height: 177px;
+	margin-bottom: 10px;
+}
+.interiors_list .item .photo a {
+	display: block;
+}
+.interiors_list .item img {
+	width: 315px;
+}
+.interiors_list .item h3 {
+	font-family: pt_sansbold, sans-serif;
+	width: 200px;
+	line-height: 1.3;
+	float: left;
+	font-size: 20px;
+}
+.interiors_list .item h3 a{
+	color: #000;
+}
+.interiors_list .item h3 a:hover{
+	text-decoration: underline;
+}
+.interiors_list .item .count {
+	font-family: pt_sansbold, sans-serif;
+	width: 65px;
+	float: right;
+	padding: 3px 5px 2px;
+	text-align: center;
+	background-color: #f14f4f;
+	color: #fff;
+}
+.r_side .interiors_list {
+	margin-right: 0;
+}
+.r_side .interiors_list .item .photo {
+	width: 204px;
+	height: 98px;
+	margin-bottom: 4px;
+}
+.r_side .interiors_list .item img {
+	width: 204px;
+	height: 98px;
+}
+.r_side .interiors_list .item h3 {
+	font-size: 14px;
+	width: 150px;
+}
+.r_side .interiors_list .item .count {
+	width: 50px;
+	padding: 2px 5px 0;
+	font-size: 12px;
 }

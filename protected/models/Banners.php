@@ -43,7 +43,7 @@ class Banners extends EActiveRecord
 	{
 		return array(
 			array('title', 'required'),
-			array('target_method, status, sort, create_time, update_time', 'numerical', 'integerOnly'=>true),
+			array('target_method, status, sort, create_time, update_time, place_id', 'numerical', 'integerOnly'=>true),
 			array('link, title', 'length', 'max'=>256),
 			array('description', 'safe'),
 			// The following rule is used by search().
@@ -55,6 +55,7 @@ class Banners extends EActiveRecord
 	public function relations()
 	{
 		return array(
+			'place'=>array(self::BELONGS_TO, 'Places', 'place_id'),
 		);
 	}
 
@@ -67,6 +68,7 @@ class Banners extends EActiveRecord
 			'link' => 'Целевая ссылка',
 			'target_method' => 'Метод перехода по ссылке',
 			'title' => 'Заголовок',
+			'place_id' => 'Привязка к ресторану',
 			'description' => 'Описание',
 			'status' => 'Статус',
 			'sort' => 'Вес для сортировки',

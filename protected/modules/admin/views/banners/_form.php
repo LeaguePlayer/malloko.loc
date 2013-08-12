@@ -19,6 +19,11 @@
 
 	<?php echo $form->textAreaControlGroup($model,'description',array('rows'=>6, 'cols'=>50, 'class'=>'span8')); ?>
 
+	<?php echo $form->dropDownListControlGroup($model, 'place_id', CHtml::listData(Places::model()->findAll(), 'id', 'title'), array(
+		'class'=>'span8',
+		'displaySize'=>1,
+		'empty'=>'Не задано'
+	)); ?>
 	<?php echo $form->dropDownListControlGroup($model, 'status', Banners::getStatusAliases(), array('class'=>'span8', 'displaySize'=>1)); ?>
 	<div class="form-actions">
 		<?php $this->widget('bootstrap.widgets.TbButton', array(

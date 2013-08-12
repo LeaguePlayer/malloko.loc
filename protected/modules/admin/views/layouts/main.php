@@ -20,7 +20,7 @@
 			 */
 			$menuItems = array(
 				array('label'=>'Настройки', 'url'=>'/admin'),
-				array('label'=>'Таблицы', 'url'=>'#', 'items' => array(
+				array('label'=>'Разделы', 'url'=>'#', 'items' => array(
 					array('label'=>'Сотрудники', 'url'=>'#', 'items' => array(
 						array('label'=>'Создать', 'url'=>"/admin/employees/create"),
 						array('label'=>'Список', 'url'=>"/admin/employees/list"),

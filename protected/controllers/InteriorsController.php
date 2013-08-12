@@ -29,8 +29,24 @@ class InteriorsController extends Controller
 	
 	public function actionView($id)
 	{
+		$criteria = new CDbCriteria;
+		$criteria->addCondition('place_id=:place_id AND status=:status');
+		$criteria->params[':place_id'] = $this->place['id'];
+		$criteria->params[':status'] = Events::STATUS_PUBLISH;
+		$model = $this->loadModel('Interiors', $id, $criteria);
+		
+		$criteria->order = 'rand()';
+		$criteria->addCondition('id<>:id');
+		$criteria->params[':id'] = $id;
+		$criteria->limit = 4;
+		$othersInteriors = new CActiveDataProvider('Interiors', array(
+			'criteria' => $criteria,
+			'pagination' => false
+		));
+		
 		$this->render('view',array(
-			'model'=>$this->loadModel($id),
+			'model' => $model,
+			'othersInteriors' => $othersInteriors,
 		));
 	}
 

@@ -33,6 +33,7 @@ class m130811_063725_banners extends CDbMigration
 			'image' => "varchar(256) COMMENT 'Баннер'",
 			'link' => "varchar(256) COMMENT 'Целевая ссылка'",
 			'target_method' => "tinyint COMMENT 'Метод перехода по ссылке'",
+			'place_id' => "integer COMMENT 'Привязка к ресторану'",
 			'title' => "varchar(256) NOT NULL COMMENT 'Заголовок'",
 			'description' => "text COMMENT 'Описание'",
 			'status' => 'tinyint COMMENT \'Статус\'',

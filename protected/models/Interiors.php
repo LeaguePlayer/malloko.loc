@@ -65,11 +65,14 @@ class Interiors extends EActiveRecord
 					'small' => array(
 						'adaptiveResize' => array(90, 90),
 					),
-					'medium' => array(
-						'resize' => array(315, 0),
+					'side' => array(
+						'centeredpreview' => array(204, 98),
 					),
-					'big' => array(
-						'resize' => array(800, 0),
+					'medium' => array(
+						'centeredpreview' => array(315, 177),
+					),
+					'view' => array(
+						'resize' => array(204, 0),
 					),
 				),
 				'name' => true,

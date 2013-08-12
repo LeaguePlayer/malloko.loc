@@ -71,6 +71,9 @@ class Dishes extends EActiveRecord
 					'medium' => array(
 						'centeredpreview' => array(204, 123),
 					),
+					'view' => array(
+						'resize' => array(204, 0),
+					),
 				),
 				'name' => true,
 				'description' => true,

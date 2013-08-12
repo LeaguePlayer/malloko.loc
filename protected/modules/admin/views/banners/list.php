@@ -19,6 +19,12 @@ $this->menu=array(
 		),
 		'link',
 		array(
+			'name'=>'place_id',
+			'type'=>'raw',
+			'value'=>'$data->place->title',
+			'filter'=>CHtml::listData(Places::model()->findAll(), 'id', 'title')
+		),
+		array(
 			'name'=>'target_method',
 			'type'=>'raw',
 			'value'=>'Banners::getTargetMethodLabels($data->target_method)',

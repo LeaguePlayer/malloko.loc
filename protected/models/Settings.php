@@ -75,6 +75,7 @@ class Settings extends CActiveRecord
 	public static function getOption($name)
 	{
 		$model = self::model()->findByPk($name);
+		
 		if ( $model === null ) {
 			return null;
 		} else {

@@ -18,7 +18,7 @@
 		</div>
 		<div class="photos stalactite">
 			<?php foreach ($model->getGallery()->galleryPhotos as $photo): ?>
-				<a rel="photo-group" class="fancy" title="<?php echo $photo->description; ?>" href="<?php echo $photo->getPreview(); ?>"><img src="<?php echo $photo->getPreview('medium'); ?>"></a>
+				<a rel="photo-group" class="fancy" title="<?php echo $photo->description; ?>" href="<?php echo $photo->getPreview(); ?>"><img src="<?php echo $photo->getPreview('view'); ?>"></a>
 			<?php endforeach; ?>
 		</div>
 		<div class="clear"></div>
