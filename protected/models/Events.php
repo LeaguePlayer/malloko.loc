@@ -88,10 +88,19 @@ class Events extends EActiveRecord
 		return CMap::mergeArray(parent::behaviors(), array(
 			'UploadableImageBehavior' => array(
 				'class' => 'admin.behaviors.UploadableImageBehavior',
-				'thumbs' => array(
-					'small' => array(90, 90),
-					'medium' => array(167, 101),
-					'big' => array(322, 322),
+				'versions' => array(
+					'small' => array(
+						'centeredpreview' => array(90, 90),
+					),
+					'medium' => array(
+						'centeredpreview' => array(167, 101),
+					),
+					'big' => array(
+						'resize' => array(322, 0),
+					),
+					'stretch' => array(
+						'resize' => array(730, 0),
+					),
 				),
 			),
 			'galleryManager' => array(
@@ -102,8 +111,8 @@ class Events extends EActiveRecord
 						'resize' => array(90, 90),
 					),
 					'medium' => array(
-						'adapriveResize' => array(167, 101),
-					)
+						'resize' => array(200, 0),
+					),
 				),
 				'name' => true,
 				'description' => true,
@@ -151,7 +160,17 @@ class Events extends EActiveRecord
 		return parent::beforeSave();
 	}
 	
-	public static function lastNews($place_id, $limit = 10)
+	public static function getNewsUrl()
+	{
+		return Yii::app()->urlManager->createUrl('/events/index', array('type' => self::TYPE_NEWS));
+	}
+	
+	public static function getChroniclesUrl()
+	{
+		return Yii::app()->urlManager->createUrl('/events/index', array('type' => self::TYPE_CHRONICLE));
+	}
+	
+	public static function lastNews($place_id, $limit = 5)
 	{
 		$criteria = new CDbCriteria;
 		$criteria->order = 'public_date DESC';
@@ -162,6 +181,7 @@ class Events extends EActiveRecord
 		$criteria->params[':status'] = self::STATUS_PUBLISH;
 		return new CActiveDataProvider(__CLASS__, array(
 			'criteria'=>$criteria,
+			'pagination'=>false,
 		));
 	}
 	
@@ -176,6 +196,7 @@ class Events extends EActiveRecord
 		$criteria->params[':status'] = self::STATUS_PUBLISH;
 		return new CActiveDataProvider(__CLASS__, array(
 			'criteria'=>$criteria,
+			'pagination'=>false,
 		));
 	}
 	
@@ -213,5 +234,9 @@ class Events extends EActiveRecord
 		if (($dateArray[3] == 0) and ($dateArray[4] == 0))
 			return null;
 		return $dateArray[3].'.'.$dateArray[4];
+	}
+	
+	public function getGallery() {
+		return $this->galleryManager->getGallery();
 	}
 }

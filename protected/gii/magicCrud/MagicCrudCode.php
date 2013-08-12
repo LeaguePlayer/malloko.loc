@@ -112,6 +112,9 @@ class MagicCrudCode extends CrudCode
 	
 	public function generateActiveRow($modelClass, $column)
 	{
+		if ( $column->name === 'sort' ) {
+			return;
+		}
 		if (stripos($column->dbType, 'time')) {
 			$genRow = "<div class='control-group'>\n";
 			$genRow .= "\t\t<?php echo CHtml::activeLabelEx(\$model, '{$column->name}'); ?>\n";
@@ -186,12 +189,17 @@ class MagicCrudCode extends CrudCode
 	{
 		if ( $column->autoIncrement)
 			return '';
-		if ( stripos($column->dbType, 'time') or stripos($column->name, 'create_time') or stripos($column->name, 'update_time') ) {
-			return "\t\tarray(\n".
+		if ( stripos($column->dbType, 'time') or $column->name === 'create_time' or $column->name === 'update_time' ) {
+			$genColumn = "\t\tarray(\n".
 				"\t\t\t'name'=>'{$column->name}',\n".
-				"\t\t\t'type'=>'raw',\n".
-				"\t\t\t'value'=>'SiteHelper::russianDate(\$data->{$column->name})'\n".
-			"\t\t),\n";
+				"\t\t\t'type'=>'raw',\n";
+			if ( $column->name === 'create_time' or $column->name === 'update_time' ) {
+				$genColumn .= "\t\t\t'value'=>'SiteHelper::russianDate(\$data->{$column->name}).\' в \'.date(\'H:i\', \$data->{$column->name})'\n";
+			} else {
+				$genColumn .= "\t\t\t'value'=>'SiteHelper::russianDate(\$data->{$column->name})'\n";
+			}
+			$genColumn .= "\t\t),\n";
+			return $genColumn;
 		}
 		if ( $column->name === 'image' ) {
 			return "\t\tarray(\n".

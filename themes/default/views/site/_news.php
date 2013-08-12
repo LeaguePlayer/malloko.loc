@@ -4,7 +4,7 @@
 ?>
 
 <div class="topics news">
-	<a href="<?php echo $this->createUrl('events/index', array('type' => Events::TYPE_NEWS)); ?>" class="action">Показать все новости</a>
+	<a href="<?php echo Events::getNewsUrl(); ?>" class="action">Показать все новости</a>
 	<h2 class="caption">Новости ресторана</h2>
 	<div class="clear"></div>
 	<?php $this->widget('zii.widgets.CListView', array(

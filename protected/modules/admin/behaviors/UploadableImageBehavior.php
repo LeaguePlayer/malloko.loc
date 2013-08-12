@@ -14,10 +14,18 @@ class UploadableImageBehavior extends CActiveRecordBehavior
      */
     public $savePath='/media/images/';
 	public $thumbsPath='/media/images/thumbs/';
-	public $thumbs = array(
-		'small' => array(90, 90),
-		'medium' => array(300, 200),
-		'big' => array(800, 600),
+	public $versions = array(
+		/*
+		'small' => array(
+			'centeredpreview' => array(90, 90),
+		),
+		'medium' => array(
+			'resize' => array(300, 200),
+		),
+		'big' => array(
+			'resize' => array(800, 600),
+		),
+		*/
 	);
 	
     /**
@@ -97,8 +105,8 @@ class UploadableImageBehavior extends CActiveRecordBehavior
 	{
 		$thumbsPath = $this->thumbsPath;
 		$originalFile = $this->owner->getAttribute($this->attributeName);
-		foreach ( $this->thumbs as $prefix => $size ) {
-			$thumbFile = $thumbsPath.$prefix.'_'.$originalFile;
+		foreach ($this->versions as $version => $actions) {
+			$thumbFile = $thumbsPath.$version.'_'.$originalFile;
 			if(@is_file($thumbFile))
 				@unlink($thumbFile);
 		}
@@ -109,13 +117,23 @@ class UploadableImageBehavior extends CActiveRecordBehavior
 		$thumbsPath = $this->absoluteThumbsPath;
 		$thumb = new EPhpThumb();
 		$thumb->init();
-		foreach ( $this->thumbs as $prefix => $size ) {
-			$thumb->create($filePath.$fileName)->resize($size[0], $size[1])->save($thumbsPath.$prefix.'_'.$fileName);
-		}
+		
+		foreach ($this->versions as $version => $actions) {
+            $image = $thumb->create($filePath.$fileName);
+            foreach ($actions as $method => $args) {
+                call_user_func_array(array($image, $method), is_array($args) ? $args : array($args));
+            }
+            $image->save($thumbsPath.$version.'_'.$fileName);
+        }
 	}
 	
-	public function getThumb($prefix)
+	public function getThumb($version)
 	{
-		return $this->thumbsPath.$prefix.'_'.$this->owner->getAttribute($this->attributeName);
+		return $this->thumbsPath.$version.'_'.$this->owner->getAttribute($this->attributeName);
+	}
+	
+	public function getImage()
+	{
+		return $this->savePath.$this->owner->getAttribute($this->attributeName);
 	}
 }

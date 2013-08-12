@@ -439,6 +439,14 @@ class MagicModelCode extends CCodeModel
 			if (stripos($name, 'image') !== false ) {
 				$behaviors[] = "\t\t\t'UploadableImageBehavior' => array(
 				'class' => 'admin.behaviors.UploadableImageBehavior',
+				'versions' => array(
+					'small' => array(
+						'centeredpreview' => array(90, 90),
+					),
+					'medium' => array(
+						'resize' => array(600, 500),
+					)
+				),
 			),\n";
 				continue;
 			}

@@ -1,5 +1,15 @@
 <?php /* @var $this Controller */ ?>
 
+
+<?php if ( !isset($this->clips['r_sidebar']) ): ?>
+	<?php $this->beginClip('r_sidebar'); ?>
+		<?php $this->widget('application.extensions.banner.BannerWidget'); ?>
+		<?php $this->widget('application.extensions.face.FaceOfDayWidget'); ?>
+	<?php $this->endClip(); ?>
+<?php endif; ?>
+
+
+
 <?php $this->beginContent('//layouts/main'); ?>
 
 <div id="layout" class="fix-width">

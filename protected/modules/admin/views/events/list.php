@@ -42,8 +42,16 @@ $this->menu=array(
 			'filter'=>array(Events::getStatusAliases())
 		),
 		'sort',
-		'create_time',
-		'update_time',
+		array(
+			'name'=>'create_time',
+			'type'=>'raw',
+			'value'=>'SiteHelper::russianDate($data->create_time)'
+		),
+		array(
+			'name'=>'update_time',
+			'type'=>'raw',
+			'value'=>'SiteHelper::russianDate($data->update_time)'
+		),
 		array(
 			'class'=>'bootstrap.widgets.TbButtonColumn',
 		),

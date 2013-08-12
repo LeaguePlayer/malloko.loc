@@ -31,14 +31,15 @@ class EventsController extends Controller
 	{
 		$this->layout = '//layouts/col_2';
 		
-		$model = $this->loadModel('Events', $id);
-		
 		$criteria = new CDbCriteria;
-		$criteria->order = 'public_date';
-		$criteria->addCondition('id<>:id AND place_id=:place_id AND status=:status AND type=:type');
-		$criteria->params[':id'] = $id;
-		$criteria->params[':place_id'] = $model->place_id;
+		$criteria->addCondition('place_id=:place_id AND status=:status');
+		$criteria->params[':place_id'] = $this->place['id'];
 		$criteria->params[':status'] = Events::STATUS_PUBLISH;
+		$model = $this->loadModel('Events', $id, $criteria);
+		
+		$criteria->order = 'public_date';
+		$criteria->addCondition('id<>:id AND type=:type');
+		$criteria->params[':id'] = $id;
 		$criteria->params[':type'] = $model->type;
 		$roundData = new CActiveDataProvider('Events', array(
 			'criteria' => $criteria,
@@ -54,10 +55,25 @@ class EventsController extends Controller
 	}
 
 	
-	public function actionIndex()
+	public function actionIndex($type = Events::TYPE_NEWS)
 	{
-		$dataProvider=new CActiveDataProvider('Events');
-		$this->render('index',array(
+		$this->layout = '//layouts/col_2';
+		
+		$criteria = new CDbCriteria;
+		$criteria->addCondition('place_id=:place_id AND status=:status AND type=:type');
+		$criteria->params[':place_id'] = $this->place['id'];
+		$criteria->params[':status'] = Events::STATUS_PUBLISH;
+		$criteria->params[':type'] = $type;
+		$criteria->order = 'public_date DESC';
+		
+		$dataProvider=new CActiveDataProvider('Events', array(
+			'criteria' => $criteria,
+			'pagination'=>array(
+				'pageSize'=>10
+			),
+		));
+		$this->render('index', array(
+			'type'=>$type,
 			'dataProvider'=>$dataProvider,
 		));
 	}

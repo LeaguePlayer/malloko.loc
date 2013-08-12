@@ -20,7 +20,6 @@ class CkeditorWidget extends CInputWidget{
 		if(isset($this->htmlOptions['name']))
 			$this->name=$this->htmlOptions['name'];
 
-
 		if($this->hasModel())
 			echo CHtml::activeTextarea($this->model,$this->attribute,$this->htmlOptions);
 		else

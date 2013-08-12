@@ -20,12 +20,17 @@ $this->menu=array(
 		'fio',
 		'position',
 		array(
+			'name'=>'face_of_day',
+			'type'=>'raw',
+			'value'=>'$data->isFaceOfDay()',
+			'filter'=>array(1=>'Да', 0=>'Нет')
+		),
+		array(
 			'name'=>'status',
 			'type'=>'raw',
 			'value'=>'Employees::getStatusAliases($data->status)',
 			'filter'=>array(Employees::getStatusAliases())
 		),
-		'sort',
 		array(
 			'name'=>'create_time',
 			'type'=>'raw',

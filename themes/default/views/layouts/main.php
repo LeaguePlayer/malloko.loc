@@ -1,9 +1,22 @@
+<?php
+
+	$cs = Yii::app()->clientScript;
+	$cs->registerCssFile($this->getAssetsUrl().'/css/style.css');
+	$cs->registerCssFile($this->getAssetsUrl().'/css/fancybox/jquery.fancybox.css');
+	$cs->registerCssFile($this->getAssetsUrl().'/css/fancybox/jquery.fancybox-buttons.css');
+	
+	$cs->registerCoreScript('jquery');
+	$cs->registerScriptFile($this->getAssetsUrl().'/js/lib/jquery.stalactite.js', CClientScript::POS_END);
+	$cs->registerScriptFile($this->getAssetsUrl().'/js/lib/jquery.fancybox.js', CClientScript::POS_END);
+	$cs->registerScriptFile($this->getAssetsUrl().'/js/lib/jquery.fancybox-buttons.js', CClientScript::POS_END);
+	$cs->registerScriptFile($this->getAssetsUrl().'/js/common.js', CClientScript::POS_END);
+?>
+
 <!DOCTYPE html>
 <html lang="ru">
 	<head>
 		<meta charset="utf-8" />
-		<link rel="stylesheet" href="<?=$this->getAssetsUrl()?>/css/style.css">
-		<title>Золотая черепаха</title>
+		<title><?php echo $this->title; ?></title>
 		<!--[if IE]>
 	    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 	    <![endif]-->
@@ -13,22 +26,22 @@
 			<section class="fix-width top">
 				<div class="logo_container">
 					<a href="/" class="logo">
-						<img src="<?php echo $this->getAssetsUrl();?>/img/gold_turtle-logo.png" alt="">
+						<img src="<?php echo $this->place['logo']; ?>" alt="">
 					</a>
 				</div>
 				<div class="h-content">
 					<div class="city gray">Тюмень</div>
 
 					<ul class="main_menu">
-						<li><a href="#">Главная</a></li>
+						<li><a href="/">Главная</a></li>
 						<li class="separator"></li>
-						<li><a href="#">О нас</a></li>
+						<li><a href="<?php echo Pages::getUrlByAlias('about'); ?>">О нас</a></li>
 						<li class="separator"></li>
-						<li><a href="#">Контакты</a></li>
+						<li><a href="<?php echo Pages::getUrlByAlias('contacti'); ?>">Контакты</a></li>
 						<li class="separator"></li>
 						<li><a href="#">Вакансии</a></li>
 						<li class="separator"></li>
-						<li><a href="#">Реклама</a></li>
+						<li><a href="<?php echo Banners::listUrl(); ?>">Реклама</a></li>
 						<li class="separator"></li>
 						<li><a href="#">Партнеры</a></li>
 					</ul>
@@ -37,15 +50,15 @@
 
 					<ul class="action_menu">
 						<li><a class="room" href="#">Выбор зала</a></li>
-						<li><a class="news" href="#">новости</a></li>
-						<li><a class="chronic" href="#">Светская хроника</a></li>
+						<li><a class="news" href="<?php echo Events::getNewsUrl(); ?>">Новости</a></li>
+						<li><a class="chronic" href="<?php echo Events::getChroniclesUrl(); ?>">Светская хроника</a></li>
 						<li><a class="order" href="#">Забронировать столик</a></li>
 					</ul>
 
 					<ul class="socials">
-						<li><a class="twitter" href="#"></a></li>
-						<li><a class="facebook" href="#"></a></li>
-						<li><a class="vkontakte" href="#"></a></li>
+						<!-- <li><a class="twitter" href="#" target="_blank"></a></li> -->
+						<li><a class="facebook" href="#" target="_blank"></a></li>
+						<li><a class="vkontakte" href="http://vk.com/zolotayacherepaha" target="_blank"></a></li>
 					</ul>
 				</div>
 			</section>
@@ -53,41 +66,48 @@
 			<?php if ( $this->is_home() and $this->sliderManager !== null ): ?>
 			<?php Yii::app()->clientScript->registerScriptFile($this->getAssetsUrl().'/js/lib/jquery.slides.min.js', CClientScript::POS_END); ?>
 			<section class="slider">
-				<div class="slides">
-					<?php foreach ($this->sliderManager->galleryPhotos as $slide): ?>
-						<img src="<?php echo $slide->getPreview('big'); ?>">
-					<?php endforeach; ?>
-				</div>
-				<!--
 				<div class="viewport-wrap">
+					<div id="slides" style="display: none;">
+						<?php foreach ($this->sliderManager->galleryPhotos as $slide): ?>
+							<img src="<?php echo $slide->getPreview('big'); ?>">
+						<?php endforeach; ?>
+					</div>
 					<div class="buttons fix-width">
 						<a href="#" class="prev"></a>
 						<a href="#" class="next"></a>
 					</div>
 				</div>
-				-->
 			</section>
 			<?php endif; ?>
 		</header>
 
 		<?php echo $content;?>
+		
+		<?php if ( $this->renderYandexMap ): ?>
+			<?php //$cs->registerCssFile($this->getAssetsUrl().'/css/print_map.css', 'print'); ?>
+			<?php $cs->registerScriptFile($this->getAssetsUrl().'/js/print_block.js', CClientScript::POS_END); ?>
+			<section id="map"></section>
+			<div class="map_actions fix-width">
+				<h1 class="title">Добро пожаловать и приятного аппетита!</h1>
+				<a href="#" class="print_map printBlock" data-target_selector="#map">Напечатать карту</a>
+			</div>
+		<?php endif; ?>
 
 		<footer id="footer" class="fix-width center">
 			<p class="reserved">(с) Ресторан Золотая Черепаха</p>
 			<ul class="f_menu">
-				<li><a href="#">Главная</a></li>
-				<li><a href="#">О нас</a></li>
-				<li><a href="#">Контакты</a></li>
-				<li><a href="#">Реклама</a></li>
+				<li><a href="/">Главная</a></li>
+				<li><a href="<?php echo Pages::getUrlByAlias('about'); ?>">О нас</a></li>
+				<li><a href="<?php echo Pages::getUrlByAlias('about'); ?>">Контакты</a></li>
+				<li><a href="<?php echo Banners::listUrl(); ?>">Реклама</a></li>
 				<li><a href="#">Партнеры</a></li>
 			</ul>
 			<ul class="socials">
-				<li><a class="twitter" href="#"></a></li>
-				<li><a class="facebook" href="#"></a></li>
-				<li><a class="vkontakte" href="#"></a></li>
+				<!-- <li><a class="twitter" href="#" target="_blank"></a></li> -->
+				<li><a class="facebook" href="#" target="_blank"></a></li>
+				<li><a class="vkontakte" href="http://vk.com/zolotayacherepaha" target="_blank"></a></li>
 			</ul>
 			<p class="amobile"><a href="http://amobile-studio.ru/"></a><span>Всегда только лучшие идеи</span></p>
 		</footer>
-		<script type="text/javascript" src="<?=$this->getAssetsUrl()?>/js/common.js"></script>
 	</body>
 </html>

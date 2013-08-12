@@ -19,6 +19,8 @@ foreach($this->tableSchema->columns as $column)
 		continue;
 	if ($column->name === 'create_time' or $column->name === 'update_time')
 		continue;
+	if ($column->name === 'sort')
+		continue;
 ?>
 	<?php echo $this->generateActiveRow($this->modelClass,$column); ?>
 

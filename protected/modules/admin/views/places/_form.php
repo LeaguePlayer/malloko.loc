@@ -21,7 +21,6 @@
 	</div>
 
 	<?php echo $form->dropDownListControlGroup($model, 'status', Places::getStatusAliases(), array('class'=>'span8', 'displaySize'=>1)); ?>
-	<?php echo $form->textFieldControlGroup($model,'sort',array('class'=>'span8')); ?>
 
 	<div class="form-actions">
 		<?php $this->widget('bootstrap.widgets.TbButton', array(

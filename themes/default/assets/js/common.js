@@ -2,6 +2,63 @@ $(document).ready(function() {
 	
 	myWidgets.newsRounder().init();
 	
+	if ( $('#slides').size() > 0 ) {
+		$('#slides').slidesjs({
+			width: 940,
+			height: 528,
+			navigation: {
+				effect: "fade"
+			},
+			pagination: {
+				active: false,
+			},
+			effect: {
+				fade: {
+				  speed: 800
+				}
+			},
+			play: {
+				active: true,
+				effect: "fade",
+				interval: 5000,
+				auto: true,
+				swap: false,
+				pauseOnHover: false,
+				restartDelay: 2500
+			}
+		});
+	}
+	
+	$(".stalactite").stalactite({
+		duration: 200,
+		complete: function() {
+			$('.fancy').fancybox();
+		}
+	});
+	
+	$('.fancybox').fancybox();
+	
+	$('.fancybox-ajax').fancybox({
+		type: 'ajax',
+		afterShow: function() {
+			var $this = this;
+			var btnEvent = function(button) {
+				button.click(function() {
+					$.ajax({
+						url: $this.href,
+						type: 'POST',
+						data: $this.inner.find('form').serialize(),
+						success: function(data) {
+							btnEvent( $this.inner.html(data).find('button') );
+							$.fancybox.reposition();
+						}
+					});
+					return false;
+				});
+			}
+			btnEvent( $this.inner.find('button') );
+		}
+	});
 });
 
 
@@ -70,10 +127,12 @@ var myWidgets = {
 			
 			nextBtn.click(function() {
 				slide(1);
+				prevBtn.show();
 				return false;
 			});
 			prevBtn.click(function() {
 				slide(-1);
+				nextBtn.show();
 				return false;
 			});
 		};

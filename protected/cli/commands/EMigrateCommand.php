@@ -239,7 +239,27 @@ class EMigrateCommand extends MigrateCommand
 		if (!is_dir($this->migrationPath)) {
 			die("\nError: '{$this->migrationPath}' does not exist or is not a directory!\n\n");
 		}
-		parent::actionCreate($args);
+		
+		// переопределение стандартного обработчика создания миграции
+		if(isset($args[0]))
+			$name=$args[0];
+		else
+			$this->usageError('Please provide the name of the new migration.');
+
+		if(!preg_match('/^\w+$/',$name)) {
+			echo "Error: The name of the migration must contain letters, digits and/or underscore characters only.\n";
+			return 1;
+		}
+
+		$className='m'.gmdate('ymd_His').'_'.$name;
+		$content=strtr($this->getTemplate(), array('{ClassName}'=>$className, '{TableName}'=>$name));
+		$file=$this->migrationPath.DIRECTORY_SEPARATOR.$className.'.php';
+
+		if($this->confirm("Create new migration '$file'?"))
+		{
+			file_put_contents($file, $content);
+			echo "New migration created successfully.\n";
+		}
 	}
 
 	public function actionUp($args)

@@ -23,7 +23,8 @@
 	</div>
 
 	<?php echo $form->dropDownListControlGroup($model, 'status', Employees::getStatusAliases(), array('class'=>'span8', 'displaySize'=>1)); ?>
-	<?php echo $form->textFieldControlGroup($model,'sort',array('class'=>'span8')); ?>
+
+	<?php echo $form->checkBoxControlGroup($model,'face_of_day'); ?>
 
 	<div class="form-actions">
 		<?php $this->widget('bootstrap.widgets.TbButton', array(

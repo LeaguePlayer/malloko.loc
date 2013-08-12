@@ -8,7 +8,7 @@
 class {ClassName} extends CDbMigration
 {
     // таблицы к удалению, можно использовать '{{table}}'
-    private $dropped = array();
+	private $dropped = array('{{{TableName}}}');
  
     public function __construct()
     {
@@ -28,9 +28,11 @@ class {ClassName} extends CDbMigration
     {
         $this->_checkTables();
  
-        $this->createTable('{{table_name}}', array(
+        $this->createTable('{{{TableName}}}', array(
             'id' => 'pk', // auto increment
-			'<your_field>' => '<value>',
+			
+			'<your_field>' => "<value> COMMENT 'Комментарий'",
+			
 			'status' => 'tinyint COMMENT \'Статус\'',
 			'sort' => 'integer COMMENT \'Вес для сортировки\'',
             'create_time' => 'integer COMMENT \'Дата создания\'',

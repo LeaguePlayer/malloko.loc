@@ -96,7 +96,7 @@ class SiteHelper {
 	}
 
 	public static function russianDate($datetime = null) {
-		if (is_integer($datetime) ) {
+		if (is_numeric($datetime) ) {
 			$timestamp = $datetime;
 		} else if (is_string($datetime)) {
 			$timestamp = strtotime($datetime);

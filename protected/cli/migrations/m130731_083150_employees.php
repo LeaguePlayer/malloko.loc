@@ -34,6 +34,7 @@ class m130731_083150_employees extends CDbMigration
             'fio' => 'varchar(256) NOT NULL COMMENT \'ФИО\'',
         	'position' => 'varchar(256) NOT NULL COMMENT \'Должность\'',
         	'html_quote' => 'text COMMENT \'Высказывание\'',
+			'face_of_day' => 'boolean COMMENT \'Лицо дня\'',
 			'status' => 'tinyint COMMENT \'Статус\'',
 			'sort' => 'integer COMMENT \'Вес для сортировки\'',
             'create_time' => 'integer',

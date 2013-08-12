@@ -15,17 +15,18 @@
 
 	<nav class="navigation">
 		<ul class="nav_menu">
-			<li><a href="#" class="about">О ресторане</a></li>
-			<li><a href="#" class="menu">Меню</a></li>
-			<li><a href="#" class="personal">Команда</a></li>
+			<li><a href="<?php echo Pages::getUrlByAlias('about'); ?>" class="about">О ресторане</a></li>
+			<li><a href="<?php echo $this->createUrl('/menu/index'); ?>" class="menu">Меню</a></li>
+			<li><a href="<?php echo $this->createUrl('/employees/index'); ?>" class="personal">Команда</a></li>
 			<li><a href="#" class="interior">Интерьер</a></li>
-			<li><a href="#" class="news">Новости</a></li>
-			<li><a href="#" class="chronic">Светская хроника</a></li>
-			<li><a href="#" class="photo">Фото блюд</a></li>
+			<li><a href="<?php echo Events::getNewsUrl(); ?>" class="news">Новости</a></li>
+			<li><a href="<?php echo Events::getChroniclesUrl(); ?>" class="chronic">Светская хроника</a></li>
+			<li><a href="<?php echo $this->createUrl('/dishes/index'); ?>" class="photo">Фото блюд</a></li>
 		</ul>
 	</nav>
 <?php $this->endClip(); ?>
 <?php endif; ?>
+
 
 <?php $this->beginContent('//layouts/main'); ?>
 

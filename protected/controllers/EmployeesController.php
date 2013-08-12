@@ -2,7 +2,7 @@
 
 class EmployeesController extends Controller
 {
-	public $layout='//layouts/column2';
+	public $layout='//layouts/col_2';
 
 	
 	public function filters()
@@ -17,7 +17,7 @@ class EmployeesController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
+				'actions'=>array('index'),
 				'users'=>array('*'),
 			),
 			array('deny',  // deny all users
@@ -27,17 +27,18 @@ class EmployeesController extends Controller
 	}
 
 	
-	public function actionView($id)
-	{
-		$this->render('view',array(
-			'model'=>$this->loadModel($id),
-		));
-	}
-
-	
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('Employees');
+		$criteria = new CDbCriteria;
+		$criteria->order = 'create_time';
+		$criteria->addCondition('status=:status');
+		$criteria->params[':status'] = Menu::STATUS_PUBLISH;
+		$dataProvider=new CActiveDataProvider('Employees', array(
+			'criteria' => $criteria,
+			'pagination' => array(
+				'pageSize' => 10
+			)
+		));
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));

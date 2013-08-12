@@ -124,7 +124,7 @@ class GalleryPhoto extends CActiveRecord
 
     public function getPreview($version = '')
     {
-        return Yii::app()->request->baseUrl . '/' . $this->galleryDir . '/_' . $this->getFileName($version) . '.' . $this->ext;
+        return Yii::app()->request->baseUrl . '/' . $this->galleryDir . '/' . $this->getFileName($version) . '.' . $this->ext;
     }
 
     private function getFileName($version = '')

@@ -61,8 +61,13 @@ class Places extends EActiveRecord
 		return CMap::mergeArray(parent::behaviors(), array(
 			'UploadableImageBehavior' => array(
 				'class' => 'UploadableImageBehavior',
-				'thumbs' => array(
-					'small' => array(90, 90)
+				'versions' => array(
+					'small' => array(
+						'resize' => array(90, 0),
+					),
+					'medium' => array(
+						'resize' => array(178, 0),
+					),
 				)
 			),
 		));

@@ -6,6 +6,10 @@
 class Controller extends CController
 {
 	/**
+	 * @var string page name.
+	 */
+	public $title;
+	/**
 	 * @var string the default layout for the controller view. Defaults to '//layouts/column1',
 	 * meaning using a single column layout. See 'protected/views/layouts/column1.php'.
 	 */
@@ -39,6 +43,8 @@ class Controller extends CController
 	 * Слайдер
 	 */
 	public $sliderManager;
+	
+	public $renderYandexMap = false;
 
 	protected function preinit()
 	{
@@ -47,6 +53,7 @@ class Controller extends CController
 
 	public function init(){
 		parent::init();
+		$this->title = Yii::app()->name;
 		
 		$this->cs = Yii::app()->clientScript;
 		$this->cs->registerCoreScript('jquery');
@@ -57,12 +64,6 @@ class Controller extends CController
 		if(Yii::app()->getRequest()->getParam('update_assets')) $this->forceCopyAssets = true;
 
 		//Css initialize
-		/*$cs->registerCssFile($this->getAssetsUrl().'/css/ui-lightness/jquery-ui-1.10.3.custom.min.css');
-		$cs->registerCssFile($this->getAssetsUrl().'/css/reset.css');
-		$cs->registerCssFile($this->getAssetsUrl().'/css/style.css');
-		$cs->registerCssFile($this->getAssetsUrl().'/css/buttons.css');
-		$cs->registerCssFile($this->getAssetsUrl().'/css/chosen.css');*/
-
 		
 		// Определение текущего заведения
 		$placeState;
@@ -74,6 +75,7 @@ class Controller extends CController
 			if ($place !== null) {
 				$placeState['id'] = $place->id;
 				$placeState = $place->attributes;
+				$placeState['logo'] = $place->getThumb('medium');
 				$cookie = new CHttpCookie('CURRENT_PLACE', CJSON::encode($placeState));
 				Yii::app()->request->cookies['CURRENT_PLACE'] = $cookie;
 			}

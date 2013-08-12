@@ -1,0 +1,4 @@
+
+
+.printSelected > * { display: none; }
+.printSelected > .printSelection { display: block; }
