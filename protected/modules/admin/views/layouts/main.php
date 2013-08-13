@@ -18,7 +18,6 @@
 				));
 			}
 			 */
-            /*
 			$menuItems = array(
 				array('label'=>'Настройки', 'url'=>'/admin'),
 				array('label'=>'Разделы', 'url'=>'#', 'items' => array(
@@ -72,7 +71,8 @@
 					)),
 				)),
 			);
-            */
+            
+            /*
             $menuItems = array(
 				array('label'=>'Настройки', 'url'=>'/admin'),
 				array('label'=>'Разделы', 'url'=>'#', 'items' => array(
@@ -90,6 +90,7 @@
 					array('label'=>'Интерьер', 'url'=>"/admin/interiors/list"),
 				)),
 			);
+            */
 		?>
 		<?php $this->widget('bootstrap.widgets.TbNavbar', array(
 			'color'=>'inverse', // null or 'inverse'
