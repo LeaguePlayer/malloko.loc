@@ -40,7 +40,7 @@ class ReviewsController extends Controller
 		$dataProvider = new CActiveDataProvider('Reviews', array(
 			'criteria' => $criteria,
 			'pagination' => array(
-				'pageSize' => 2,
+				'pageSize' => 3,
 				'pageVar' => 'page',
 			),
 		));

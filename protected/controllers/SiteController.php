@@ -119,4 +119,10 @@ class SiteController extends Controller
 		$this->layout = '//layouts/col_2';
 		$this->render('about');
 	}
+    
+    public function actionOrder()
+    {
+        $model = new OrderForm;
+        $this->render('order', array('model'=>$model));
+    }
 }

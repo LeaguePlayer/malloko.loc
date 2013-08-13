@@ -14,7 +14,7 @@ class ReviewsWidget extends CWidget
 			$this->dataProvider = new CActiveDataProvider($model, array(
 				'criteria' => $criteria,
 				'pagination' => array(
-					'pageSize' => 2,
+					'pageSize' => 3,
 					'pageVar' => 'page',
 				),
 			));

@@ -1846,7 +1846,10 @@ ul.round {
     text-align: center;
 }
 .form .successMessage {
-    
+    font-size: 20px;
+    text-align: center;
+    width: 350px;
+    padding: 20px 0;
 }
 .custom-button {
 	-moz-box-shadow:inset 0px 1px 0px 0px #ffffff;

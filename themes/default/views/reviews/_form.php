@@ -1,12 +1,12 @@
 
 <div class="form">
-
-    <h2>Оставьте Ваш отзыв</h2>
     
     <?php if (Yii::app()->user->hasFlash('SUCCESS_REVIEW')): ?>
     	<div class="successMessage"><?php echo Yii::app()->user->getFlash('SUCCESS_REVIEW'); ?></div>
     	<?php Yii::app()->end(); ?>
     <?php endif; ?>
+    
+    <h2>Оставьте Ваш отзыв</h2>
 		
 	<?php $form = $this->beginWidget('CActiveForm', array(
 		'id'=>'review-form',
