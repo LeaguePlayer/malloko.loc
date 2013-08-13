@@ -11,7 +11,13 @@
 			<label class="control-label" for="<?=$setting->option?>"><?=$setting->label?></label>
 			<div class="controls">
 				<?php if ( $setting->type == 'select' ): ?>
-					<?php echo TbHtml::dropDownList("Settings[{$setting->option}]", "{$setting->value}", unserialize($setting->ranges), array(
+                    <?php
+                        $rangeData = unserialize($setting->ranges);
+                        if ( !is_array($rangeData) ) {
+                            $rangeData = array();
+                        }
+                    ?>
+					<?php echo TbHtml::dropDownList("Settings[{$setting->option}]", "{$setting->value}", $rangeData, array(
 						'class'=>'span3',
 						'displaySize'=>1,
 						'empty'=>'Не задано',

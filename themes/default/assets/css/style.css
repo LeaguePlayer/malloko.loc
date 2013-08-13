@@ -1754,3 +1754,125 @@ ul.round {
 	padding: 2px 5px 0;
 	font-size: 12px;
 }
+
+
+.dish-photos .text {
+	margin-bottom: 40px;
+}
+.dish-photos .one-photo {
+	display: inline-block;
+    vertical-align: top;
+	margin-bottom: 37px;
+	width: 220px;
+    position: relative;
+    text-align: center;
+}
+.dish-photos .one-photo:nth-child(3n-1) {
+	margin-left: 28px;
+	margin-right: 28px;
+}
+.dish-photos .one-photo h3 {
+    font-family: pt_sansbold, sans-serif;
+    font-size: 16px;
+    display: block;
+    text-align: center;
+    height: 50px;
+    overflow: hidden;
+    line-height: 1.1;
+    margin-bottom: 5px;
+}
+.dish-photos .one-photo img {
+	border: 8px solid #fff;
+	-moz-box-shadow: 0 0 3px 1px #d3d3d3;
+	-webkit-box-shadow: 0 0 3px 1px #d3d3d3;
+	box-shadow: 0 0 3px 1px #d3d3d3;
+}
+.dish-photos .one-photo p {
+    display: block;
+    margin: 10px 0 45px;
+    line-height: 1;
+    font-size: 14px;
+}
+.dish-photos .one-photo a {
+    position:  absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+
+
+
+.form {
+}
+.form h2 {
+    display: block;
+    text-align: center;
+    font-size: 20px;
+    font-family: pt_sansbold;
+    margin-bottom: 20px;
+}
+.form label {
+    display: block;
+    margin: 10px 0 0;
+    font-size: 16px;
+    font-family: pt_sansbold, sans-serif;
+}
+.form input[type=text],
+.form textarea {
+    border: 1px solid #c2c2c2;
+    border-radius: 6px;
+    font-size: 14px;
+    padding: 5px;
+    font-family: pt_sansregular, sans-serif;
+    width: 300px;
+}
+.form input[type=text]:focus,
+.form textarea:focus {
+    background-color: #F4F4F4;
+    border-color: #A4A4A4;
+}
+.form input[type=text].error,
+.form textarea.error {
+    border-color: #ffa8a8;
+}
+.form textarea {
+    resize: none;
+    height: 150px;
+}
+.form .button-row {
+    margin-top: 15px;
+    text-align: center;
+}
+.form .successMessage {
+    
+}
+.custom-button {
+	-moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
+	box-shadow:inset 0px 1px 0px 0px #ffffff;
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ededed), color-stop(1, #dfdfdf) );
+	background:-moz-linear-gradient( center top, #ededed 5%, #dfdfdf 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#dfdfdf');
+	background-color:#ededed;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+	border:1px solid #dcdcdc;
+	display:inline-block;
+	color:#777777;
+	font-family:arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:6px 24px;
+	text-decoration:none;
+	text-shadow:1px 1px 0px #ffffff;
+    cursor: pointer;
+}
+.custom-button:hover {
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #dfdfdf), color-stop(1, #ededed) );
+	background:-moz-linear-gradient( center top, #dfdfdf 5%, #ededed 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#dfdfdf', endColorstr='#ededed');
+	background-color:#dfdfdf;
+}

@@ -39,6 +39,11 @@ class m130806_030902_places extends CDbMigration
             'update_time' => 'integer COMMENT \'Дата последнего редактирования\'',
         ),
         'ENGINE=MyISAM');
+        
+        $this->insert('{{places}}', array(
+            'status' => Places::STATUS_PUBLISH,
+            'title' => 'Золотая черепаха',
+        ));
     }
  
     public function safeDown()

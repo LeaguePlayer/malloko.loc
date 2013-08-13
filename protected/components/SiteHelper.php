@@ -96,11 +96,14 @@ class SiteHelper {
 	}
 
 	public static function russianDate($datetime = null) {
+        if ($datetime == 0)
+            return '';
+            
 		if (is_numeric($datetime) ) {
 			$timestamp = $datetime;
 		} else if (is_string($datetime)) {
 			$timestamp = strtotime($datetime);
-		} else {
+        } else {
 			$timestamp = time();
 		}
 		$date = explode(".", date("d.m.Y", $timestamp));

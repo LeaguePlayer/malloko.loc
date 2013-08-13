@@ -18,6 +18,7 @@
 				));
 			}
 			 */
+            /*
 			$menuItems = array(
 				array('label'=>'Настройки', 'url'=>'/admin'),
 				array('label'=>'Разделы', 'url'=>'#', 'items' => array(
@@ -70,7 +71,25 @@
 						array('label'=>'Список', 'url'=>"/admin/interiors/list"),
 					)),
 				)),
-			)
+			);
+            */
+            $menuItems = array(
+				array('label'=>'Настройки', 'url'=>'/admin'),
+				array('label'=>'Разделы', 'url'=>'#', 'items' => array(
+					array('label'=>'Сотрудники', 'url'=>"/admin/employees/list"),
+					array('label'=>'Новости', 'url'=>"/admin/events/list"),
+					array('label'=>'Рестораны', 'url'=>"/admin/places/list"),
+					array('label'=>'Слайдер', 'url'=>"/admin/slider/list"),
+					array('label'=>'Страницы', 'url'=>"/admin/pages/list"),
+					array('label'=>'Реклама', 'url'=>"/admin/banners/list"),
+					array('label'=>'Отзывы', 'url'=>"/admin/reviews/list"),
+					array('label'=>'Меню', 'url'=>"/admin/menu/list"),
+					array('label'=>'Блюда', 'url'=>"/admin/dishes/list"),
+					array('label'=>'Вакансии', 'url'=>"/admin/jobs/list"),
+					array('label'=>'Партнеры', 'url'=>"/admin/partners/list"),
+					array('label'=>'Интерьер', 'url'=>"/admin/interiors/list"),
+				)),
+			);
 		?>
 		<?php $this->widget('bootstrap.widgets.TbNavbar', array(
 			'color'=>'inverse', // null or 'inverse'

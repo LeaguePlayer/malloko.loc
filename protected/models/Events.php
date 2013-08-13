@@ -156,7 +156,7 @@ class Events extends EActiveRecord
 
 	public function beforeSave()
 	{
-		$this->public_date = Yii::app()->date->toMysql($this->public_date);
+		$this->public_date = Yii::app()->date->toMysql($this->public_date, false);
 		return parent::beforeSave();
 	}
 	

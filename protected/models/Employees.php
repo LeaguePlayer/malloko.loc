@@ -55,8 +55,8 @@ class Employees extends EActiveRecord
 			'face_of_day' => 'Лицо дня',
 			'status' => 'Статус',
 			'sort' => 'Вес для сортировки',
-			'create_time' => 'Create Time',
-			'update_time' => 'Update Time',
+			'create_time' => 'Дата создания',
+			'update_time' => 'Дата редактирования',
 		);
 	}
 	

@@ -24,8 +24,8 @@
 				var firstGeoObject = res.geoObjects.get(0);
                 myMap = new ymaps.Map("map", {
 					center: firstGeoObject.geometry.getCoordinates(),
-					zoom: 14,
-					behaviors: ['default', 'scrollZoom']
+					zoom: 16,
+					behaviors: ['default']
 				});
 
 				// Создание метки с пользовательским макетом балуна.

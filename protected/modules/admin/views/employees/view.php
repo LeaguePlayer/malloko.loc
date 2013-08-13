@@ -1,27 +1,28 @@
 <?php
 $this->breadcrumbs=array(
-	'Employees'=>array('index'),
-	$model->id,
+	"{$model->translition()}"=>array('list'),
+	'Создание',
 );
 
 $this->menu=array(
-	array('label'=>'List Employees','url'=>array('index')),
-	array('label'=>'Create Employees','url'=>array('create')),
-	array('label'=>'Update Employees','url'=>array('update','id'=>$model->id)),
-	array('label'=>'Delete Employees','url'=>'#','linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage Employees','url'=>array('admin')),
+	array('label'=>'Список','url'=>array('list')),
+    array('label'=>'Редактировать','url'=>array('update')),
+    array('label'=>'Удалить','url'=>array('delete')),
 );
 ?>
 
-<h1>View Employees #<?php echo $model->id; ?></h1>
+<h1>Информация о сотруднике "<?php echo $model->fio; ?>"</h1>
 
 <?php $this->widget('bootstrap.widgets.TbDetailView',array(
 	'data'=>$model,
 	'attributes'=>array(
 		'id',
-		'photo',
+		'image',
 		'fio',
 		'position',
-		'html_quote',
+        array(
+            'type' => 'raw',
+            'value' => '$model->html_quote',
+        ),
 	),
 )); ?>

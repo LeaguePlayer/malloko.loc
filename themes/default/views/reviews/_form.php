@@ -1,5 +1,7 @@
 
 <div class="form">
+
+    <h2>Оставьте Ваш отзыв</h2>
     
     <?php if (Yii::app()->user->hasFlash('SUCCESS_REVIEW')): ?>
     	<div class="successMessage"><?php echo Yii::app()->user->getFlash('SUCCESS_REVIEW'); ?></div>
@@ -29,7 +31,7 @@
 		</div>
 
 		<div class="button-row">
-			<button type="submit">Оставить отзыв</button>
+			<button class="custom-button" type="submit">Оставить отзыв</button>
 		</div>
 
 	<?php $this->endWidget(); ?>

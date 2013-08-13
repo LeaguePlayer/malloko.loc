@@ -20,6 +20,7 @@ class AdminController extends CController
             'update' => 'UpdateAction',
             'delete' => 'DeleteAction',
             'restore' => 'RestoreAction',
+            'view' => 'ViewAction',
         );
     }
 	

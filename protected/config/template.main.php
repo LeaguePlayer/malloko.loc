@@ -44,7 +44,7 @@ return array(
 			'allowAutoLogin'=>true,
 		),
 		'bootstrap'=>array(
-            'class'=>'admin_ext.bootstrap.components.Bootstrap',
+            'class'=>'aplication.modules.admin.extensions.bootstrap.components.TbApi',
         ),
 		'yiiwheels' => array(
 			'class' => 'yiiwheels.YiiWheels',

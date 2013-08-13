@@ -11,16 +11,22 @@
 
 <h1 class="title"><?php echo $model->title; ?></h1>
 
-<article class="chronicle event">
-	<div class="content">
-		<div class="text">
-			<p><?php echo $model->description; ?></p>
-		</div>
-		<div class="photos stalactite">
-			<?php foreach ($model->getGallery()->galleryPhotos as $photo): ?>
-				<a rel="photo-group" class="fancy" title="<?php echo $photo->description; ?>" href="<?php echo $photo->getPreview(); ?>"><img src="<?php echo $photo->getPreview('view'); ?>"></a>
-			<?php endforeach; ?>
-		</div>
-		<div class="clear"></div>
+<div class="dish-photos">
+
+	<div class="text">
+		<p><?php echo $model->description; ?></p>
 	</div>
-</article>
+    
+	<div class="photos">
+		<?php foreach ($model->getGallery()->galleryPhotos as $photo): ?>
+            <div class="one-photo">
+                <h3><?php echo $photo->name; ?></h3>
+                <img src="<?php echo $photo->getPreview('view'); ?>"/>
+                <p><?php echo $photo->description; ?></p>
+                <a rel="photo-group" class="fancybox" title="<?php echo $photo->name; ?>" href="<?php echo $photo->getPreview(); ?>"></a>
+            </div>
+		<?php endforeach; ?>
+	</div>
+    
+    
+</div>
