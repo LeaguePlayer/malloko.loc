@@ -52,10 +52,10 @@
 					<div class="clear"></div>
 
 					<ul class="action_menu">
-						<!--<li><a class="room" href="#">Выбор зала</a></li>-->
+						<li><a class="room" href="#">Выбор зала</a></li>
 						<li><a class="news" href="<?php echo Events::getNewsUrl(); ?>">Новости</a></li>
 						<li><a class="chronic" href="<?php echo Events::getChroniclesUrl(); ?>">Светская хроника</a></li>
-						<!--<li><a class="order fancybox-ajax" href="<?php //echo $this->createUrl('/site/order') ?>">Забронировать столик</a></li>-->
+						<li><a class="order fancybox-ajax" href="<?php //echo $this->createUrl('/site/order') ?>">Забронировать столик</a></li>
 					</ul>
 
 					<ul class="socials">
