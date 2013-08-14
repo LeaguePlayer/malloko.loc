@@ -87,7 +87,7 @@ class AdminModule extends CWebModule
 		Yii::app()->clientScript->registerCssFile($this->getAssetsUrl() . '/css/jquery-ui-bootstrap/custom-theme/jquery-ui-1.9.2.custom.css');
         Yii::app()->clientScript->registerCssFile($this->getAssetsUrl() . '/css/jquery-ui-bootstrap/custom-theme/jquery.ui.1.9.2.ie.css');
 		Yii::app()->clientScript->registerScriptFile($this->getAssetsUrl() . '/js/knockout.js', CClientScript::POS_END);
-    }
+	}
 
     public function getAssetsUrl()
     {
@@ -96,7 +96,18 @@ class AdminModule extends CWebModule
             $assetsPath = Yii::getPathOfAlias('admin.assets');
             $this->assetsUrl = Yii::app()->assetManager->publish($assetsPath, false, -1, $this->forceCopyAssets);
         }
-
         return $this->assetsUrl;
+    }
+	
+	/*
+	 * При задании assets тсоронних модулей после процесса подключения скриптов желательно вернуть
+	 * setAssetsUrl('admin.assets')
+	 */
+	public function setAssetsUrl($alias)
+    {
+		if ( $this->assetsUrl != $path ) {
+			$this->assetsUrl = Yii::app()->assetManager->publish($assetsPath, false, -1, $this->forceCopyAssets);
+		}
+		return $this->assetsUrl;
     }
 }

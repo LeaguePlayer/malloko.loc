@@ -42,21 +42,23 @@ $(document).ready(function() {
 		type: 'ajax',
 		afterShow: function() {
 			var $this = this;
-			var btnEvent = function(button) {
-				button.click(function() {
+			var bindEvents = function(content) {
+				content.find('button').click(function() {
 					$.ajax({
 						url: $this.href,
 						type: 'POST',
 						data: $this.inner.find('form').serialize(),
 						success: function(data) {
-							btnEvent( $this.inner.html(data).find('button') );
+							bindEvents( $this.inner.html(data) );
 							$.fancybox.reposition();
 						}
 					});
 					return false;
 				});
+				
+				$('#OrderForm_date').datetimepicker({'controlType':'select'});
 			}
-			btnEvent( $this.inner.find('button') );
+			bindEvents( $this.inner );
 		}
 	});
 	

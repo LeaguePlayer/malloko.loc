@@ -42,6 +42,15 @@ $this->menu=array(
 		),
 		array(
 			'class'=>'bootstrap.widgets.TbButtonColumn',
+			'buttons'=>array(
+				'view' => array (
+					'url'=>'$data->viewUrl',
+					'options'=>array(
+						'class'=>'view f-iframe',
+						'data-fancybox-type'=>'iframe',
+					),
+				),
+			)
 		),
 	),
 )); ?>

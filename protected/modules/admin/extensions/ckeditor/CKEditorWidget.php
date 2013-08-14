@@ -29,15 +29,23 @@ class CkeditorWidget extends CInputWidget{
 	}
 
 	private function registerClientScripts(){
-		$path = Yii::getPathOfAlias('application.modules.admin.extensions.ckeditor.ckeditor');
+		$path = Yii::getPathOfAlias('application.modules.admin.extensions.ckeditor.assets');
 		$assetsPath = Yii::app()->assetManager->publish($path);
 		Yii::app()->clientScript->registerScriptFile($assetsPath.DIRECTORY_SEPARATOR.'ckeditor.js');
+		
+		$fileManagerDir = $assetsPath.'/kcfinder';
 
 		$config = CMap::mergeArray(array(
 			'height' => 400,
 			'width' => '65.812%',
-			'extraPlugins' => 'filebrowser',
-		), $this->config);
+			'filebrowserBrowseUrl' => $fileManagerDir.'/browse.php?type=files',
+			'filebrowserImageBrowseUrl' => $fileManagerDir.'/browse.php?type=images',
+			'filebrowserFlashBrowseUrl' => $fileManagerDir.'/browse.php?type=flash',
+			'filebrowserUploadUrl' => $fileManagerDir.'/upload.php?type=files',
+			'filebrowserImageUploadUrl' => $fileManagerDir.'/upload.php?type=images',
+			'filebrowserFlashUploadUrl' => $fileManagerDir.'/upload.php?type=flash',
+		), $this->config);	
+		
 		$configObject = CJSON::encode($config);
 		Yii::app()->clientScript->registerScript('#ckeditor'.$this->id, '
 			CKEDITOR.replace("'.$this->name.'", '. $configObject .');

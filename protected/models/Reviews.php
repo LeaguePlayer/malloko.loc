@@ -65,7 +65,7 @@ class Reviews extends EActiveRecord
 		$criteria->compare('sort',$this->sort);
 		$criteria->compare('create_time',$this->create_time);
 		$criteria->compare('update_time',$this->update_time);
-		$criteria->order = 'create_time DESC';
+		$criteria->order = 'status DESC, create_time DESC';
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

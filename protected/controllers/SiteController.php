@@ -123,6 +123,26 @@ class SiteController extends Controller
     public function actionOrder()
     {
         $model = new OrderForm;
+		
+		if ( isset($_POST['OrderForm']) ) {
+			$model->attributes = $_POST['OrderForm'];
+			if ( $model->validate() ) {
+				$subject = "Заявка с сайта http://cherepaha-rest.ru/";
+				$date = SiteHelper::russianDate($model->date)." ".date('H:i', strtotime($model->date));
+				$message = "С сайта http://cherepaha-rest.ru/ поступила заявка на бронирование столика.<br>".
+						"<strong>Имя</strong>: {$model->name}<br>".
+						"<strong>Телефон</strong>: {$model->phone}<br>".
+						"<strong>Дата</strong>: {$date}<br>";
+						
+				SiteHelper::sendMail($subject, $message, Settings::getOption('admin_email'), 'no-repeat@cherepaha-rest.ru');
+				Yii::app()->user->setFlash('SUCCESS_ORDER', 'Ваша заявка принята!');
+			}
+		}
+		
+		if ( Yii::app()->request->isAjaxRequest ) {
+			$this->renderPartial('order', array('model'=>$model));
+			Yii::app()->end();
+		}
         $this->render('order', array('model'=>$model));
     }
 }

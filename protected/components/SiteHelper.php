@@ -111,4 +111,13 @@ class SiteHelper {
 		return $date[0] . '&nbsp;' . $m . '&nbsp;' . $date[2];
 	}
 
+	public static function sendMail($subject,$message,$to='',$from='')
+    {
+        if($to=='') $to = Yii::app()->params['adminEmail'];
+        if($from=='') $from = 'no-reply@torsim.ru';
+        $headers = "MIME-Version: 1.0\r\nFrom: $from\r\nReply-To: $from\r\nContent-Type: text/html; charset=utf-8";
+	    $message = wordwrap($message, 70);
+	    $message = str_replace("\n.", "\n..", $message);
+        return mail($to,'=?UTF-8?B?'.base64_encode($subject).'?=',$message,$headers);
+    }
 }

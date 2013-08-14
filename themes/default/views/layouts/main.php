@@ -4,14 +4,21 @@
 	$cs->registerCssFile($this->getAssetsUrl().'/css/style.css');
 	$cs->registerCssFile($this->getAssetsUrl().'/css/adipoli.css');
 	$cs->registerCssFile($this->getAssetsUrl().'/css/fancybox/jquery.fancybox.css');
-	$cs->registerCssFile($this->getAssetsUrl().'/css/fancybox/jquery.fancybox-buttons.css');
+	$cs->registerCssFile($this->getAssetsUrl().'/css/jquery.ui/overcast/jquery-ui-1.10.3.custom.min.css');
+	//$cs->registerCssFile($this->getAssetsUrl().'/css/fancybox/jquery.fancybox-buttons.css');
 	
 	$cs->registerCoreScript('jquery');
 	$cs->registerScriptFile($this->getAssetsUrl().'/js/lib/jquery.stalactite.js', CClientScript::POS_END);
 	$cs->registerScriptFile($this->getAssetsUrl().'/js/lib/jquery.fancybox.js', CClientScript::POS_END);
-	$cs->registerScriptFile($this->getAssetsUrl().'/js/lib/jquery.fancybox-buttons.js', CClientScript::POS_END);
+	//$cs->registerScriptFile($this->getAssetsUrl().'/js/lib/jquery.fancybox-buttons.js', CClientScript::POS_END);
 	$cs->registerScriptFile($this->getAssetsUrl().'/js/lib/jquery.adipoli.min.js', CClientScript::POS_END);
 	$cs->registerScriptFile('http://api-maps.yandex.ru/2.0.27/?load=package.standard&lang=ru-RU', CClientScript::POS_HEAD);
+	$cs->registerScriptFile($this->getAssetsUrl().'/js/lib/jquery.adipoli.min.js', CClientScript::POS_END);
+	
+	$cs->registerCoreScript('jquery.ui');
+	
+	$cs->registerScriptFile($this->getAssetsUrl().'/js/lib/jquery.timepicker.addon.js', CClientScript::POS_END);
+	$cs->registerScriptFile($this->getAssetsUrl().'/js/lib/jquery.ui.timepicker.ru.js', CClientScript::POS_END);
 	$cs->registerScriptFile($this->getAssetsUrl().'/js/common.js', CClientScript::POS_END);
 ?><!DOCTYPE html>
 <html lang="ru">
@@ -53,7 +60,7 @@
 						<li><a class="room" href="#">Выбор зала</a></li>
 						<li><a class="news" href="<?php echo Events::getNewsUrl(); ?>">Новости</a></li>
 						<li><a class="chronic" href="<?php echo Events::getChroniclesUrl(); ?>">Светская хроника</a></li>
-						<li><a class="order fancybox-ajax" href="<?php //echo $this->createUrl('/site/order') ?>">Забронировать столик</a></li>
+						<li><a class="order fancybox-ajax" href="<?php echo $this->createUrl('/site/order') ?>">Забронировать столик</a></li>
 					</ul>
 
 					<ul class="socials">

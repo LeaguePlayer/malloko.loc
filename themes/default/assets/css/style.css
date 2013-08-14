@@ -1628,6 +1628,7 @@ ul.round {
 	color: #C2C2C2;
     font-size: 12px;
     text-align: left;
+	position: relative;
 }
 
 
@@ -1849,7 +1850,7 @@ ul.round {
 .form .successMessage {
     font-size: 20px;
     text-align: center;
-    width: 350px;
+    width: 100%;
     padding: 20px 0;
 }
 .custom-button {
@@ -1879,4 +1880,37 @@ ul.round {
 	background:-moz-linear-gradient( center top, #dfdfdf 5%, #ededed 100% );
 	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#dfdfdf', endColorstr='#ededed');
 	background-color:#dfdfdf;
+}
+
+
+.ui_tpicker_time_label {
+	display: inline-block;
+}
+.ui_tpicker_time {
+	display: inline-block;
+	margin-left: 10px;
+	margin-right: 130px;
+	margin-bottom: 10px;
+	font-weight: bold;
+}
+
+.ui_tpicker_hour_label {
+	display: inline-block;
+	width: 45px;
+}
+.ui_tpicker_hour {
+	display: inline-block;
+	margin-right: 25px;
+}
+
+.ui_tpicker_minute_label {
+	display: inline-block;
+	width: 62px;
+}
+.ui_tpicker_minute {
+	display: inline-block;
+}
+
+.ui-timepicker-div select {
+	width: 62px;
 }

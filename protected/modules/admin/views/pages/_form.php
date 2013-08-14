@@ -27,6 +27,14 @@
 			'type'=>'primary',
 			'label'=>'Сохранить',
 		)); ?>
+		
+		<?php if ( !$model->isNewRecord ): ?>
+			<?php $this->widget('bootstrap.widgets.TbButton', array(
+				'label'=>'Посмотреть',
+				'url'=>$model->viewUrl,
+				'htmlOptions'=>array('class'=>'f-iframe', 'data-fancybox-type'=>'iframe')
+			)); ?>
+		<?php endif; ?>
 	</div>
 
 <?php $this->endWidget(); ?>

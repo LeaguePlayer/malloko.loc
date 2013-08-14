@@ -29,6 +29,7 @@ $this->menu=array(
 		'update_time',
 		array(
 			'class'=>'bootstrap.widgets.TbButtonColumn',
+			'template'=>'{update}{delete}',
 		),
 	),
 )); ?>

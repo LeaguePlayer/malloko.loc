@@ -1,4 +1,3 @@
-
 <div class="form order">
     
     <?php if (Yii::app()->user->hasFlash('SUCCESS_ORDER')): ?>
@@ -16,22 +15,29 @@
 		<div class="row">
 			<?php echo $form->label($model, 'name'); ?>
 			<?php echo $form->textField($model, 'name', array(
-				'placeholder' => 'Укажите Ваше имя',
+				'placeholder' => 'Имя',
 			)); ?>
 			<?php echo $form->error($model, 'name'); ?>
 		</div>
 
 		<div class="row">
-			<?php echo $form->label($model, 'description'); ?>
-			<?php echo $form->textArea($model, 'description', array(
-				'placeholder' => 'Ваш отзыв',
-				'class' => 'custom'
+			<?php echo $form->label($model, 'phone'); ?>
+			<?php echo $form->textField($model, 'phone', array(
+				'placeholder' => 'Телефон',
 			)); ?>
-			<?php echo $form->error($model, 'description'); ?>
+			<?php echo $form->error($model, 'phone'); ?>
+		</div>
+	
+		<div class="row">
+			<?php echo $form->label($model, 'date'); ?>
+			<?php echo $form->textField($model, 'date', array(
+				'placeholder' => 'Дата',
+			)); ?>
+			<?php echo $form->error($model, 'date'); ?>
 		</div>
 
 		<div class="button-row">
-			<button class="custom-button" type="submit">Оставить отзыв</button>
+			<button class="custom-button" type="submit">Забронировать</button>
 		</div>
 
 	<?php $this->endWidget(); ?>
