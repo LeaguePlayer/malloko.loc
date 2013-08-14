@@ -36,7 +36,17 @@
 
 <div class="likes">
 	<h3>Понравилось?</h3>
-	<div class="widget"><img src="/assets/img/tmp/soc_likes.png" alt=""></div>
+	<div class="widget">
+		<?php Yii::app()->clientScript->registerScriptFile('//vk.com/js/api/openapi.js?98', CClientScript::POS_HEAD); ?>
+		<?php Yii::app()->clientScript->registerScript('vkinit', "VK.init({apiId: 3820677, onlyWidgets: true});", CClientScript::POS_BEGIN); ?>
+		<!-- Put this div tag to the place, where the Like block will be -->
+		<div id="vk_like"></div>
+		<?php Yii::app()->clientScript->registerScript('vklike', "VK.Widgets.Like(\"vk_like\", {type: \"button\"});", CClientScript::POS_READY); ?>
+	</div>
+	
+	<div class="widget">
+		<iframe src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Freference%2Fplugins%2Flike&amp;width=200&amp;height=22&amp;colorscheme=light&amp;layout=button_count&amp;action=like&amp;show_faces=false&amp;send=false&amp;appId=232938120187606" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:200px; height:22px;" allowTransparency="true"></iframe>
+	</div>
 </div>
 
 <div class="news_rounder" data-start_timestamp="<?php echo strtotime($model->public_date); ?>">

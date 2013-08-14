@@ -13,9 +13,7 @@
 	$cs->registerScriptFile($this->getAssetsUrl().'/js/lib/jquery.adipoli.min.js', CClientScript::POS_END);
 	$cs->registerScriptFile('http://api-maps.yandex.ru/2.0.27/?load=package.standard&lang=ru-RU', CClientScript::POS_HEAD);
 	$cs->registerScriptFile($this->getAssetsUrl().'/js/common.js', CClientScript::POS_END);
-?>
-
-<!DOCTYPE html>
+?><!DOCTYPE html>
 <html lang="ru">
 	<head>
 		<meta charset="utf-8" />
