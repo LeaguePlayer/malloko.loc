@@ -81,7 +81,7 @@ class EventsController extends Controller
 			),
 		));
 		$this->render('index', array(
-			'type'=>$type,
+			'type'=>$typeId,
 			'dataProvider'=>$dataProvider,
 		));
 	}
