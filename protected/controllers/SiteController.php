@@ -123,6 +123,7 @@ class SiteController extends Controller
     public function actionOrder()
     {
         $model = new OrderForm;
+		$model->date = date("d-m-Y H:i", time() + 60*60);
 		
 		if ( isset($_POST['OrderForm']) ) {
 			$model->attributes = $_POST['OrderForm'];

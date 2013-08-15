@@ -216,4 +216,15 @@ class EActiveRecord extends CActiveRecord
 		return null;
 	}
 	*/
+	
+	public function getCreateDate()
+	{
+		return SiteHelper::russianDate($this->create_time).' в '.date('H:i', $this->create_time);
+	}
+	
+	public function getUpdateDate()
+	{
+		if ( !empty($this->update_time) )
+			return SiteHelper::russianDate($this->update_time).' в '.date('H:i', $this->update_time);
+	}
 }

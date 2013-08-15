@@ -12,6 +12,11 @@ $this->menu=array(
 	'filter'=>$model,
 	'type'=>TbHtml::GRID_TYPE_HOVER,
 	'columns'=>array(
+		array(
+			'header'=>'Ссылка на страницу',
+			'type'=>'raw',
+			'value'=>'TbHtml::link($data->viewUrl, $data->viewUrl, array("class"=>"f-iframe", "data-fancybox-type"=>"iframe"))'
+		),
 		'title',
 		/*
 		array(
@@ -30,12 +35,12 @@ $this->menu=array(
 		array(
 			'name'=>'create_time',
 			'type'=>'raw',
-			'value'=>'SiteHelper::russianDate($data->create_time).\' в \'.date(\'H:i\', $data->create_time)'
+			'value'=>'$data->createDate'
 		),
 		array(
 			'name'=>'update_time',
 			'type'=>'raw',
-			'value'=>'SiteHelper::russianDate($data->update_time).\' в \'.date(\'H:i\', $data->update_time)'
+			'value'=>'$data->updateDate'
 		),
 		array(
 			'class'=>'bootstrap.widgets.TbButtonColumn',

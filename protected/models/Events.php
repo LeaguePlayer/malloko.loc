@@ -163,12 +163,12 @@ class Events extends EActiveRecord
 	
 	public static function getNewsUrl()
 	{
-		return Yii::app()->urlManager->createUrl('/events/index', array('type' => self::TYPE_NEWS));
+		return Yii::app()->urlManager->createUrl('/events/index', array('events_type' => 'news'));
 	}
 	
 	public static function getChroniclesUrl()
 	{
-		return Yii::app()->urlManager->createUrl('/events/index', array('type' => self::TYPE_CHRONICLE));
+		return Yii::app()->urlManager->createUrl('/events/index', array('events_type' => 'chronicle'));
 	}
 	
 	public static function lastNews($place_id, $limit = 5)

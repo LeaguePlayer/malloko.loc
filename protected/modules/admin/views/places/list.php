@@ -25,8 +25,16 @@ $this->menu=array(
 			'filter'=>array(Places::getStatusAliases())
 		),
 		'sort',
-		'create_time',
-		'update_time',
+		array(
+			'name'=>'create_time',
+			'type'=>'raw',
+			'value'=>'$data->createDate'
+		),
+		array(
+			'name'=>'update_time',
+			'type'=>'raw',
+			'value'=>'$data->updateDate'
+		),
 		array(
 			'class'=>'bootstrap.widgets.TbButtonColumn',
 			'template'=>'{update}{delete}',

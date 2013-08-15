@@ -121,6 +121,8 @@ var myWidgets = {
 				return;
 			}
 			
+			feed.width( items.size() * options.itemWidth );
+			
 			currentPos = 0;
 			var startTimestamp = rounder.data('start_timestamp');
 			items.each(function() {

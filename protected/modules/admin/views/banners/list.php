@@ -40,12 +40,12 @@ $this->menu=array(
 		array(
 			'name'=>'create_time',
 			'type'=>'raw',
-			'value'=>'SiteHelper::russianDate($data->create_time).\' в \'.date(\'H:i\', $data->create_time)'
+			'value'=>'$data->createDate'
 		),
 		array(
 			'name'=>'update_time',
 			'type'=>'raw',
-			'value'=>'SiteHelper::russianDate($data->update_time).\' в \'.date(\'H:i\', $data->update_time)'
+			'value'=>'$data->updateDate'
 		),
 		array(
 			'class'=>'bootstrap.widgets.TbButtonColumn',

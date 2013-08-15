@@ -55,15 +55,23 @@ class EventsController extends Controller
 	}
 
 	
-	public function actionIndex($type = Events::TYPE_NEWS)
+	public function actionIndex($events_type = null)
 	{
+		if ( is_numeric($events_type) ) {
+			$typeId = $events_type;
+		} else if ( $events_type == 'chronicle' ) {
+			$typeId = Events::TYPE_CHRONICLE;
+		} else {
+			$typeId = Events::TYPE_NEWS;
+		}
+		
 		$this->layout = '//layouts/col_2';
 		
 		$criteria = new CDbCriteria;
 		$criteria->addCondition('place_id=:place_id AND status=:status AND type=:type');
 		$criteria->params[':place_id'] = $this->place['id'];
 		$criteria->params[':status'] = Events::STATUS_PUBLISH;
-		$criteria->params[':type'] = $type;
+		$criteria->params[':type'] = $typeId;
 		$criteria->order = 'public_date DESC';
 		
 		$dataProvider=new CActiveDataProvider('Events', array(

@@ -8,7 +8,7 @@
 
 return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
-	'name'=>'Sofia',
+	'name'=>'Золотая черепаха',
 	'language' => 'ru',
 	'theme'=>'default',
 	// preloading 'log' component
@@ -18,23 +18,26 @@ return array(
 	'import'=>array(
 		'application.models.*',
 		'application.components.*',
+		'application.modules.admin.behaviors.*',
 	),
-
 	'modules'=>array(
 		// uncomment the following to enable the Gii tool
 		
-		/*'gii'=>array(
+		'gii'=>array(
 			'class'=>'system.gii.GiiModule',
-			'password'=>'123456',
+			'password'=>'qwe123',
 			// If removed, Gii defaults to localhost only. Edit carefully to taste.
 			'ipFilters'=>array('127.0.0.1','::1'),
 			'generatorPaths'=>array(
-                'bootstrap.gii',
+                //'bootstrap.gii',
+				'application.gii',
             ),
-		),*/
+			'import' => array(
+				'admin.extensions.imagesgallery.GalleryBehavior',
+			),
+		),
 		'admin'=>array(
-		)
-		
+		),
 	),
 
 	// application components
@@ -44,7 +47,7 @@ return array(
 			'allowAutoLogin'=>true,
 		),
 		'bootstrap'=>array(
-            'class'=>'aplication.modules.admin.extensions.bootstrap.components.TbApi',
+            'class'=>'admin_ext.yiistrap.components.TbApi',
         ),
 		'yiiwheels' => array(
 			'class' => 'yiiwheels.YiiWheels',
@@ -58,22 +61,30 @@ return array(
 			'showScriptName'=>false,
 			'urlFormat'=>'path',
 			'rules'=>array(
+				'admin'=>'admin/start/index',
+				'<events_type:news|chronicle>'=>'events/index',
+				'page/<alias:\w+>'=>'pages/view',
+				'<controller:\w+>'=>'<controller>/index',
 				'<controller:\w+>/<id:\d+>'=>'<controller>/view',
 				'<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
 				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
 			),
 		),
-		
+		'date' => array(
+			'class'=>'application.components.Date',
+			//And integer that holds the offset of hours from GMT e.g. 4 for GMT +4
+			'offset' => 6,
+		),
 		/*'db'=>array(
 			'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/testdrive.db',
 		),*/
 		// uncomment the following to use a MySQL database
 		
 		'db'=>array(
-			'connectionString' => 'mysql:host=localhost;dbname=box',
+			'connectionString' => 'mysql:host=localhost;dbname=***',
 			'emulatePrepare' => true,
-			'username' => '',
-			'password' => '',
+			'username' => '***',
+			'password' => '***',
 			'charset' => 'utf8',
 			'tablePrefix' => 'tbl_',
 		),

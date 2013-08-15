@@ -106,6 +106,6 @@ class Pages extends EActiveRecord
 	
 	public function getViewUrl()
 	{
-		return Yii::app()->urlManager->createUrl('/pages/view', array('id'=>$this->id));
+		return Yii::app()->urlManager->createUrl('/pages/view', array('alias'=>$this->alias));
 	}
 }
