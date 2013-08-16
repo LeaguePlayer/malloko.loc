@@ -251,7 +251,7 @@ ul.socials li a.vkontakte:hover {
 	margin-bottom: 50px;
 }
 	#header .top {
-		height: 140px;
+		height: 110px;
 	}
 	#header .logo_container {
 		display: inline-block;
@@ -335,7 +335,7 @@ ul.socials li a.vkontakte:hover {
 
 	#header ul.main_menu {
 		float: right;
-		margin-bottom: 45px;
+		margin-bottom: 18px;
 		margin-top: 4px;
 	}
 	#header ul.main_menu li {
