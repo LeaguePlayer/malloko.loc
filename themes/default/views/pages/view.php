@@ -3,9 +3,9 @@
 	<?php $this->widget('application.extensions.banner.BannerWidget'); ?>
 <?php $this->endClip(); ?>
 
-<?php
-	echo $model->html_content;
-?>
+<div class="static">
+	<?php echo $model->html_content; ?>
+</div>
 
 
 

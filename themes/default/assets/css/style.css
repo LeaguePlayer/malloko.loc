@@ -1125,6 +1125,15 @@ ul.socials li a.vkontakte:hover {
 /****************
  *  О ресторане
  ****************/
+.static img {
+	border: 8px solid #fff;
+	-moz-box-shadow: 0 0 3px 1px #d3d3d3;
+	-webkit-box-shadow: 0 0 3px 1px #d3d3d3;
+	box-shadow: 0 0 3px 1px #d3d3d3;
+	float: none;
+}
+
+
 .statements {
 	margin-bottom: 50px;
 }
@@ -1133,6 +1142,8 @@ ul.socials li a.vkontakte:hover {
 	display: inline-block;
 	vertical-align: top;
 	margin-right: 20px;
+	border: none;
+	box-shadow: none;
 }
 .statements .item .description {
 	display: inline-block;
@@ -1196,7 +1207,6 @@ ul.socials li a.vkontakte:hover {
 	line-height: 1.4;
 	margin-bottom: 12px;
 }
-
 
 
 /****************
