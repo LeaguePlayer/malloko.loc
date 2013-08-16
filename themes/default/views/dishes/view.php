@@ -1,11 +1,13 @@
 <?php $this->beginClip('r_sidebar'); ?>
 	<section class="other_dishes">
-		<?php $this->widget('zii.widgets.CListView', array(
-			'dataProvider'=>$othersDishes,
-			'itemsCssClass'=>'items galleries_list',
-			'itemView'=>'_view',
-			'template'=>'{items}',
-		)); ?>
+		<?php if ($othersMenu->totalItemCount != 0): ?>
+			<?php $this->widget('zii.widgets.CListView', array(
+				'dataProvider'=>$othersDishes,
+				'itemsCssClass'=>'items galleries_list',
+				'itemView'=>'_view',
+				'template'=>'{items}',
+			)); ?>
+		<?php endif; ?>
 	</section>
 <?php $this->endClip(); ?>
 

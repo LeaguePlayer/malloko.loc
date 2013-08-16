@@ -20,7 +20,7 @@ $(document).ready(function() {
 			play: {
 				active: true,
 				effect: "fade",
-				interval: 5000,
+				interval: 3000,
 				auto: true,
 				swap: false,
 				pauseOnHover: false,
@@ -29,10 +29,17 @@ $(document).ready(function() {
 		});
 	}
 	
+	$('.fancy').fancybox();
 	$(".stalactite").stalactite({
-		duration: 200,
+		duration: 200,                        // Duration of animation.
+		easing: 'swing',                      // Easing method.
+		cssPrefix: '.stalactite',             // The css naming convention.
+		cssPrep: true,                        // Should stalactite structurally modify css of children?
+		fluid: true,                          // Should stalactite recalculate on window resize?
+		loader: '<img />',                    // The contents of the loader. Defaults to a dataURL animated gif.
+		styles: {},                           // A style object to place on the child elements
 		complete: function() {
-			$('.fancy').fancybox();
+			//
 		}
 	});
 	
@@ -63,6 +70,11 @@ $(document).ready(function() {
 	});
 	
 	$('.adipoli').adipoli({ startEffect:'overlay', hoverEffect:'foldLeft' });
+	
+	$('.job-description').hide();
+	$('.jobs-list h3').click(function() {
+		$(this).parent().find('.job-description').stop().slideToggle(300);
+	});
 });
 
 

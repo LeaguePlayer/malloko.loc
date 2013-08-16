@@ -1,4 +1,4 @@
-<div class="item">
+<div class="item bordered">
 	<?php
 		$dateArray = explode('.', date("d.m.Y", strtotime($data->public_date)));
 		$month = SiteHelper::russianMonth($dateArray[1]);

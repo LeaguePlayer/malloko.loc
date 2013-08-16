@@ -45,6 +45,8 @@ class Controller extends CController
 	public $sliderManager;
 	
 	public $renderYandexMap = false;
+	
+	public $currentPage;
 
 	protected function preinit()
 	{

@@ -66,7 +66,7 @@ class Places extends EActiveRecord
 						'resize' => array(90, 0),
 					),
 					'medium' => array(
-						'resize' => array(178, 0),
+						'resize' => array(160, 0),
 					),
 				)
 			),

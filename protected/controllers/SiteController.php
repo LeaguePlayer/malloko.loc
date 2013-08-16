@@ -30,6 +30,7 @@ class SiteController extends Controller
 	public function actionIndex()
 	{
 		$this->layout = '//layouts/col_1';
+		$this->currentPage = 'main';
 		$slider = Slider::model()->findByAttributes(array('place_id'=>$this->place['id']));
 		if ( $slider !== null and $slider->status == Slider::STATUS_PUBLISH ) {
 			$this->sliderManager = $slider->galleryManager->getGallery();

@@ -66,7 +66,7 @@ class Slider extends EActiveRecord
 						'resize' => array(600, 500),
 					),
 					'big' => array(
-						'centeredpreview' => array(1126, 420)
+						'centeredpreview' => array(1060, 350)
 					),
 				),
 				'name' => true,

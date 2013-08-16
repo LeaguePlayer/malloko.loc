@@ -45,7 +45,7 @@
 	</div>
 	
 	<div class="widget">
-		<iframe src="//www.facebook.com/plugins/like.php?href=http://cherepaha-rest.ru<?php echo Yii::app()->request->requestUri; ?>&amp;width=200&amp;height=24&amp;colorscheme=light&amp;layout=button_count&amp;action=like&amp;show_faces=false&amp;send=false&amp;appId=232938120187606" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:200px; height:22px; position:relative; top:4px;" allowTransparency="true"></iframe>
+		<iframe src="//www.facebook.com/plugins/like.php?href=http://cherepaha-rest.ru<?php echo Yii::app()->request->requestUri; ?>&amp;width=200&amp;height=24&amp;colorscheme=light&amp;layout=button_count&amp;action=like&amp;show_faces=false&amp;send=false&amp;appId=232938120187606" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:200px; height:22px; position:relative;" allowTransparency="true"></iframe>
 	</div>
 </div>
 

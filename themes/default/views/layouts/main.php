@@ -41,17 +41,17 @@
 					<div class="city gray">Тюмень</div>
 
 					<ul class="main_menu">
-						<li><a href="/">Главная</a></li>
+						<li <?php if ($this->currentPage == 'main') echo "class='current'"; ?>><a <?php if ($this->currentPage != 'main') echo "href='/'"; ?>>Главная</a></li>
 						<li class="separator"></li>
-						<li><a href="<?php echo Pages::getUrlByAlias('about'); ?>">О нас</a></li>
+						<li <?php if ($this->currentPage == 'about') echo "class='current'"; ?>><a <?php if ($this->currentPage != 'about') echo "href='".Pages::getUrlByAlias('about')."'"; ?>>О нас</a></li>
 						<li class="separator"></li>
-						<li><a href="<?php echo Pages::getUrlByAlias('contacti'); ?>">Контакты</a></li>
+						<li <?php if ($this->currentPage == 'contacti') echo "class='current'"; ?>><a <?php if ($this->currentPage != 'contacti') echo "href='".Pages::getUrlByAlias('contacti')."'"; ?>>Контакты</a></li>
 						<li class="separator"></li>
-						<li><a href="<?php echo $this->createUrl('/jobs/index'); ?>">Вакансии</a></li>
+						<li <?php if ($this->currentPage == 'jobs') echo "class='current'"; ?>><a <?php if ($this->currentPage != 'jobs') echo "href='".$this->createUrl('/jobs/index')."'"; ?>>Вакансии</a></li>
 						<li class="separator"></li>
-						<li><a href="<?php echo Banners::listUrl(); ?>">Реклама</a></li>
+						<li <?php if ($this->currentPage == 'banners') echo "class='current'"; ?>><a <?php if ($this->currentPage != 'banners') echo "href='".Banners::listUrl()."'"; ?>>Реклама</a></li>
 						<li class="separator"></li>
-						<li><a href="<?php echo $this->createUrl('/partners/index'); ?>">Партнеры</a></li>
+						<li <?php if ($this->currentPage == 'partners') echo "class='current'"; ?>><a <?php if ($this->currentPage != 'partners') echo "href='".$this->createUrl('/partners/index')."'"; ?>>Партнеры</a></li>
 					</ul>
 
 					<div class="clear"></div>
@@ -79,10 +79,6 @@
 						<?php foreach ($this->sliderManager->galleryPhotos as $slide): ?>
 							<img src="<?php echo $slide->getPreview('big'); ?>">
 						<?php endforeach; ?>
-					</div>
-					<div class="buttons fix-width">
-						<a href="#" class="prev"></a>
-						<a href="#" class="next"></a>
 					</div>
 				</div>
 			</section>

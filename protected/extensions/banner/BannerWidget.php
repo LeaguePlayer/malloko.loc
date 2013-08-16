@@ -4,7 +4,9 @@ class BannerWidget extends CWidget
 	private $_run = true;
 	private $_assetsUrl;
 	public $firstBanner;
-	public $options = array();
+	public $options = array(
+		'duration' => 5000
+	);
 
 
 	public function init()
@@ -34,7 +36,7 @@ class BannerWidget extends CWidget
 		$this->render('banner', array('model' => $this->firstBanner));
     }
 	
-	public function registerScripts() {		
+	public function registerScripts() {
 		$options = CJSON::encode($this->options);
 		$cs = Yii::app()->clientScript;
 		//$cs->registerScriptFile($this->assetsUrl.'/script.js', CClientScript::POS_BEGIN);

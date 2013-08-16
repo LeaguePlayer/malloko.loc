@@ -42,6 +42,7 @@ class PagesController extends Controller
 			}
 		}
 		$this->title = $model->title;
+		$this->currentPage = $alias;
 		if ( $alias === 'contacti' ) {
 			$this->renderYandexMap = true;
 		}

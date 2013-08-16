@@ -65,7 +65,7 @@ class Menu extends EActiveRecord
 				'class' => 'admin.behaviors.UploadableImageBehavior',
 				'versions' => array(
 					'small' => array(
-						'centeredpreview' => array(90, 90),
+						'resize' => array(90, 90),
 					),
 					'medium' => array(
 						'centeredpreview' => array(130, 130),

@@ -251,14 +251,14 @@ ul.socials li a.vkontakte:hover {
 	margin-bottom: 50px;
 }
 	#header .top {
-		height: 170px;
+		height: 140px;
 	}
 	#header .logo_container {
 		display: inline-block;
 		vertical-align: top;
 		position: relative;
-		width: 230px;
-		height: 200px;
+		width: 180px;
+		height: 160px;
 		/* задаем глубину сцене */
 		-webkit-perspective: 600px; /* webkit */
 		-moz-perspective: 600px; /* mozilla */
@@ -271,8 +271,8 @@ ul.socials li a.vkontakte:hover {
 	#header a.logo {
 		display: table-cell;
 		vertical-align: middle;
-		width: 230px;
-		height: 200px;
+		width: 180px;
+		height: 160px;
 		background-color: #fff;
 		-moz-box-shadow: 0 0 20px -4px #C7C7C7;
 		-webkit-box-shadow: 0 0 20px -4px #C7C7C7;
@@ -303,6 +303,7 @@ ul.socials li a.vkontakte:hover {
 	}
 	#header a.logo img {
 		display: inline-block;
+		width: 160px;
 	}
 	#header .logo_container:hover a.logo {
 		-webkit-transform: rotateY( 180deg );
@@ -313,7 +314,7 @@ ul.socials li a.vkontakte:hover {
 	}
 	#header .h-content {
 		display: inline-block;
-		padding-top: 50px;
+		padding-top: 30px;
 		padding-right: 60px;
 		padding-left: 30px;
 		width: 670px;
@@ -351,7 +352,7 @@ ul.socials li a.vkontakte:hover {
 	#header ul.main_menu li a {
 		color: #c2c2c2;
 	}
-	#header ul.main_menu li a.current {
+	#header ul.main_menu li.current a {
 		color: #000;
 	}
 	#header ul.main_menu li a:hover {
@@ -399,19 +400,19 @@ ul.socials li a.vkontakte:hover {
 
 	#header .slider {
 		position: relative;
-		height: 420px;
+		height: 350px;
 		width: 100%;
 		min-width: 1000px;
 		overflow: hidden;
 	}
 	#header .slider .viewport-wrap {
-		width: 1126px;
-		height: 420px;
+		width: 1060px;
+		height: 350px;
 		background: #000;
 		position: absolute;
 		top: 0;
 		left: 50%;
-		margin-left: -563px;
+		margin-left: -530px;
 		z-index: 1;
 	}
 	#header .slider #slides {
@@ -428,7 +429,7 @@ ul.socials li a.vkontakte:hover {
 		width: 14px;
 		height: 22px;
 		position: absolute;
-		top: 196px;
+		top: 160px;
 		background: url('../img/sprites.png') no-repeat;
 		background-origin: content-box;
 		padding: 5px;
@@ -687,7 +688,12 @@ ul.socials li a.vkontakte:hover {
 
 	.col_1 .topics .item {
 		position: relative;
-		margin-bottom: 46px;
+		margin-bottom: 25px;
+		padding-bottom: 25px;
+		background: url('../img/dash-border.png') left bottom repeat-x;
+	}
+	.col_1 .topics .item:last-child {
+		background: none;
 	}
 	.col_1 .topics .item .date {
 		position: absolute;
@@ -705,37 +711,36 @@ ul.socials li a.vkontakte:hover {
 		display: inline-block;
 		margin-bottom: 0;
 	}
-	.col_1 .topics .content {
+	.col_1 .topics .event-content {
 		padding-left: 60px;
+		overflow: hidden;
+		position: relative;
 	}
-	.col_1 .topics .item .image {
-		display: inline-block;
-		vertical-align: top;
-		margin-right: 20px;
-	}
-	.col_1 .topics .item .image img {
+	.col_1 .topics .event-content img {
 		width: 167px;
 		height: 101px;
 		border: 8px solid #fff;
 		-moz-box-shadow: 0 0 3px 1px #d3d3d3;
 		-webkit-box-shadow: 0 0 3px 1px #d3d3d3;
 		box-shadow: 0 0 3px 1px #d3d3d3;
+		float: left;
+		margin: 0 30px 10px 0;
 	}
-
-	.col_1 .topics .item .description {
-		display: inline-block;
-		vertical-align: top;
-		width: 200px;
-	}
-	.col_1 .topics .item .description h3 {
+	
+	.col_1 .topics .item .event-content .title {
 		font-size: 18px;
 		font-weight: normal;
 		margin-bottom: 30px;
 	}
-	.col_1 .topics .item .description h3 a {
-		color: #000;
+	.col_1 .topics .event-content a {
+		position: absolute;
+		display: block;
+		width: 100%;
+		height: 100%;
+		top: 0;
+		left: 0;
 	}
-	.col_1 .topics .item .description .text p {
+	.col_1 .topics .event-content p {
 		line-height: 1.5;
 	}
 	
@@ -748,6 +753,15 @@ ul.socials li a.vkontakte:hover {
 		position: relative;
 		margin-bottom: 46px;
 	}
+	.list-view .item.bordered {
+		margin-bottom: 25px;
+		padding-bottom: 25px;
+		background: url('../img/dash-border.png') left bottom repeat-x;
+	}
+	.list-view .item.bordered:last-child {
+		background: none;
+	}
+	
 	.list-view .item .date {
 		position: absolute;
 		top: 0;
@@ -1643,6 +1657,15 @@ ul.round {
 .jobs-list h3 {
 	font-size: 20px;
 	margin-bottom: 0;
+	text-decoration: underline;
+	cursor: pointer;
+}
+.jobs-list h3:hover {
+	text-decoration: none;
+}
+.jobs-list .job-description {
+	display: block;
+	margin: 8px 0;
 }
 .jobs-list .job-date {
 	color: #C2C2C2;
@@ -1655,7 +1678,7 @@ ul.round {
 	font-size: 16px;
 	line-height: 1.4;
 	text-align: justify;
-	margin: 8px 0;
+	margin: 0 0 16px;
 }
 
 

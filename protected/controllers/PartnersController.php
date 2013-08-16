@@ -45,6 +45,7 @@ class PartnersController extends Controller
 			'criteria' => $criteria,
 			'pagination' => false
 		));
+		$this->currentPage = 'partners';
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));

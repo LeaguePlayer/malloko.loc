@@ -19,7 +19,7 @@ $this->menu=array(
 		),
 		'name',
 		array(
-			'name'=>'status',
+			'name'=>'site',
 			'type'=>'raw',
 			'value'=>'$data->linkWithSite',
 		),

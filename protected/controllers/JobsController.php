@@ -39,6 +39,7 @@ class JobsController extends Controller
 				'pageSize' => 12
 			)
 		));
+		$this->currentPage = 'jobs';
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));

@@ -48,6 +48,7 @@ class BannersController extends Controller
 				'pageSize' => 10
 			)
 		));
+		$this->currentPage = 'banners';
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));

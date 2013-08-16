@@ -1,11 +1,13 @@
 <?php $this->beginClip('r_sidebar'); ?>
 	<section class="other_interiors">
-		<?php $this->widget('zii.widgets.CListView', array(
-			'dataProvider'=>$othersInteriors,
-			'itemsCssClass'=>'items interiors_list',
-			'itemView'=>'_side_view',
-			'template'=>'{items}',
-		)); ?>
+		<?php if ($othersInteriors->totalItemCount != 0): ?>
+			<?php $this->widget('zii.widgets.CListView', array(
+				'dataProvider'=>$othersInteriors,
+				'itemsCssClass'=>'items interiors_list',
+				'itemView'=>'_side_view',
+				'template'=>'{items}',
+			)); ?>
+		<?php endif; ?>
 	</section>
 <?php $this->endClip(); ?>
 
