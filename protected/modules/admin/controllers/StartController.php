@@ -1,10 +1,11 @@
 <?php
 
 class StartController extends AdminController{
-	public function actionIndex()
+
+    public function actionIndex()
     {
-		$this->render('index');
-	}
+        $this->render('index');
+    }
 
     public function actionSettings()
     {
