@@ -36,7 +36,6 @@ class UploadableImageBehavior extends CActiveRecordBehavior
             'onBeforeDelete' => 'beforeDelete',
         );
     }
-
  
     /**
      * Шорткат для Yii::getPathOfAlias($this->savePathAlias).DIRECTORY_SEPARATOR.

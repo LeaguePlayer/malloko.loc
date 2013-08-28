@@ -30,7 +30,7 @@ class {ClassName} extends CDbMigration
  
         $this->createTable('{{{TableName}}}', array(
             'id' => 'pk', // auto increment
-			
+
 			'<your_field>' => "<type> COMMENT 'Комментарий'",
 			
 			'status' => "tinyint COMMENT 'Статус'",

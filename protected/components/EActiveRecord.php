@@ -192,12 +192,12 @@ class EActiveRecord extends CActiveRecord
         
         return parent::beforeDelete();
     }
-	
+
 	public function translition()
 	{
 		return get_class($this);
 	}
-	
+
 	public function getCreateDate()
 	{
 		return SiteHelper::russianDate($this->create_time).' в '.date('H:i', $this->create_time);

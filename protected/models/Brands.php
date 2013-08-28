@@ -166,7 +166,7 @@ class Brands extends EActiveRecord
 	
 	public function translition()
 	{
-		return 'Новости ресторана';
+		return 'sd';
 	}
 
 	public function beforeSave()
@@ -181,6 +181,7 @@ class Brands extends EActiveRecord
 			$this->dttm_datetime2 = Yii::app()->date->toMysql($this->dttm_datetime2);
 		return parent::beforeSave();
 	}
+<<<<<<< HEAD
 
 	public function afterFind()
 	{
@@ -192,4 +193,6 @@ class Brands extends EActiveRecord
 			$this->dttm_datetime2 = ($this->dttm_datetime2 !== '0000-00-00 00:00:00' ) ? date('d-m-Y H:i', strtotime($this->dttm_datetime2)) : '';
 		}
 	}
+=======
+>>>>>>> fdcab2952a933fd36caba64d5f0e2ab3e6c2a01b
 }

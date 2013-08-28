@@ -93,6 +93,7 @@ body {
 	line-height: 1.2;
 }
 
+
 .fix_width {
 	width: 1000px;
 	margin: 0 auto;
@@ -101,6 +102,7 @@ body {
 .clear {
 	clear: both;
 }
+
 
 h1 {
 	font-size: 38px;

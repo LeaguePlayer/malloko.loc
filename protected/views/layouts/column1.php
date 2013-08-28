@@ -1,7 +1,6 @@
 <?php /* @var $this Controller */ ?>
 <?php $this->beginContent('//layouts/main'); ?>
-<section class="center" style="min-height: 500px;">
-	<?php echo $this->getClip('main_menu');?>
+<div id="content">
 	<?php echo $content; ?>
-</section>
+</div><!-- content -->
 <?php $this->endContent(); ?>

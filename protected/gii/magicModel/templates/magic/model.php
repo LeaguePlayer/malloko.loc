@@ -145,6 +145,9 @@ foreach($columns as $name=>$column)
 <? endif; ?>
 
 <?php echo $this->generateBeforeSave($columns); ?>
+<<<<<<< HEAD
 
 <?php echo $this->generateAfterFind($columns); ?>
+=======
+>>>>>>> fdcab2952a933fd36caba64d5f0e2ab3e6c2a01b
 }
