@@ -1,0 +1,63 @@
+/*
+Syntax error: Invalid variable: "$this->clearErrors();".
+        on line 155 of /home/megakuzmitch/web/abaris.loc/public_html/framework/base/CModel.php
+
+150: 	 * @see afterValidate
+151: 	 *\/
+152: 	public function validate($attributes=null, $clearErrors=true)
+153: 	{
+154: 		if($clearErrors)
+155: 			$this->clearErrors();
+156: 		if($this->beforeValidate())
+157: 		{
+158: 			foreach($this->getValidators() as $validator)
+159: 				$validator->validate($this,$attributes);
+160: 			$this->afterValidate();
+
+Backtrace:
+/home/megakuzmitch/web/abaris.loc/public_html/framework/base/CModel.php:155
+/var/lib/gems/1.9.1/gems/sass-3.2.10/lib/sass/engine.rb:625:in `parse_variable'
+/var/lib/gems/1.9.1/gems/sass-3.2.10/lib/sass/engine.rb:562:in `parse_line'
+/var/lib/gems/1.9.1/gems/sass-3.2.10/lib/sass/engine.rb:471:in `build_tree'
+/var/lib/gems/1.9.1/gems/sass-3.2.10/lib/sass/engine.rb:490:in `block in append_children'
+/var/lib/gems/1.9.1/gems/sass-3.2.10/lib/sass/engine.rb:489:in `each'
+/var/lib/gems/1.9.1/gems/sass-3.2.10/lib/sass/engine.rb:489:in `append_children'
+/var/lib/gems/1.9.1/gems/sass-3.2.10/lib/sass/engine.rb:480:in `block in build_tree'
+/var/lib/gems/1.9.1/gems/sass-3.2.10/lib/sass/engine.rb:473:in `each'
+/var/lib/gems/1.9.1/gems/sass-3.2.10/lib/sass/engine.rb:473:in `build_tree'
+/var/lib/gems/1.9.1/gems/sass-3.2.10/lib/sass/engine.rb:490:in `block in append_children'
+/var/lib/gems/1.9.1/gems/sass-3.2.10/lib/sass/engine.rb:489:in `each'
+/var/lib/gems/1.9.1/gems/sass-3.2.10/lib/sass/engine.rb:489:in `append_children'
+/var/lib/gems/1.9.1/gems/sass-3.2.10/lib/sass/engine.rb:480:in `block in build_tree'
+/var/lib/gems/1.9.1/gems/sass-3.2.10/lib/sass/engine.rb:473:in `each'
+/var/lib/gems/1.9.1/gems/sass-3.2.10/lib/sass/engine.rb:473:in `build_tree'
+/var/lib/gems/1.9.1/gems/sass-3.2.10/lib/sass/engine.rb:490:in `block in append_children'
+/var/lib/gems/1.9.1/gems/sass-3.2.10/lib/sass/engine.rb:489:in `each'
+/var/lib/gems/1.9.1/gems/sass-3.2.10/lib/sass/engine.rb:489:in `append_children'
+/var/lib/gems/1.9.1/gems/sass-3.2.10/lib/sass/engine.rb:480:in `block in build_tree'
+/var/lib/gems/1.9.1/gems/sass-3.2.10/lib/sass/engine.rb:473:in `each'
+/var/lib/gems/1.9.1/gems/sass-3.2.10/lib/sass/engine.rb:473:in `build_tree'
+/var/lib/gems/1.9.1/gems/sass-3.2.10/lib/sass/engine.rb:490:in `block in append_children'
+/var/lib/gems/1.9.1/gems/sass-3.2.10/lib/sass/engine.rb:489:in `each'
+/var/lib/gems/1.9.1/gems/sass-3.2.10/lib/sass/engine.rb:489:in `append_children'
+/var/lib/gems/1.9.1/gems/sass-3.2.10/lib/sass/engine.rb:345:in `_to_tree'
+/var/lib/gems/1.9.1/gems/sass-3.2.10/lib/sass/engine.rb:315:in `_render'
+/var/lib/gems/1.9.1/gems/sass-3.2.10/lib/sass/engine.rb:262:in `render'
+/var/lib/gems/1.9.1/gems/sass-3.2.10/lib/sass/plugin/compiler.rb:362:in `update_stylesheet'
+/var/lib/gems/1.9.1/gems/sass-3.2.10/lib/sass/plugin/compiler.rb:203:in `block in update_stylesheets'
+/var/lib/gems/1.9.1/gems/sass-3.2.10/lib/sass/plugin/compiler.rb:201:in `each'
+/var/lib/gems/1.9.1/gems/sass-3.2.10/lib/sass/plugin/compiler.rb:201:in `update_stylesheets'
+/var/lib/gems/1.9.1/gems/sass-3.2.10/lib/sass/plugin/compiler.rb:235:in `watch'
+/var/lib/gems/1.9.1/gems/sass-3.2.10/lib/sass/plugin.rb:107:in `method_missing'
+/var/lib/gems/1.9.1/gems/sass-3.2.10/lib/sass/exec.rb:455:in `watch_or_update'
+/var/lib/gems/1.9.1/gems/sass-3.2.10/lib/sass/exec.rb:318:in `process_result'
+/var/lib/gems/1.9.1/gems/sass-3.2.10/lib/sass/exec.rb:41:in `parse'
+/var/lib/gems/1.9.1/gems/sass-3.2.10/lib/sass/exec.rb:21:in `parse!'
+/var/lib/gems/1.9.1/gems/sass-3.2.10/bin/sass:9:in `<top (required)>'
+/usr/local/bin/sass:23:in `load'
+/usr/local/bin/sass:23:in `<main>'
+*/
+body:before {
+  white-space: pre;
+  font-family: monospace;
+  content: "Syntax error: Invalid variable: \"$this->clearErrors();\".\A         on line 155 of /home/megakuzmitch/web/abaris.loc/public_html/framework/base/CModel.php\A \A 150: 	 * @see afterValidate\A 151: 	 */\A 152: 	public function validate($attributes=null, $clearErrors=true)\A 153: 	{\A 154: 		if($clearErrors)\A 155: 			$this->clearErrors();\A 156: 		if($this->beforeValidate())\A 157: 		{\A 158: 			foreach($this->getValidators() as $validator)\A 159: 				$validator->validate($this,$attributes);\A 160: 			$this->afterValidate();"; }

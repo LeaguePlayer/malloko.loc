@@ -1,0 +1,19 @@
+/assets/*
+
+#for capistrano
+/config/
+Capfile
+#---
+
+protected/runtime/
+protected/config/main.php
+protected/config/console.php
+protected/config/cron.php
+/uploads
+/media
+/gallery
+*~
+/index.php
+protected/yiic.php
+protected/cron.php
+/upload

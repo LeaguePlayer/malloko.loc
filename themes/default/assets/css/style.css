@@ -1,0 +1,257 @@
+/* =Reset default browser CSS. Based on work by Eric Meyer: http://meyerweb.com/eric/tools/css/reset/index.html
+-------------------------------------------------------------- */
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td {
+	background: transparent;
+	border: 0;
+	margin: 0;
+	padding: 0;
+	vertical-align: baseline;
+}
+body {
+	line-height: 1;
+}
+h1, h2, h3, h4, h5, h6 {
+	clear: both;
+	font-weight: normal;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote {
+	quotes: none;
+}
+blockquote:before, blockquote:after {
+	content: '';
+	content: none;
+}
+del {
+	text-decoration: line-through;
+}
+/* tables still need 'cellspacing="0"' in the markup */
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+a img {
+	border: none;
+}
+
+
+/*********
+ *  База
+ *********/
+@font-face {
+    font-family: 'pt_sansregular';
+    src: url('fonts/pts55f-regular-webfont.eot');
+    src: url('fonts/pts55f-regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/pts55f-regular-webfont.woff') format('woff'),
+         url('fonts/pts55f-regular-webfont.ttf') format('truetype'),
+         url('fonts/pts55f-regular-webfont.svg#pt_sansregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'pt_sansbold';
+    src: url('fonts/pts75f-bold-webfont.eot');
+    src: url('fonts/pts75f-bold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/pts75f-bold-webfont.woff') format('woff'),
+         url('fonts/pts75f-bold-webfont.ttf') format('truetype'),
+         url('fonts/pts75f-bold-webfont.svg#pt_sansbold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'pt_sansitalic';
+    src: url('fonts/pts56f-italic-webfont.eot');
+    src: url('fonts/pts56f-italic-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/pts56f-italic-webfont.woff') format('woff'),
+         url('fonts/pts56f-italic-webfont.ttf') format('truetype'),
+         url('fonts/pts56f-italic-webfont.svg#pt_sansitalic') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+html {
+	background: url('../img/bg-pattern.jpg') repeat;
+}
+
+body {
+	font-family: pt_sansregular, sans;
+	font-size: 14px;
+	line-height: 1.2;
+}
+
+.fix_width {
+	width: 1000px;
+	margin: 0 auto;
+}
+
+.clear {
+	clear: both;
+}
+
+h1 {
+	font-size: 38px;
+	text-align: left;
+	margin-bottom: 26px;
+}
+h2 {
+	font-size: 30px;
+	text-align: center;
+	margin-bottom: 26px;
+}
+
+
+
+/*********
+ *  Общие
+ *********/
+.form {}
+.form h2 {
+    display: block;
+    text-align: center;
+    font-size: 20px;
+    font-family: pt_sansbold;
+    margin-bottom: 20px;
+}
+.form label {
+    display: block;
+    margin: 10px 0 0;
+    font-size: 16px;
+    font-family: pt_sansbold, sans-serif;
+}
+.form input[type=text],
+.form textarea {
+    border: 1px solid #c2c2c2;
+    border-radius: 6px;
+    font-size: 14px;
+    padding: 5px;
+    font-family: pt_sansregular, sans-serif;
+    width: 300px;
+}
+.form input[type=text]:focus,
+.form textarea:focus {
+    background-color: #F4F4F4;
+    border-color: #A4A4A4;
+}
+.form input[type=text].error,
+.form textarea.error {
+    border-color: #ffa8a8;
+}
+.form textarea {
+    resize: none;
+    height: 150px;
+}
+.form .button-row {
+    margin-top: 15px;
+    text-align: center;
+}
+.form .successMessage {
+    font-size: 20px;
+    text-align: center;
+    width: 100%;
+    padding: 20px 0;
+}
+.custom-button {
+	-moz-box-shadow:inset 0px 1px 0px 0px #caefab;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #caefab;
+	box-shadow:inset 0px 1px 0px 0px #caefab;
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #77d42a), color-stop(1, #5cb811) );
+	background:-moz-linear-gradient( center top, #77d42a 5%, #5cb811 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#77d42a', endColorstr='#5cb811');
+	background-color:#77d42a;
+	-moz-border-radius:6px;
+	-webkit-border-radius:6px;
+	border-radius:6px;
+	border:1px solid #268a16;
+	display:inline-block;
+	color:#306108;
+	font-family:arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:6px 24px;
+	text-decoration:none;
+	text-shadow:1px 1px 0px #aade7c;
+	cursor: pointer;
+}
+.custom-button:hover {
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #5cb811), color-stop(1, #77d42a) );
+	background:-moz-linear-gradient( center top, #5cb811 5%, #77d42a 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#5cb811', endColorstr='#77d42a');
+	background-color:#5cb811;
+}
+
+
+.ui_tpicker_time_label {
+	display: inline-block;
+}
+.ui_tpicker_time {
+	display: inline-block;
+	margin-left: 10px;
+	margin-right: 130px;
+	margin-bottom: 10px;
+	font-weight: bold;
+}
+
+.ui_tpicker_hour_label {
+	display: inline-block;
+	width: 45px;
+}
+.ui_tpicker_hour {
+	display: inline-block;
+	margin-right: 25px;
+}
+
+.ui_tpicker_minute_label {
+	display: inline-block;
+	width: 62px;
+}
+.ui_tpicker_minute {
+	display: inline-block;
+}
+
+.ui-timepicker-div select {
+	width: 62px;
+}
+
+
+/*********
+ *  Шапка
+ *********/
+#header {
+}
+
+
+/************
+ *  Контент
+ ************/
+#layout {
+	overflow: hidden;
+	_zoom: 1;
+	margin-bottom: 50px;
+}
+
+
+/************
+ *  Подвал
+ ************/
+#footer {
+	padding: 26px 0;
+	overflow: hidden;
+}
+
+/************
+ *  Команда
+ ************/
