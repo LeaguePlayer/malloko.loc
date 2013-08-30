@@ -5,6 +5,7 @@
 Capfile
 #---
 
+framework
 protected/runtime/
 protected/config/main.php
 protected/config/console.php
