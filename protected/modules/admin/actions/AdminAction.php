@@ -48,9 +48,4 @@ abstract class AdminAction extends CAction
         
         return $this->controller->render($this->_view, $data, $return);
     }
-	
-	public function upload()
-	{
-		
-	}
 }

@@ -230,8 +230,6 @@ class MagicModelCode extends CCodeModel
 		{
 			if($column->autoIncrement)
 				continue;
-			if ($column->name === 'image')
-				continue;
 			$r=!$column->allowNull && $column->defaultValue===null;
 			if($r)
 				$required[]=$column->name;
@@ -438,8 +436,8 @@ class MagicModelCode extends CCodeModel
 		foreach ($columns as $name=>$column) {
 			if (stripos($name, 'img_') !== false ) {
                 $smallName = ucfirst( substr($name, strlen('img_')) ) ;
-				$behaviors[] = "\t\t\t'imgBehavior{$smallName}' => array(
-				'class' => 'admin.behaviors.UploadableImageBehavior',
+				$behaviors[] = "\t'imgBehavior{$smallName}' => array(
+				'class' => 'application.behaviors.UploadableImageBehavior',
 				'attributeName' => '{$name}',
 				'versions' => array(
 					'icon' => array(
@@ -455,7 +453,7 @@ class MagicModelCode extends CCodeModel
 			if (stripos($name, 'gllr_') !== false ) {
                 $smallName = ucfirst( substr($name, strlen('gllr_')) ) ;
 				$behaviors[] = "\t\t\t'galleryBehavior{$smallName}' => array(
-				'class' => 'admin.extensions.imagesgallery.GalleryBehavior',
+				'class' => 'appext.imagesgallery.GalleryBehavior',
 				'idAttribute' => '{$name}',
 				'versions' => array(
 					'small' => array(

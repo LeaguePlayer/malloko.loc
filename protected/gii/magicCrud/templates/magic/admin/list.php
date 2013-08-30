@@ -3,6 +3,7 @@
  * The following variables are available in this template:
  * - $this: the BootCrudCode object
  */
+$smallName = strtolower($this->modelClass);
 ?>
 <?php echo "<?php\n" ?>
 $this->menu=array(
@@ -17,6 +18,11 @@ $this->menu=array(
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
 	'type'=>TbHtml::GRID_TYPE_HOVER,
+    'afterAjaxUpdate'=>"function() {sortGrid('<?php echo $smallName; ?>')}",
+    'rowHtmlOptionsExpression'=>'array(
+        "id"=>"items[]_".$data->id,
+        "class"=>"status_".$data->status,
+    )',
 	'columns'=>array(
 <?php
 $count=0;
@@ -30,3 +36,5 @@ foreach($this->tableSchema->columns as $column)
 		),
 	),
 )); ?>
+
+<?php echo "<?php Yii::app()->clientScript->registerScript('sortGrid', 'sortGrid(\"{$smallName}\");', CClientScript::POS_END) ;?>"; ?>

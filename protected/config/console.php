@@ -47,7 +47,7 @@ return array(
 			'applicationModuleName' => 'core',
 			// определяем все модули, для которых нужны миграции
 			'modulePaths' => array(
-				//'алиас модуля'      => 'путь.к.папке.с.миграциями.для.модуля',
+				'email'      => 'application.modules.email.migrations',
 				// ...
 			),
 			// отключаем некоторые модули

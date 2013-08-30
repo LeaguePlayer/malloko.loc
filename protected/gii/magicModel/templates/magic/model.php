@@ -52,60 +52,59 @@
 */
 class <?php echo $modelClass; ?> extends <?php echo $this->baseClass."\n"; ?>
 {
-public function tableName()
-{
-return '<?php echo $tableName; ?>';
-}
+    public function tableName()
+    {
+        return '<?php echo $tableName; ?>';
+    }
 
 
-public function rules()
-{
-return array(
-<?php foreach($rules as $rule): ?>
+    public function rules()
+    {
+        return array(
+        <?php foreach($rules as $rule): ?>
     <?php echo $rule.",\n"; ?>
-<?php endforeach; ?>
-// The following rule is used by search().
-array('<?php echo implode(', ', array_keys($columns)); ?>', 'safe', 'on'=>'search'),
+        <?php endforeach; ?>
+    // The following rule is used by search().
+            array('<?php echo implode(', ', array_keys($columns)); ?>', 'safe', 'on'=>'search'),
+        );
+    }
+
+
+    public function relations()
+    {
+        return array(
+        <?php foreach($relations as $name=>$relation): ?>
+            <?php echo "'$name' => $relation,\n"; ?>
+        <?php endforeach; ?>
 );
-}
+    }
 
 
-public function relations()
-{
-return array(
-<?php foreach($relations as $name=>$relation): ?>
-    <?php echo "'$name' => $relation,\n"; ?>
-<?php endforeach; ?>
-);
-}
-
-
-public function attributeLabels()
-{
-return array(
-<?php foreach($labels as $name=>$label): ?>
-    <?php echo "'$name' => '$label',\n"; ?>
-<?php endforeach; ?>
-);
-}
+    public function attributeLabels()
+    {
+        return array(
+    <?php foreach($labels as $name=>$label): ?>
+        <?php echo "'$name' => '$label',\n"; ?>
+    <?php endforeach; ?>
+    );
+    }
 
 
 <?php if ( $behaviors !== null ): ?>
     public function behaviors()
     {
-    return CMap::mergeArray(parent::behaviors(), array(
-    <?php foreach ($behaviors as $behavior)
-        echo $behavior;
-    ?>
-    ));
+        return CMap::mergeArray(parent::behaviors(), array(
+        <?php foreach ($behaviors as $behavior)
+            echo $behavior;
+        ?>
+        ));
     }
 <?php endif; ?>
 
 
-public function search()
-{
-$criteria=new CDbCriteria;
-
+    public function search()
+    {
+        $criteria=new CDbCriteria;
 <?php
 foreach($columns as $name=>$column)
 {
@@ -119,11 +118,12 @@ foreach($columns as $name=>$column)
     }
 }
 ?>
+        $criteria->order = 'sort';
 
-return new CActiveDataProvider($this, array(
-'criteria'=>$criteria,
-));
-}
+        return new CActiveDataProvider($this, array(
+            'criteria'=>$criteria,
+        ));
+    }
 <?php if($connectionId!='db'):?>
     public function getDbConnection()
     {
@@ -132,15 +132,15 @@ return new CActiveDataProvider($this, array(
 
 <?php endif?>
 
-public static function model($className=__CLASS__)
-{
-return parent::model($className);
-}
+    public static function model($className=__CLASS__)
+    {
+        return parent::model($className);
+    }
 <?php if ( !empty($this->translition) ): ?>
 
     public function translition()
     {
-    return '<?php echo $this->translition; ?>';
+        return '<?php echo $this->translition; ?>';
     }
 <? endif; ?>
 

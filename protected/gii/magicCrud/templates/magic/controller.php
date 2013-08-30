@@ -9,7 +9,7 @@
 
 class <?php echo $this->controllerClass; ?> extends <?php echo $this->baseControllerClass."\n"; ?>
 {
-	public $layout='//layouts/column2';
+	public $layout='//layouts/simple';
 
 	
 	public function filters()
@@ -37,7 +37,7 @@ class <?php echo $this->controllerClass; ?> extends <?php echo $this->baseContro
 	public function actionView($id)
 	{
 		$this->render('view',array(
-			'model'=>$this->loadModel($id),
+			'model'=>$this->loadModel('<?php echo $this->modelClass; ?>', $id),
 		));
 	}
 

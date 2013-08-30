@@ -9,11 +9,7 @@ class CreateAction extends AdminAction
         if(isset($_POST[$this->modelName]))
         {
             $model->attributes = $_POST[$this->modelName];
-			//$model->attachBehavior('UploadableImageBehavior', array(
-            //    'class' => 'UploadableImageBehavior',
-            //));
 			$success = $model->save();
-			//$model->detachBehavior('UploadableImageBehavior');
             if( $success ) {
 				$this->redirect();
 			}

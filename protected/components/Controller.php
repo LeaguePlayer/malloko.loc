@@ -43,13 +43,8 @@ class Controller extends CController
     public function init(){
         parent::init();
         $this->title = Yii::app()->name;
-
         $this->cs = Yii::app()->clientScript;
         $this->cs->registerCoreScript('jquery');
-
-        //Change theme
-        Yii::app()->theme = 'default';
-
         if(Yii::app()->getRequest()->getParam('update_assets')) $this->forceCopyAssets = true;
     }
 
@@ -64,16 +59,15 @@ class Controller extends CController
         return $this->route == 'site/index';
     }
 
-    /*	protected function beforeAction($action){
-
-            return parent::beforeAction($action);
-        }*/
-
     public function getAssetsUrl()
     {
         if (Yii::app()->getRequest()->getParam('update_assets') || !isset($this->assetsUrl))
         {
-            $assetsPath = Yii::getPathOfAlias('webroot.themes.'.Yii::app()->theme->name.'.assets');
+            if ( isset(Yii::app()->theme) ) {
+                $assetsPath = Yii::app()->theme->getBasePath().DIRECTORY_SEPARATOR.'assets';
+            } else {
+                $assetsPath = Yii::getPathOfAlias('application.assets');
+            }
             $this->assetsUrl = Yii::app()->assetManager->publish($assetsPath, false, -1, $this->forceCopyAssets);
         }
         return $this->assetsUrl;
@@ -82,7 +76,6 @@ class Controller extends CController
     public function beforeRender($view)
     {
         $this->renderPartial('//layouts/clips/_main_menu');
-
         return parent::beforeRender($view);
     }
 

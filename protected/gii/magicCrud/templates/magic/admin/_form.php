@@ -12,6 +12,8 @@ if ( $this->existUploadableColumns() ) {
 	'enableAjaxValidation'=>false,".$formCodePart."
 )); ?>\n"; ?>
 
+<?php echo "\t<?php echo \$form->errorSummary(\$model); ?>\n\n"; ?>
+
 <?php
 foreach($this->tableSchema->columns as $column)
 {

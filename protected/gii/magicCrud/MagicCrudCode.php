@@ -11,6 +11,7 @@ Yii::import('gii.generators.crud.CrudCode');
 class MagicCrudCode extends CrudCode
 {
     public $baseAdminControllerClass='AdminController';
+    public $baseControllerClass='FrontController';
 
     public function rules()
     {
@@ -53,7 +54,7 @@ class MagicCrudCode extends CrudCode
     public function getAdminControllerFile()
     {
         if(($module=Yii::app()->getModule('admin'))===null)
-            return false;
+           return false;
         $id=$this->getControllerID();
         if(($pos=strrpos($id,'/'))!==false)
             $id[$pos+1]=strtoupper($id[$pos+1]);
@@ -65,6 +66,14 @@ class MagicCrudCode extends CrudCode
     public function getAdminViewPath()
     {
         return Yii::app()->getModule('admin')->getViewPath().'/'.$this->getControllerID();
+    }
+
+    public function getViewPath()
+    {
+        if ( isset(Yii::app()->theme) ) {
+            return Yii::app()->theme->getViewPath().'/'.$this->getControllerID();
+        }
+        return parent::getViewPath();
     }
 
     public function prepare()
@@ -120,7 +129,7 @@ class MagicCrudCode extends CrudCode
         if ( strpos($column->name, 'tm_') === 0 ) {
             $genRow = "<div class='control-group'>\n";
             $genRow .= "\t\t<?php echo CHtml::activeLabelEx(\$model, '{$column->name}'); ?>\n";
-            $genRow .= "\t\t<?php \$this->widget('admin.extensions.yiiwheels.widgets.datetimepicker.WhDateTimePicker', array(
+            $genRow .= "\t\t<?php \$this->widget('yiiwheels.widgets.datetimepicker.WhDateTimePicker', array(
 			'model' => \$model,
 			'attribute' => '{$column->name}',
 			'pluginOptions' => array(
@@ -137,11 +146,11 @@ class MagicCrudCode extends CrudCode
         if ( strpos($column->name, 'dt_') === 0 ) {
             $genRow = "<div class='control-group'>\n";
             $genRow .= "\t\t<?php echo CHtml::activeLabelEx(\$model, '{$column->name}'); ?>\n";
-            $genRow .= "\t\t<?php \$this->widget('admin.extensions.yiiwheels.widgets.datetimepicker.WhDateTimePicker', array(
+            $genRow .= "\t\t<?php \$this->widget('yiiwheels.widgets.datetimepicker.WhDateTimePicker', array(
 			'model' => \$model,
 			'attribute' => '{$column->name}',
 			'pluginOptions' => array(
-				'format' => 'MM-dd-yyyy',
+				'format' => 'dd-MM-yyyy',
 				'language' => 'ru',
                 'pickSeconds' => false,
                 'pickTime' => false
@@ -154,7 +163,7 @@ class MagicCrudCode extends CrudCode
         if ( strpos($column->name, 'dttm_') === 0 ) {
             $genRow = "<div class='control-group'>\n";
             $genRow .= "\t\t<?php echo CHtml::activeLabelEx(\$model, '{$column->name}'); ?>\n";
-            $genRow .= "\t\t<?php \$this->widget('admin.extensions.yiiwheels.widgets.datetimepicker.WhDateTimePicker', array(
+            $genRow .= "\t\t<?php \$this->widget('yiiwheels.widgets.datetimepicker.WhDateTimePicker', array(
 			'model' => \$model,
 			'attribute' => '{$column->name}',
 			'pluginOptions' => array(
@@ -187,7 +196,7 @@ class MagicCrudCode extends CrudCode
             $genRow .= "\t\t<?php if (\$model->galleryBehavior{$smallName}->getGallery() === null) {
 			echo '<p class=\"help-block\">Прежде чем загружать изображения, нужно сохранить текущее состояние</p>';
 		} else {
-			\$this->widget('admin_ext.imagesgallery.GalleryManager', array(
+			\$this->widget('appext.imagesgallery.GalleryManager', array(
 				'gallery' => \$model->galleryBehavior{$smallName}->getGallery(),
 				'controllerRoute' => '/admin/gallery',
 			));
@@ -205,7 +214,7 @@ class MagicCrudCode extends CrudCode
             if ( strpos($column->name, 'wswg_') === 0 ) {
                 $genRow = "<div class='control-group'>\n";
                 $genRow .= "\t\t<?php echo CHtml::activeLabelEx(\$model, '{$column->name}'); ?>\n";
-                $genRow .= "\t\t<?php \$this->widget('admin_ext.ckeditor.CKEditorWidget', array('model' => \$model, 'attribute' => '{$column->name}',\n";
+                $genRow .= "\t\t<?php \$this->widget('appext.ckeditor.CKEditorWidget', array('model' => \$model, 'attribute' => '{$column->name}',\n";
                 $genRow .= "\t\t)); ?>\n";
                 $genRow .= "\t\t<?php echo \$form->error(\$model, '{$column->name}'); ?>\n";
                 $genRow .= "\t</div>\n";
@@ -223,10 +232,6 @@ class MagicCrudCode extends CrudCode
             return "<?php echo \$form->{$inputField}(\$model,'{$column->name}',array('class'=>'span8')); ?>\n";
         else
             return "<?php echo \$form->{$inputField}(\$model,'{$column->name}',array('class'=>'span8','maxlength'=>$column->size)); ?>\n";
-
-
-        if ($column->name === 'status')
-            return "<?php echo \$form->dropDownListControlGroup(\$model, 'status', {$modelClass}::getStatusAliases(), array('class'=>'span8', 'displaySize'=>1)); ?>";
     }
 
 

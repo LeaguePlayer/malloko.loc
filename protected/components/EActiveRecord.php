@@ -18,6 +18,8 @@ class EActiveRecord extends CActiveRecord
     const STATUS_REMOVED = 3;
     const STATUS_DEFAULT = self::STATUS_PUBLISH;
 
+    public $max_sort;
+
     public static function getStatusAliases($status = -1)
     {
         $aliases = array(
@@ -177,6 +179,11 @@ class EActiveRecord extends CActiveRecord
     public function beforeSave()
     {
         $this->logUpdate();
+        if ( empty($this->sort) ) {
+            //print_r( Lists::model()->find(array('select'=>'MAX(sort) as max_sort')) );
+            $this->sort = self::model(get_class($this))->find(array('select'=>'MAX(sort) as max_sort'))->max_sort + 1;
+            //if ( !$this->sort ) $this->sort = 1;
+        }
         return parent::beforeSave();
     }
 
