@@ -8,7 +8,6 @@
     * @property string $name
     * @property string $value
     * @property integer $template_id
-    * @property string $content
 */
 class EmailVars extends CActiveRecord
 {
@@ -21,12 +20,12 @@ class EmailVars extends CActiveRecord
     public function rules()
     {
         return array(
-            array('name, content', 'required'),
+            array('name', 'required'),
             array('template_id', 'numerical', 'integerOnly'=>true),
             array('name', 'length', 'max'=>255),
             array('value', 'safe'),
             // The following rule is used by search().
-            array('id, name, value, template_id, content', 'safe', 'on'=>'search'),
+            array('id, name, value, template_id', 'safe', 'on'=>'search'),
         );
     }
 

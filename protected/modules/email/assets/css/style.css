@@ -1,0 +1,7 @@
+#email_variables_list span.name {
+  display: inline-block;
+  margin-right: 20px;
+  width: 150px;
+  font-weight: bold; }
+#email_variables_list span.value {
+  font-style: italic; }

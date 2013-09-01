@@ -63,7 +63,9 @@ class Controller extends CController
     {
         if (Yii::app()->getRequest()->getParam('update_assets') || !isset($this->assetsUrl))
         {
-            if ( isset(Yii::app()->theme) ) {
+            if ( $this->module ) {
+                $assetsPath = Yii::getPathOfAlias($this->module->name.'.assets');
+            } else if ( isset(Yii::app()->theme) ) {
                 $assetsPath = Yii::app()->theme->getBasePath().DIRECTORY_SEPARATOR.'assets';
             } else {
                 $assetsPath = Yii::getPathOfAlias('application.assets');

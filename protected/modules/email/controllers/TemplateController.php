@@ -15,7 +15,7 @@ class TemplateController extends Controller {
 
     public function actionCreate()
     {
-        $model = new EmailTemplates('insert');
+        $model = new EmailTemplates;
         if( isset($_POST['EmailTemplates']) )
         {
             $model->attributes = $_POST['EmailTemplates'];
@@ -23,26 +23,36 @@ class TemplateController extends Controller {
                 $this->redirect('list');
             }
         }
-        $this->render('form', array('model'=>$model));
+        $this->render('form', array(
+            'model'=>$model,
+            'variables'=>EmailVars::model()->findAll(),
+        ));
     }
 
 
 
     public function actionUpdate($id)
     {
-        $model = EmailTemplates::model()->with_all_vars()->findByPk($id); //$this->loadModel('EmailTemplates', $id);
-
-        print_r(count($model->vars));
+        $model = $this->loadModel('EmailTemplates', $id);
         if( isset($_POST['EmailTemplates']) )
         {
             $model->attributes = $_POST['EmailTemplates'];
             if( $model->save() ) {
-                $this->redirect('list');
+                $this->redirect('/email/template/list');
             }
         }
-        $this->render('form', array('model'=>$model));
+        $this->render('form', array(
+            'model'=>$model,
+            'variables'=>EmailVars::model()->findAll(),
+        ));
     }
 
+
+    public function actionDelete($id)
+    {
+        $this->loadModel('EmailTemplates', $id)->delete();
+        $this->redirect('/email/template/list');
+    }
 
 
     public function actionList()

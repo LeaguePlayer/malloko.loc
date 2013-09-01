@@ -33,6 +33,10 @@ class m130830_115831_email_initial extends CDbMigration
             'name' => "string COMMENT 'Название шаблона'",
             'alias' => "string COMMENT 'Идентификатор шаблона'",
             'subject' => "string NOT NULL COMMENT 'Тема письма'",
+            'from' => "string NOT NULL COMMENT 'От кого'",
+            'send_interval' => "integer COMMENT 'Периодичность рассылки'",
+            'last_send_date' => "datetime COMMENT 'Дата последней рассылки'",
+            'send_status' => "tinyint COMMENT 'Статус рассылки'",
             'content' => "text NOT NULL COMMENT 'Шаблон письма'",
             'create_time' => "integer COMMENT 'Дата создания'",
             'update_time' => "integer COMMENT 'Дата последнего редактирования'",
@@ -43,6 +47,13 @@ class m130830_115831_email_initial extends CDbMigration
             'id' => 'pk', // auto increment
             'name' => "string NOT NULL COMMENT 'Имя переменной'",
             'value' => "text COMMENT 'Значение переменной'",
+            'template_id' => "integer DEFAULT 0 COMMENT 'Ссылка на шаблон'",
+        ),
+        'ENGINE=MyISAM DEFAULT CHARACTER SET = utf8 COLLATE = utf8_general_ci');
+
+        $this->createTable('{{email_recipients}}', array(
+            'id' => 'pk', // auto increment
+            'email' => "string NOT NULL COMMENT 'email получателя'",
             'template_id' => "integer DEFAULT 0 COMMENT 'Ссылка на шаблон'",
         ),
         'ENGINE=MyISAM DEFAULT CHARACTER SET = utf8 COLLATE = utf8_general_ci');
