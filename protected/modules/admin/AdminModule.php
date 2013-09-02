@@ -30,27 +30,11 @@ class AdminModule extends EWebModule
 	{
 		if(parent::beforeControllerAction($controller, $action))
 		{
-            Yii::app()->user->setStateKeyPrefix('_admin');
             $this->registerBootstrap();
             $this->registerCoreScripts();
-
-
-			// this method is called before any module controller action is performed
-            // you may place customized code here
-            $route = $controller->id . '/' . $action->id;
-           // echo $route;
-            $publicPages = array(
-                'user/login',
-                'user/error',
-            );
-            if (Yii::app()->user->isGuest && !in_array($route, $publicPages)){            
-                $this->user->loginRequired();
-            }
-            else
-                return true;
+            return true;
         }
-		else
-			return false;
+        return false;
 	}
 
     protected function registerCoreScripts()

@@ -182,7 +182,11 @@ class MagicCrudCode extends CrudCode
             $smallName = ucfirst( substr($column->name, strlen('img_')) ) ;
             $genRow = "<div class='control-group'>\n";
             $genRow .= "\t\t<?php echo CHtml::activeLabelEx(\$model, '{$column->name}'); ?>\n";
-            $genRow .= "\t\t<?php echo \$form->fileField(\$model,'{$column->name}', array('class'=>'span3')); ?><?php echo \$model->imgBehavior{$smallName}->getImage('small'); ?>\n";
+            $genRow .= "\t\t<?php echo \$form->fileField(\$model,'{$column->name}', array('class'=>'span3')); ?>\n";
+            $genRow .= "\t\t<div class='img_preview'>\n";
+            $genRow .= "\t\t\t<?php if ( !empty(\$model->{$column->name}) ) echo TbHtml::imageRounded( \$model->imgBehavior{$smallName}->getImageUrl('small') ) ; ?>\n";
+            $genRow .= "\t\t\t<span class='deletePhoto btn btn-danger btn-mini' data-modelname='{$this->modelClass}' data-attributename='{$smallName}' <?php if(empty(\$model->".$column->name.")) echo \"style='display:none;'\"; ?>><i class='icon-remove icon-white'></i></span>\n";
+            $genRow .= "\t\t</div>\n";
             $genRow .= "\t\t<?php echo \$form->error(\$model, '{$column->name}'); ?>\n";
             $genRow .= "\t</div>\n";
             return $genRow;

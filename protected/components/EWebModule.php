@@ -32,24 +32,30 @@ class EWebModule extends CWebModule
     }
 
 
-    public function init()
+    public function beforeControllerAction($controller, $action)
     {
-        $this->registerCoreScripts();
+        if ( parent::beforeControllerAction($controller, $action) ) {
+            //$this->registerCoreScripts();
+            return true;
+        }
+        return false;
     }
 
-    protected function registerBootstrap()
+    public function registerBootstrap()
     {
         $this->setAliases(array(
             'bootstrap'=>'appext.yiistrap',
             'yiiwheels'=>'appext.yiiwheels',
         ));
-        Yii::app()->setImport(array(
+        $this->setImport(array(
             'bootstrap.helpers.*'
         ));
+
         Yii::app()->getComponent('bootstrap')->register();
     }
 
     protected function registerCoreScripts()
     {
+        Yii::app()->clientScript->registerCoreScript('jquery');
     }
 }

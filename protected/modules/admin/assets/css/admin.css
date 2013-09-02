@@ -69,3 +69,17 @@ form .line{
 .ui-timepicker-div dl dd {
 	margin: 0 10px 10px 80px !important;
 }
+
+.control-group .img_preview {
+    display: inline-block;
+    vertical-align: top;
+    margin-left: 10px;
+}
+.control-group .img_preview img {
+    display: inline-block;
+    vertical-align: top;
+}
+.control-group .img_preview .deletePhoto {
+    display: inline-block;
+    vertical-align: top;
+}

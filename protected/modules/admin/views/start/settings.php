@@ -32,17 +32,8 @@
 <?php endif; ?>
 
 <div class="form-actions">
-    <?php $this->widget('bootstrap.widgets.TbButton', array(
-        'buttonType'=>'submit',
-        'type'=>'primary',
-        'label'=>'Сохранить',
-    )); ?>
-
-    <?php $this->widget('bootstrap.widgets.TbButton', array(
-        'buttonType'=>'reset',
-        'type'=>'primary',
-        'label'=>'Сброс',
-    )); ?>
+    <?php echo TbHtml::submitButton('Сохранить', array('color' => TbHtml::BUTTON_COLOR_PRIMARY)); ?>
+    <?php echo TbHtml::resetButton('Сбросить'); ?>
 </div>
 
 <?php $this->endWidget(); ?>

@@ -27,11 +27,11 @@
 			'collapse'=>true, // requires bootstrap-responsive.css
 			'items'=>array(
 				array(
-					'class'=>'bootstrap.widgets.TbMenu',
+					'class'=>'bootstrap.widgets.TbNav',
 					'items'=>$menuItems,
 				),
 				array(
-					'class'=>'bootstrap.widgets.TbMenu',
+					'class'=>'bootstrap.widgets.TbNav',
 					'htmlOptions'=>array('class'=>'pull-right'),
 					'items'=>array(
 						array('label'=>'Выйти', 'url'=>'/admin/user/logout'),
@@ -43,7 +43,7 @@
 		<div class="container-fluid">
 			<div class="row-fluid">
 				<div class="span1">
-				<?php $this->widget('bootstrap.widgets.TbMenu', array(
+				<?php $this->widget('bootstrap.widgets.TbNav', array(
 					'type'=>'list',
 					'items'=> $this->menu
 					)); ?>

@@ -48,7 +48,7 @@ return array(
             // определяем все модули, для которых нужны миграции
             'modulePaths' => array(
                 'email'      => 'application.modules.email.migrations',
-                // ...
+                'user'      => 'application.modules.user.migrations',
             ),
             // отключаем некоторые модули
             'disabledModules' => array(

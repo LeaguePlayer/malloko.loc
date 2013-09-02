@@ -119,7 +119,7 @@ class UploadableImageBehavior extends CActiveRecordBehavior
         $this->deleteFile(); // удалили модель? удаляем и файл, связанный с ней
     }
 
-    public function deleteFile(){
+    public function deleteFile() {
         $filePath=$this->getAbsoluteSavePath().DIRECTORY_SEPARATOR.$this->owner->getAttribute($this->attributeName);
         if(@is_file($filePath))
             @unlink($filePath);
@@ -134,6 +134,13 @@ class UploadableImageBehavior extends CActiveRecordBehavior
             if(@is_file($thumbFile))
                 @unlink($thumbFile);
         }
+    }
+
+    public function deletePhoto()
+    {
+        $this->processDelete();
+        $this->owner->{$this->attributeName} = '';
+        $this->owner->save(false);
     }
 
     protected function createThumbs($filePath, $fileName)

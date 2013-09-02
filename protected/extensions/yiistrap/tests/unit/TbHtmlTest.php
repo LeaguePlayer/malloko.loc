@@ -603,6 +603,7 @@ class TbHtmlTest extends TbTestCase
         );
         $select = $I->createNode($html, 'select');
         $I->seeNodeCssClass($select, 'input-large text-center list');
+        $I->dontSeeNodeAttribute($select, 'size');
     }
 
     public function testListBox()
@@ -679,9 +680,9 @@ class TbHtmlTest extends TbTestCase
             null,
             array('Option 1', 'Option 2', 'Option 3')
         );
-        $container = $I->createNode($html, 'body');
-        $I->seeNodeNumChildren($container, 3);
-        $I->seeNodeChildren($container, array('label.radio.inline', 'label.radio.inline', 'label.radio.inline'));
+        $span = $I->createNode($html, 'span');
+        $I->seeNodeNumChildren($span, 3);
+        $I->seeNodeChildren($span, array('label.radio.inline', 'label.radio.inline', 'label.radio.inline'));
     }
 
     public function testCheckboxList()
@@ -1391,6 +1392,7 @@ class TbHtmlTest extends TbTestCase
         );
         $select = $I->createNode($html, 'select');
         $I->seeNodeCssClass($select, 'input-large text-center list');
+        $I->dontSeeNodeAttribute($select, 'size');
     }
 
     public function testActiveListBox()
@@ -1434,7 +1436,6 @@ class TbHtmlTest extends TbTestCase
     public function testActiveRadioButtonList()
     {
         // todo: ensure that this test is actually correct.
-
         $I = $this->codeGuy;
         $html = TbHtml::activeRadioButtonList(
             new Dummy,
@@ -1474,7 +1475,6 @@ class TbHtmlTest extends TbTestCase
     public function testActiveCheckBoxList()
     {
         // todo: ensure that this test is actually correct.
-
         $I = $this->codeGuy;
         $html = TbHtml::activeCheckBoxList(
             new Dummy,
@@ -2103,7 +2103,7 @@ class TbHtmlTest extends TbTestCase
                 'class' => 'button',
             )
         );
-        $a = $I->createNode($html, 'a.btn');
+        $a = $I->createNode($html, 'a');
         $I->seeNodeCssClass($a, 'button');
         $I->seeNodeAttributes(
             $a,
@@ -2584,26 +2584,46 @@ class TbHtmlTest extends TbTestCase
         $items = array(
             array('label' => 'Header text'),
             array('label' => 'Link', 'url' => '#'),
+            TbHtml::menuDivider(),
         );
 
-        $html = TbHtml::navList($items);
+        $html = TbHtml::navList(
+            $items,
+            array(
+                'stacked' => true,
+            )
+        );
         $nav = $I->createNode($html, 'ul.nav');
         $I->seeNodeCssClass($nav, 'nav-list');
+        $I->dontSeeNodeCssClass($nav, 'nav-stacked');
         foreach ($nav->children() as $i => $liElement) {
             $li = $I->createNode($liElement);
             if ($i === 0) {
                 $I->seeNodeCssClass($li, 'nav-header');
                 $I->seeNodeText($li, 'Header text');
-            } else {
+            } else if ($i === 1) {
                 $a = $li->filter('a');
                 $I->seeNodeText($a, $items[$i]['label']);
+            } else if ($i === 2) {
+                $I->seeNodeCssClass($li, 'divider');
             }
         }
     }
 
     public function testNav()
     {
-        // todo: write this.
+        $I = $this->codeGuy;
+        $html = TbHtml::nav(
+            TbHtml::NAV_TYPE_NONE,
+            array(
+                array('label' => 'Link', 'url' => '#'),
+            ),
+            array(
+                'stacked' => true,
+            )
+        );
+        $nav = $I->createNode($html, 'ul.nav');
+        $I->seeNodeCssClass($nav, 'nav-stacked');
     }
 
     public function testMenu()
@@ -2728,12 +2748,107 @@ class TbHtmlTest extends TbTestCase
 
     public function testTabbableTabs()
     {
-        // todo: write this.
+        $I = $this->codeGuy;
+        $html = TbHtml::tabbableTabs(
+            array(
+                array('label' => 'Link', 'content' => 'Tab content'),
+            )
+        );
+        $tabbable = $I->createNode($html, 'div.tabbable');
+        $ul = $tabbable->filter('ul.nav');
+        $I->seeNodeCssClass($ul, 'nav-tabs');
     }
 
     public function testTabbablePills()
     {
-        // todo: write this.
+        $I = $this->codeGuy;
+        $html = TbHtml::tabbablePills(
+            array(
+                array('label' => 'Link', 'content' => 'Tab content'),
+            )
+        );
+        $tabbable = $I->createNode($html, 'div.tabbable');
+        $ul = $tabbable->filter('ul.nav');
+        $I->seeNodeCssClass($ul, 'nav-pills');
+    }
+
+    public function testTabbable()
+    {
+        $I = $this->codeGuy;
+
+        $tabs = array(
+            array('label' => 'Home', 'content' => 'Tab content', 'active' => true),
+            array('label' => 'Profile', 'content' => 'Tab content', 'id' => 'profile'),
+            array(
+                'label' => 'Messages',
+                'items' => array(
+                    array('label' => '@fat', 'content' => 'Tab content'),
+                    array('label' => '@mdo', 'content' => 'Tab content'),
+                )
+            ),
+        );
+
+        $html = TbHtml::tabbable(
+            TbHtml::NAV_TYPE_NONE,
+            $tabs,
+            array(
+                'class' => 'div',
+            )
+        );
+        $tabbable = $I->createNode($html, 'div.tabbable');
+        $I->seeNodeCssClass($tabbable, 'div');
+        $ul = $tabbable->filter('ul.nav');
+        $I->seeNodeNumChildren($ul, 3);
+        foreach ($ul->children() as $i => $liElement) {
+            $li = $I->createNode($liElement);
+            if ($i === 0) {
+                $I->seeNodeCssClass($li, 'active');
+            }
+            if ($i === 2) {
+                $I->seeNodeCssClass($li, 'dropdown');
+                $a = $li->filter('a.dropdown-toggle');
+                $I->seeNodeText($a, 'Messages');
+                $subUl = $li->filter('ul.dropdown-menu');
+                foreach ($subUl->children() as $j => $subLiElement) {
+                    $subLi = $I->createNode($subLiElement);
+                    $subA = $subLi->filter('a');
+                    $I->seeNodeAttributes(
+                        $subA,
+                        array(
+                            'data-toggle' => 'tab',
+                            'tabindex' => '-1',
+                            'href' => '#tab_' . ($i + $j + 1),
+                        )
+                    );
+                    $I->seeNodeText($subA, $tabs[$i]['items'][$j]['label']);
+                }
+            } else {
+                $a = $li->filter('a');
+                $I->seeNodeAttributes(
+                    $a,
+                    array(
+                        'data-toggle' => 'tab',
+                        'tabindex' => '-1',
+                        'href' => '#' . (isset($tabs[$i]['id']) ? $tabs[$i]['id'] : 'tab_' . ($i + 1)),
+                    )
+                );
+                $I->seeNodeText($a, $tabs[$i]['label']);
+            }
+        }
+        $content = $tabbable->filter('div.tab-content');
+        $I->seeNodeNumChildren($content, 4);
+        foreach ($content->children() as $i => $paneElement) {
+            $pane = $I->createNode($paneElement);
+            $I->seeNodeCssClass($pane, 'tab-pane fade');
+            if ($i === 0) {
+                $I->seeNodeCssClass($pane, 'active in');
+            }
+            if ($i > 1) {
+                $I->seeNodeText($pane, $tabs[2]['items'][$i - 2]['content']);
+            } else {
+                $I->seeNodeText($pane, $tabs[$i]['content']);
+            }
+        }
     }
 
     public function testNavbar()
@@ -3148,7 +3263,53 @@ class TbHtmlTest extends TbTestCase
 
     public function testThumbnails()
     {
-        // todo: write this.
+        $I = $this->codeGuy;
+
+        $items = array(
+            array(
+                'image' => 'image.png',
+                'label' => 'Thumbnail label',
+                'caption' => 'Caption text',
+                'span' => 6,
+                'imageOptions' => array('class' => 'image', 'alt' => 'Alternative text'),
+                'captionOptions' => array('class' => 'div'),
+                'labelOptions' => array('class' => 'heading'),
+            ),
+            array('image' => 'image.png', 'label' => 'Thumbnail label', 'caption' => 'Caption text'),
+            array('image' => 'image.png', 'label' => 'Thumbnail label', 'caption' => 'Caption text'),
+        );
+
+        $html = TbHtml::thumbnails(
+            $items,
+            array(
+                'span' => 3,
+                'class' => 'list',
+            )
+        );
+        $thumbnails = $I->createNode($html, 'ul.thumbnails');
+        $I->seeNodeCssClass($thumbnails, 'list');
+        $I->seeNodeNumChildren($thumbnails, 3);
+        $I->seeNodeChildren($thumbnails, array('li.span6', 'li.span3', 'li.span3'));
+        foreach ($thumbnails->children() as $i => $liElement) {
+            $li = $I->createNode($liElement);
+            $thumbnail = $li->filter('div.thumbnail');
+            $I->seeNodeChildren($thumbnail, array('img', 'div.caption'));
+            $img = $thumbnail->filter('img');
+            $I->seeNodeAttribute($img, 'src', 'image.png');
+            $caption = $thumbnail->filter('div.caption');
+            $h3 = $caption->filter('h3');
+            $I->seeNodeText($caption, $items[$i]['caption']);
+            $I->seeNodeText($h3, $items[$i]['label']);
+            if ($i === 0) {
+                $I->seeNodeCssClass($img, 'image');
+                $I->seeNodeAttribute($img, 'alt', 'Alternative text');
+                $I->seeNodeCssClass($caption, 'div');
+                $I->seeNodeCssClass($h3, 'heading');
+            }
+        }
+
+        $html = TbHtml::thumbnails(array());
+        $this->assertEquals('', $html);
     }
 
     public function testThumbnail()
