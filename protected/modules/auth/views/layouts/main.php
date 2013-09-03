@@ -1,49 +1,67 @@
+<?php /* @var $this Controller */ ?>
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <title><?php echo CHtml::encode(Yii::app()->name).' | Auth';?></title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="language" content="en" />
+
+    <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->theme->baseUrl; ?>/css/styles.css" />
+    <link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->baseUrl; ?>/css/main.css" />
+
+    <title><?php echo CHtml::encode($this->pageTitle); ?></title>
+
+    <?php Yii::app()->bootstrap->register(); ?>
+</head>
+
 <body>
-    <?php $this->widget('bootstrap.widgets.TbNavbar', array(
-        'items' => array(
-            array(
-                'label' => Yii::t('AuthModule.main', 'Assignments'),
-                'url' => array('/auth/assignment/index'),
-                'active' => $this instanceof AssignmentController,
-            ),
-            array(
-                'label' => $this->capitalize($this->getItemTypeText(CAuthItem::TYPE_ROLE, true)),
-                'url' => array('/auth/role/index'),
-                'active' => $this instanceof RoleController,
-            ),
-            array(
-                'label' => $this->capitalize($this->getItemTypeText(CAuthItem::TYPE_TASK, true)),
-                'url' => array('/auth/task/index'),
-                'active' => $this instanceof TaskController,
-            ),
-            array(
-                'label' => $this->capitalize($this->getItemTypeText(CAuthItem::TYPE_OPERATION, true)),
-                'url' => array('/auth/operation/index'),
-                'active' => $this instanceof OperationController,
+
+<?php $this->widget('bootstrap.widgets.TbNavbar',array(
+    'color'=>'inverse',
+    'items'=>array(
+        array(
+            'class'=>'bootstrap.widgets.TbNav',
+            'items'=>array(
+                array('label'=>'Download', 'url'=>'http://www.yiiframework.com/extension/auth/'),
+                array('label'=>'Fork on GitHub', 'url'=>'https://github.com/Crisu83/yii-auth/'),
+                array('label'=>'Reset demo', 'url'=>array('/site/reset'), 'linkOptions'=>array('confirm'=>'Are you sure you want to reset the database?')),
             ),
         ),
-    ));?>
+        array(
+            'class'=>'bootstrap.widgets.TbNav',
+            'htmlOptions'=>array('class'=>'pull-right'),
+            'items'=>array(
+                array('label'=>'Выйти', 'url'=>'/user/logout'),
+            ),
+        ),
+    ),
+)); ?>
 
-    <div class="container-fluid">
-        <div class="row-fluid">
-            <div class="span1">
-                <?php $this->widget('bootstrap.widgets.TbNav', array(
-                    'type'=>'list',
-                    'items'=> $this->menu
-                )); ?>
-            </div>
-            <div class="span11 auth-module">
-                <?php echo $content; ?>
-            </div>
-        </div>
+<div class="container" id="page">
+
+    <?php $this->widget('bootstrap.widgets.TbAlert'); ?>
+
+    <?php if(isset($this->breadcrumbs)):?>
+        <?php $this->widget('bootstrap.widgets.TbBreadcrumb', array(
+            'links'=>$this->breadcrumbs,
+        )); ?>
+    <?php endif?>
+
+    <?php $this->widget('bootstrap.widgets.TbNav',array(
+        'type'=>TbHtml::NAV_TYPE_TABS,
+        'items'=>$this->menu,
+    )); ?>
+
+    <?php echo $content; ?>
+
+    <hr />
+
+    <div id="footer">
+        &copy; Christoffer Niska <?php echo date('Y'); ?> <br/>
+        All Rights Reserved.<br/>
+        <?php echo Yii::powered(); ?>
     </div>
+
+</div>
 
 </body>
 </html>

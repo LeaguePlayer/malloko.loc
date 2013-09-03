@@ -16,6 +16,9 @@ INSERT INTO `authassignment` (`itemname`, `userid`, `bizrule`, `data`) VALUES
 	('post.*', '1', NULL, 'N;'),
 	('postAdmin', '1', NULL, 'N;');
 /*!40000 ALTER TABLE `authassignment` ENABLE KEYS */;
+
+
+
 DROP TABLE IF EXISTS `authitem`;
 CREATE TABLE IF NOT EXISTS `authitem` (
   `name` varchar(64) NOT NULL,
@@ -42,6 +45,8 @@ INSERT INTO `authitem` (`name`, `type`, `description`, `bizrule`, `data`) VALUES
 	('post.view', 0, 'View posts', NULL, 'N;'),
 	('postAdmin', 1, 'Administer posts', NULL, 'N;');
 /*!40000 ALTER TABLE `authitem` ENABLE KEYS */;
+
+
 DROP TABLE IF EXISTS `authitemchild`;
 CREATE TABLE IF NOT EXISTS `authitemchild` (
   `parent` varchar(64) NOT NULL,
@@ -64,6 +69,8 @@ INSERT INTO `authitemchild` (`parent`, `child`) VALUES
 	('postAdmin', 'post.view'),
 	('authenticated', 'postAdmin');
 /*!40000 ALTER TABLE `authitemchild` ENABLE KEYS */;
+
+
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE IF NOT EXISTS `user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,

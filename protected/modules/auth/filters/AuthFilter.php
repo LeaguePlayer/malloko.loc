@@ -43,7 +43,7 @@ class AuthFilter extends CFilter
 		if ($user->checkAccess($itemName . '.*'))
 			return true;
 
-		$itemName .= '.' . $controller->action->getId();
+		$itemName .= '.' . $controller->getAction()->getId();
 		if ($user->checkAccess($itemName, $this->params))
 			return true;
 

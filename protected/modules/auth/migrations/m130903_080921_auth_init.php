@@ -1,15 +1,15 @@
 <?php
 /**
- * Миграция m130830_044300_brands
+ * Миграция m130903_080921_auth_init
  *
  * @property string $prefix
  */
  
-class m130830_044300_brands extends CDbMigration
+class m130903_080921_auth_init extends CDbMigration
 {
     // таблицы к удалению, можно использовать '{{table}}'
-	private $dropped = array('{{brands}}');
- 
+	private $dropped = array('{{authassignment}}', '{{authitem}}', '{{authitemchild}}');
+
     public function __construct()
     {
         $this->execute('SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;');
@@ -28,33 +28,38 @@ class m130830_044300_brands extends CDbMigration
     {
         $this->_checkTables();
  
-        $this->createTable('{{brands}}', array(
-            'id' => 'pk', // auto increment
+        $this->createTable('{{authassignment}}', array(
+            'itemname' => 'varchar(64) NOT NULL',
+			'userid' => "varchar(64) NOT NULL",
+            'bizrule' => "text DEFAULT NULL",
+            'data' => "text DEFAULT NULL",
+        ), 'ENGINE=InnoDB CHARSET=utf8');
+        $this->addPrimaryKey('authassignment_pk', '{{authassignment}}', 'itemname, userid');
+        $this->addForeignKey('authassignment_ibfk_1', '{{authassignment}}', 'itemname', '{{authitem}}', 'name', 'CASCADE', 'CASCADE');
 
-			'dt_timer' => "date COMMENT 'Комментарий'",
-            'dttm_timer' => "datetime COMMENT 'Комментарий'",
-            'tm_timer' => "time COMMENT 'Комментарий'",
-            'img_sddd' => "string COMMENT 'Комментарий'",
-            'img_sdfsdf' => "string COMMENT 'Комментарий'",
-            'wswg_3434' => "text COMMENT 'Комментарий'",
-            'wswg_5656' => "text COMMENT 'Комментарий'",
-            'gllr_timer' => "integer COMMENT 'Комментарий'",
-            'gllr_dfdfdfdf' => "integer COMMENT 'Комментарий'",
+        $this->createTable('{{authitem}}', array(
+            'name' => 'varchar(64) NOT NULL PRIMARY KEY',
+            'type' => "integer NOT NULL",
+            'description' => "text DEFAULT NULL",
+            'bizrule' => "text DEFAULT NULL",
+            'data' => "text DEFAULT NULL",
+        ), 'ENGINE=InnoDB CHARSET=utf8');
 
-
-            'status' => "tinyint COMMENT 'Статус'",
-			'sort' => "integer COMMENT 'Вес для сортировки'",
-            'create_time' => "integer COMMENT 'Дата создания'",
-            'update_time' => "integer COMMENT 'Дата последнего редактирования'",
-        ),
-        'ENGINE=MyISAM DEFAULT CHARACTER SET = utf8 COLLATE = utf8_general_ci');
+        $this->createTable('{{authitemchild}}', array(
+            'parent' => 'varchar(64) NOT NULL',
+            'child' => "varchar(64) NOT NULL",
+        ), 'ENGINE=InnoDB CHARSET=utf8');
+        $this->addPrimaryKey('authitemchild_pk', '{{authitemchild}}', 'parent, child');
+        $this->createIndex('child', '{{authitemchild}}', 'child');
+        $this->addForeignKey('authitemchild_ibfk_1', '{{authitemchild}}', 'parent', '{{authitem}}', 'name', 'CASCADE', 'CASCADE');
+        $this->addForeignKey('authitemchild_ibfk_2', '{{authitemchild}}', 'child', '{{authitem}}', 'name', 'CASCADE', 'CASCADE');
     }
- 
+
     public function safeDown()
     {
         $this->_checkTables();
     }
- 
+
     /**
      * Удаляет таблицы, указанные в $this->dropped из базы.
      * Наименование таблиц могут сожержать двойные фигурные скобки для указания
@@ -65,7 +70,7 @@ class m130830_044300_brands extends CDbMigration
     private function _checkTables ()
     {
         if (empty($this->dropped)) return;
- 
+
         $table_names = $this->getDbConnection()->getSchema()->getTableNames();
         foreach ($this->dropped as $table) {
             if (in_array($this->tableName($table), $table_names)) {
@@ -73,7 +78,7 @@ class m130830_044300_brands extends CDbMigration
             }
         }
     }
- 
+
     /**
      * Добавляет префикс таблицы при необходимости
      * @param $name - имя таблицы, заключенное в скобки, например {{имя}}
@@ -87,7 +92,7 @@ class m130830_044300_brands extends CDbMigration
             $realName=$name;
         return $realName;
     }
- 
+
     /**
      * Получение установленного префикса таблиц базы данных
      * @return mixed

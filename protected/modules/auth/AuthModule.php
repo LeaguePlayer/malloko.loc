@@ -32,7 +32,7 @@ class AuthModule extends EWebModule
 	 * @var string name of the user name column.
 	 * Change this if the name column in your user table is different than the default value.
 	 */
-	public $userNameColumn = 'name';
+	public $userNameColumn = 'username';
 	/**
 	 * @var string the application layout.
 	 * Change this if you wish to use a different layout with the module.
@@ -109,18 +109,17 @@ class AuthModule extends EWebModule
 		{
             $this->registerBootstrap();
             $this->registerCoreScripts();
+			$user = Yii::app()->getUser();
 
-			//$user = Yii::app()->getUser();
-
-			//if ($user instanceof AuthWebUser)
-			//{
-			//	if ($user->isAdmin)
-			//		return true;
-			//	elseif ($user->isGuest)
-			//		$user->loginRequired();
-			//}
-			//else
-			//	throw new CException('WebUser component is not an instance of AuthWebUser.');
+			if ($user instanceof AuthWebUser)
+			{
+				if ($user->isAdmin)
+					return true;
+				elseif ($user->isGuest)
+					$user->loginRequired();
+			}
+			else
+				throw new CException('WebUser component is not an instance of AuthWebUser.');
             return true;
 		}
 		throw new CHttpException(401, Yii::t('AuthModule.main', 'Access denied.'));
