@@ -26,7 +26,7 @@ return array(
     'modules'=>array(
         // uncomment the following to enable the Gii tool
 
-        'gii'=>array(
+        /*'gii'=>array(
             'class'=>'system.gii.GiiModule',
             'password'=>'qwe123',
             'ipFilters'=>array('127.0.0.1','::1'),
@@ -36,7 +36,7 @@ return array(
             //'import' => array(
             //	'appext.imagesgallery.GalleryBehavior',
             //),
-        ),
+        ),*/
         'admin'=>array(),
         'email'=>array(),
         'auth'=>array(),
