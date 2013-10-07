@@ -39,14 +39,66 @@ return array(
         ),
         'admin'=>array(),
         'email'=>array(),
-        'auth'
+        'auth'=>array(),
+        'user'=>array(
+            # encrypting method (php hash function)
+            'hash' => 'md5',
+ 
+            # send activation email
+            'sendActivationMail' => true,
+ 
+            # allow access for non-activated users
+            'loginNotActiv' => false,
+ 
+            # activate user on registration (only sendActivationMail = false)
+            'activeAfterRegister' => false,
+ 
+            # automatically login from registration
+            'autoLogin' => true,
+ 
+            # registration path
+            'registrationUrl' => array('/user/registration'),
+ 
+            # recovery password path
+            'recoveryUrl' => array('/user/recovery'),
+ 
+            # login form path
+            'loginUrl' => array('/user/login'),
+ 
+            # page after login
+            'returnUrl' => array('/user/profile'),
+ 
+            # page after logout
+            'returnLogoutUrl' => array('/user/login'),
+        ),
     ),
 
     // application components
     'components'=>array(
+        'cart' => array(
+            'class' => 'appext.shoppingCart.EShoppingCart',
+            'onUpdatePosition' => array('CartNotifer', 'updatePosition'),
+            'onRemovePosition' => array('CartNotifer', 'removePosition'),
+            'discounts' => array(
+                array(
+                    'class' => 'appext.shoppingCart.discounts.TestDiscount',
+                ),
+            ),
+        ),
+        'authManager' => array(
+            'class' => 'CDbAuthManager',// 'auth.components.CachedDbAuthManager',
+            //'cachingDuration' => 0,
+            'itemTable' => '{{authitem}}',
+            'itemChildTable' => '{{authitemchild}}',
+            'assignmentTable' => '{{authassignment}}',
+            'behaviors' => array(
+                'auth' => array(
+                    'class' => 'auth.components.AuthBehavior',
+                ),
+            ),
+        ),
         'user'=>array(
-            // enable cookie-based authentication
-            'allowAutoLogin'=>true,
+            'class' => 'user.components.WebUser',
         ),
         'bootstrap'=>array(
             'class'=>'appext.yiistrap.components.TbApi',
@@ -83,10 +135,10 @@ return array(
             'offset' => 0,
         ),
         'db'=>array(
-            'connectionString' => 'mysql:host=localhost;dbname=abaris',
+            'connectionString' => 'mysql:host=localhost;dbname=yii_magic_box',
             'emulatePrepare' => true,
-            'username' => 'abaris',
-            'password' => 'qwe123',
+            'username' => 'root',
+            'password' => 'root',
             'charset' => 'utf8',
             'tablePrefix' => 'tbl_',
         ),

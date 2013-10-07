@@ -9,6 +9,12 @@ return array(
     // preloading 'log' component
     'preload'=>array('log'),
 
+    'import'=>array(
+        'application.models.*',
+        'application.components.*',
+        //'application.behaviors.*',
+    ),
+
     // application components
     'components'=>array(
         /*'db'=>array(
@@ -17,10 +23,10 @@ return array(
         // uncomment the following to use a MySQL database
 
         'db'=>array(
-            'connectionString' => 'mysql:host=localhost;dbname=abaris',
+            'connectionString' => 'mysql:host=localhost;dbname=yii_magic_box',
             'emulatePrepare' => true,
-            'username' => 'abaris',
-            'password' => 'qwe123',
+            'username' => 'root',
+            'password' => 'root',
             'charset' => 'utf8',
             'tablePrefix' => 'tbl_',
         ),
@@ -33,6 +39,45 @@ return array(
                     'levels'=>'error, warning',
                 ),
             ),
+        ),
+         'clientScript'=>array(
+            'class'=>'EClientScript',
+            'scriptMap'=>array(
+                //'jquery.min.js'=>'//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js',
+            ),
+        ),
+    ),
+    'modules'=>array(
+        'user'=>array(
+            # encrypting method (php hash function)
+            'hash' => 'md5',
+ 
+            # send activation email
+            'sendActivationMail' => true,
+ 
+            # allow access for non-activated users
+            'loginNotActiv' => false,
+ 
+            # activate user on registration (only sendActivationMail = false)
+            'activeAfterRegister' => false,
+ 
+            # automatically login from registration
+            'autoLogin' => true,
+ 
+            # registration path
+            'registrationUrl' => array('/user/registration'),
+ 
+            # recovery password path
+            'recoveryUrl' => array('/user/recovery'),
+ 
+            # login form path
+            'loginUrl' => array('/user/login'),
+ 
+            # page after login
+            'returnUrl' => array('/user/profile'),
+ 
+            # page after logout
+            'returnLogoutUrl' => array('/user/login'),
         ),
     ),
     'commandMap' => array(
@@ -49,7 +94,7 @@ return array(
             'modulePaths' => array(
                 'email'      => 'application.modules.email.migrations',
                 'user'      => 'application.modules.user.migrations',
-                'auth' => 'applicatio.modules.auth.migrations'
+                'auth' => 'application.modules.auth.migrations'
             ),
             // отключаем некоторые модули
             'disabledModules' => array(
