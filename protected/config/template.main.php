@@ -37,11 +37,9 @@ return array(
             //	'appext.imagesgallery.GalleryBehavior',
             //),
         ),
-        'admin'=>array(
-        ),
-        'email'=>array(
-
-        ),
+        'admin'=>array(),
+        'email'=>array(),
+        'auth'
     ),
 
     // application components

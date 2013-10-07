@@ -49,6 +49,7 @@ return array(
             'modulePaths' => array(
                 'email'      => 'application.modules.email.migrations',
                 'user'      => 'application.modules.user.migrations',
+                'auth' => 'applicatio.modules.auth.migrations'
             ),
             // отключаем некоторые модули
             'disabledModules' => array(
