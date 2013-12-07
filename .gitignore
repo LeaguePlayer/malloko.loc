@@ -10,5 +10,6 @@ framework
 *~
 /index.php
 protected/yiic.php
+protected/yiic.bat
 protected/cron.php
 /upload
