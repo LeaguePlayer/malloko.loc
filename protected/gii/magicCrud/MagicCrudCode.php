@@ -248,7 +248,7 @@ class MagicCrudCode extends CrudCode
                 "\t\t\t'name'=>'{$column->name}',\n".
                 "\t\t\t'type'=>'raw',\n";
             if ( $column->name === 'create_time' or $column->name === 'update_time' ) {
-                $genColumn .= "\t\t\t'value'=>'SiteHelper::russianDate(\$data->{$column->name}).\' в \'.date(\'H:i\', \$data->{$column->name})'\n";
+                $genColumn .= "\t\t\t'value'=>'\$data->{$column->name} ? SiteHelper::russianDate(\$data->{$column->name}).\' в \'.date(\'H:i\', strtotime(\$data->{$column->name})) : \"\"'\n";
             } else {
                 $genColumn .= "\t\t\t'value'=>'SiteHelper::russianDate(\$data->{$column->name})'\n";
             }

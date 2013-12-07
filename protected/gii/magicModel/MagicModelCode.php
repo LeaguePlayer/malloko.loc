@@ -469,6 +469,15 @@ class MagicModelCode extends CCodeModel
 				continue;
 			}
 		}
+
+		//add CTimestampBehavior
+		if(isset($columns['create_time']) && isset($columns['update_time'])){
+			$behaviors[] = "\t\t\t'CTimestampBehavior' => array(
+				'class' => 'zii.behaviors.CTimestampBehavior',
+                'createAttribute' => 'create_time',
+                'updateAttribute' => 'update_time',
+			),\n";
+		}
 		return empty($behaviors) ? null : $behaviors;
 	}
 

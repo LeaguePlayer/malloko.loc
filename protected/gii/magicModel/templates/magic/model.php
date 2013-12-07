@@ -100,8 +100,6 @@ class <?php echo $modelClass; ?> extends <?php echo $this->baseClass."\n"; ?>
         ));
     }
 <?php endif; ?>
-
-
     public function search()
     {
         $criteria=new CDbCriteria;
@@ -118,8 +116,9 @@ foreach($columns as $name=>$column)
     }
 }
 ?>
+<?php if(isset($columns['sort'])): ?>
         $criteria->order = 'sort';
-
+<?php endif; ?>
         return new CActiveDataProvider($this, array(
             'criteria'=>$criteria,
         ));

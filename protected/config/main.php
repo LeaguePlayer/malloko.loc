@@ -6,6 +6,10 @@
 // This is the main Web application configuration. Any writable
 // CWebApplication properties can be configured here.
 
+//add modules and db file config
+require_once(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'modules.php');  // $modules
+require_once(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'db.php');       // $db_config
+
 return array(
     'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
     'name'=>'Новый сайт',
@@ -23,55 +27,7 @@ return array(
     'aliases'=>array(
         'appext'=>'application.extensions',
     ),
-    'modules'=>array(
-        // uncomment the following to enable the Gii tool
-
-        /*'gii'=>array(
-            'class'=>'system.gii.GiiModule',
-            'password'=>'qwe123',
-            'ipFilters'=>array('127.0.0.1','::1'),
-            'generatorPaths'=>array(
-                'application.gii',
-            ),
-            //'import' => array(
-            //	'appext.imagesgallery.GalleryBehavior',
-            //),
-        ),*/
-        'admin'=>array(),
-        'email'=>array(),
-        'auth'=>array(),
-        'user'=>array(
-            # encrypting method (php hash function)
-            'hash' => 'md5',
- 
-            # send activation email
-            'sendActivationMail' => true,
- 
-            # allow access for non-activated users
-            'loginNotActiv' => false,
- 
-            # activate user on registration (only sendActivationMail = false)
-            'activeAfterRegister' => false,
- 
-            # automatically login from registration
-            'autoLogin' => true,
- 
-            # registration path
-            'registrationUrl' => array('/user/registration'),
- 
-            # recovery password path
-            'recoveryUrl' => array('/user/recovery'),
- 
-            # login form path
-            'loginUrl' => array('/user/login'),
- 
-            # page after login
-            'returnUrl' => array('/user/profile'),
- 
-            # page after logout
-            'returnLogoutUrl' => array('/user/login'),
-        ),
-    ),
+    'modules'=>$modules,
 
     // application components
     'components'=>array(
@@ -134,14 +90,7 @@ return array(
             //And integer that holds the offset of hours from GMT e.g. 4 for GMT +4
             'offset' => 0,
         ),
-        'db'=>array(
-            'connectionString' => 'mysql:host=localhost;dbname=yii_magic_box',
-            'emulatePrepare' => true,
-            'username' => 'root',
-            'password' => 'root',
-            'charset' => 'utf8',
-            'tablePrefix' => 'tbl_',
-        ),
+        'db' => $db_config,
         'errorHandler'=>array(
             'errorAction'=>'site/error',
         ),
@@ -152,13 +101,11 @@ return array(
                     'class'=>'CFileLogRoute',
                     'levels'=>'error, warning',
                 ),
-                ///*
-                array(
+                /*array(
                     'class'=>'CWebLogRoute',
                     'levels'=>'error, warning, trace, profile, info',
                     'enabled'=>true,
-                ),
-                //*/
+                ),*/
             ),
         ),
     ),

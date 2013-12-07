@@ -2,6 +2,11 @@
 
 // This is the configuration for yiic console application.
 // Any writable CConsoleApplication properties can be configured here.
+
+//add modules and db file config
+require_once(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'modules.php');  // $modules
+require_once(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'db.php');       // $db_config
+
 return array(
 	'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
 	'name'=>'cron',
@@ -14,14 +19,7 @@ return array(
 		),*/
 		// uncomment the following to use a MySQL database
 		
-		'db'=>array(
-			'connectionString' => 'mysql:host=localhost;dbname=turtle',
-			'emulatePrepare' => true,
-			'username' => 'turtle',
-			'password' => 'qwe123',
-			'charset' => 'utf8',
-			'tablePrefix' => 'tbl_',
-		),
+		'db'=>$db_config,
 		
 		'log'=>array(
 			'class'=>'CLogRouter',

@@ -10,20 +10,6 @@ class {ClassName} extends CDbMigration
     // таблицы к удалению, можно использовать '{{table}}'
 	private $dropped = array('{{{TableName}}}');
  
-    public function __construct()
-    {
-        $this->execute('SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;');
-        $this->execute('SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;');
-        $this->execute('SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE="NO_AUTO_VALUE_ON_ZERO";');
-    }
- 
-    public function __destruct()
-    {
-        $this->execute('SET SQL_MODE=@OLD_SQL_MODE;');
-        $this->execute('SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;');
-        $this->execute('SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;');
-    }
- 
     public function safeUp()
     {
         $this->_checkTables();
@@ -35,8 +21,8 @@ class {ClassName} extends CDbMigration
 			
 			'status' => "tinyint COMMENT 'Статус'",
 			'sort' => "integer COMMENT 'Вес для сортировки'",
-            'create_time' => "integer COMMENT 'Дата создания'",
-            'update_time' => "integer COMMENT 'Дата последнего редактирования'",
+            'create_time' => "datetime COMMENT 'Дата создания'",
+            'update_time' => "datetime COMMENT 'Дата последнего редактирования'",
         ),
         'ENGINE=MyISAM DEFAULT CHARACTER SET = utf8 COLLATE = utf8_general_ci');
     }

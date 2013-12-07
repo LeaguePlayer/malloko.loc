@@ -96,7 +96,7 @@ class SiteHelper {
 	}
 
 	public static function russianDate($datetime = null) {
-        if ($datetime == 0)
+        if (!$datetime || $datetime == 0)
             return '';
             
 		if (is_numeric($datetime) ) {

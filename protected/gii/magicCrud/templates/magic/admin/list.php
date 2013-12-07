@@ -21,7 +21,7 @@ $this->menu=array(
     'afterAjaxUpdate'=>"function() {sortGrid('<?php echo $smallName; ?>')}",
     'rowHtmlOptionsExpression'=>'array(
         "id"=>"items[]_".$data->id,
-        "class"=>"status_".$data->status,
+        "class"=>"status_".(isset($data->status) ? $data->status : ""),
     )',
 	'columns'=>array(
 <?php
@@ -37,4 +37,4 @@ foreach($this->tableSchema->columns as $column)
 	),
 )); ?>
 
-<?php echo "<?php Yii::app()->clientScript->registerScript('sortGrid', 'sortGrid(\"{$smallName}\");', CClientScript::POS_END) ;?>"; ?>
+<?php echo "<?php if(\$model->hasAttribute('sort')) Yii::app()->clientScript->registerScript('sortGrid', 'sortGrid(\"{$smallName}\");', CClientScript::POS_END) ;?>"; ?>

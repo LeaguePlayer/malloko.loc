@@ -36,13 +36,7 @@ class EActiveRecord extends CActiveRecord
 
     public function behaviors()
     {
-        return array(
-            'CTimestampBehavior' => array(
-                'class' => 'zii.behaviors.CTimestampBehavior',
-                'createAttribute' => 'create_time',
-                'updateAttribute' => 'update_time',
-            )
-        );
+        return array();
     }
 
     public function scopes()
@@ -179,7 +173,7 @@ class EActiveRecord extends CActiveRecord
     public function beforeSave()
     {
         $this->logUpdate();
-        if ( empty($this->sort) ) {
+        if ($this->hasAttribute('sort') && empty($this->sort) ) {
             //print_r( Lists::model()->find(array('select'=>'MAX(sort) as max_sort')) );
             $this->sort = self::model(get_class($this))->find(array('select'=>'MAX(sort) as max_sort'))->max_sort + 1;
             //if ( !$this->sort ) $this->sort = 1;
@@ -189,7 +183,7 @@ class EActiveRecord extends CActiveRecord
 
     public function beforeDelete()
     {
-        if($this->status == self::STATUS_DEFAULT)
+        if($this->hasAttribute('status') && $this->status == self::STATUS_DEFAULT)
         {
             $this->status = self::STATUS_REMOVED;
             $this->save(false, array('status'));

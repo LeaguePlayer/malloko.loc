@@ -2,6 +2,11 @@
 
 // This is the configuration for yiic console application.
 // Any writable CConsoleApplication properties can be configured here.
+
+//add modules and db file config
+require_once(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'modules.php');  // $modules
+require_once(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'db.php');       // $db_config
+
 return array(
     'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
     'name'=>'My Console Application',
@@ -22,14 +27,7 @@ return array(
         ),*/
         // uncomment the following to use a MySQL database
 
-        'db'=>array(
-            'connectionString' => 'mysql:host=localhost;dbname=yii_magic_box',
-            'emulatePrepare' => true,
-            'username' => 'root',
-            'password' => 'root',
-            'charset' => 'utf8',
-            'tablePrefix' => 'tbl_',
-        ),
+        'db'=>$db_config,
 
         'log'=>array(
             'class'=>'CLogRouter',
@@ -40,46 +38,14 @@ return array(
                 ),
             ),
         ),
-         'clientScript'=>array(
+        'clientScript'=>array(
             'class'=>'EClientScript',
             'scriptMap'=>array(
                 //'jquery.min.js'=>'//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js',
             ),
         ),
     ),
-    'modules'=>array(
-        'user'=>array(
-            # encrypting method (php hash function)
-            'hash' => 'md5',
- 
-            # send activation email
-            'sendActivationMail' => true,
- 
-            # allow access for non-activated users
-            'loginNotActiv' => false,
- 
-            # activate user on registration (only sendActivationMail = false)
-            'activeAfterRegister' => false,
- 
-            # automatically login from registration
-            'autoLogin' => true,
- 
-            # registration path
-            'registrationUrl' => array('/user/registration'),
- 
-            # recovery password path
-            'recoveryUrl' => array('/user/recovery'),
- 
-            # login form path
-            'loginUrl' => array('/user/login'),
- 
-            # page after login
-            'returnUrl' => array('/user/profile'),
- 
-            # page after logout
-            'returnLogoutUrl' => array('/user/login'),
-        ),
-    ),
+    'modules'=>$modules,
     'commandMap' => array(
         'migrate' => array(
             // псевдоним директории, в которую распаковано расширение

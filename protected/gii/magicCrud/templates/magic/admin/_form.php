@@ -3,6 +3,8 @@
  * The following variables are available in this template:
  * - $this: the MagicCrudCode object
  */
+$formCodePart = "";
+
 if ( $this->existUploadableColumns() ) {
 	$formCodePart = "\n\t\t'htmlOptions' => array('enctype'=>'multipart/form-data'),";
 }
