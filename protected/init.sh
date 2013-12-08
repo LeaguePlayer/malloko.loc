@@ -10,7 +10,8 @@ cp config/template.db.php config/db.php
 cp ../template.index.php ../index.php
 cp template.yiic.php yiic.php
 
-if [ -n $1 ]; then
-	sed -i "s:framwork_path:$1:g" ../index.php
-	sed -i "s:framwork_path:$1:g" yiic.php
+if [ ! -z "$1" ]; then
+	P=`echo $1 | sed -e "s:../::"`
+	sed -i "s:framwork_path:$P:g" ../index.php
+	sed -i "s:framwork_path:$P:g" yiic.php
 fi
