@@ -478,6 +478,14 @@ class MagicModelCode extends CCodeModel
                 'updateAttribute' => 'update_time',
 			),\n";
 		}
+
+		//add SeoBehavior
+		if(isset($columns['seo_id'])){
+			$behaviors[] = "\t\t\t'Seo' => array(
+				'class' => 'application.behaviors.SeoBehavior',
+			),\n";
+		}
+
 		return empty($behaviors) ? null : $behaviors;
 	}
 
