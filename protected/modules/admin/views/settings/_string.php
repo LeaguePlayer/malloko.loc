@@ -1,0 +1,1 @@
+<?=TbHtml::activeTextFieldControlGroup($model, 'value', array('class'=>'span8','maxlength'=>255));?>

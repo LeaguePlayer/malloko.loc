@@ -1,113 +1,100 @@
 <?php
 
 /**
- * This is the model class for table "{{settings}}".
- *
- * The followings are the available columns in table '{{settings}}':
- * @property string $option
- * @property string $value
- */
-class Settings extends CActiveRecord
+* This is the model class for table "{{settings}}".
+*
+* The followings are the available columns in table '{{settings}}':
+    * @property integer $id
+    * @property string $label
+    * @property string $name
+    * @property string $type
+    * @property integer $type_id
+*/
+class Settings extends EActiveRecord
 {
-	public function tableName()
-	{
-		return '{{settings}}';
-	}
+    public function tableName()
+    {
+        return '{{settings}}';
+    }
 
-	
-	public function rules()
-	{
-		return array(
-			array('option', 'required'),
-			array('option', 'match', 'pattern'=>'/^[\w]+$/', 'message'=>'Идентификатор параметра не должен содержать русских символов, спецсимволов и пробелов'),
-			array('option', 'length', 'max'=>255),
-			array('value', 'length', 'max'=>256),
-			array('ranges', 'safe'),
-			// The following rule is used by search().
-			array('option, value', 'safe', 'on'=>'search'),
-		);
-	}
 
-	
-	public function relations()
-	{
-		return array(
-		);
-	}
+    public function rules()
+    {
+        return array(
+            array('label, name', 'required'),
+            array('type_id', 'numerical', 'integerOnly'=>true),
+            array('label, name, type', 'length', 'max'=>255),
+            // The following rule is used by search().
+            array('id, label, name, type, type_id', 'safe', 'on'=>'search'),
+        );
+    }
 
-	
-	public function attributeLabels()
-	{
-		return array(
-			'option' => 'Параметр',
-			'value' => 'Значение',
-			'label' => 'Название',
-			'ranges' => 'Возможные значения',
-		);
-	}
-	
-	public function search()
-	{
-		$criteria=new CDbCriteria;
 
-		$criteria->compare('option',$this->option,true);
+    public function relations()
+    {
+        return array(
+            'string' => array(self::BELONGS_TO, 'SettingsString', 'type_id'),
+            'text' => array(self::BELONGS_TO, 'SettingsText', 'type_id'),
+        );
+    }
+
+
+    public function attributeLabels()
+    {
+        return array(
+            'id' => 'ID',
+            'label' => 'Название',
+            'name' => 'Уникальное имя',
+            'type' => 'Тип поля',
+            'type_id' => 'Значение Типа',
+        );
+    }
+
+
+    public function search()
+    {
+        $criteria=new CDbCriteria;
+		$criteria->compare('id',$this->id);
 		$criteria->compare('label',$this->label,true);
-		$criteria->compare('value',$this->value,true);
+		$criteria->compare('name',$this->name,true);
+		$criteria->compare('type',$this->type,true);
+		$criteria->compare('type_id',$this->type_id);
+        return new CActiveDataProvider($this, array(
+            'criteria'=>$criteria,
+        ));
+    }
 
-		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
-		));
-	}
-	
-	public static function model($className=__CLASS__)
-	{
-		return parent::model($className);
-	}
-	
-	public static function getOptions()
-	{
-		return CHtml::listData(self::model()->findAll(), 'option', 'value');
-	}
-	
-	public static function getOption($name)
-	{
-		$model = self::model()->findByPk($name);
-		
-		if ( $model === null ) {
-			return null;
-		} else {
-			return $model->value;
-		}
-	}
-	
-	public static function setOption($name, $value = null)
-	{
-		$model = self::model()->findByPk($name);
-		if ( $model === null ) {
-			$model = new Settings;
-			$model->name = $name;
-		}
-		$model->value = $value;
-		$success = $model->save();
-		return $success ? $model->value : false;
-	}
-	
-	public static function updateOptionRanges($name, $ranges)
-	{
-		$model = self::model()->findByPk($name);
-		if ( $model === null ) {
-			return false;
-		}
-		$model->ranges = serialize($ranges);
-		$success = $model->save();
-		return $success ? $model->value : false;
-	}
-	
-	public function beforeSave()
-	{
-		if ( empty($this->label) ) {
-			$this->label = SiteHelper::translit($this->option);
-		}
-		return parent::beforeSave();
-	}
+    public static function model($className=__CLASS__)
+    {
+        return parent::model($className);
+    }
+
+    public function translition()
+    {
+        return 'Настройки';
+    }
+
+    //model name
+    public function getSettingName(){
+
+        switch ($this->type) {
+            case 'string':
+                return 'SettingsString';
+            case 'text':
+                return 'SettingsText';
+        }
+
+        return 'SettingsString';
+    }
+
+    public static function getValue($settingName){
+        $setting = self::model()->find('name=:name', array(':name' => $settingName));
+
+        if($setting){
+            $type = $setting->{$setting->type};
+            if($type) return $type->value;
+        }
+
+        return '';
+    }
 }

@@ -10,7 +10,7 @@
 		<?php
 			$menuItems = array(
                 array('label'=>'Главная', 'url'=>'/admin/start/index'),
-				array('label'=>'Настройки', 'url'=>'/admin/start/settings'),
+				array('label'=>'Настройки', 'url'=>'/admin/settings'),
 				array('label'=>'Разделы', 'url'=>'#', 'items' => array(
 					array('label'=>'Пример', 'url'=>'#', 'items' => array(
 						array('label'=>'Создать', 'url'=>"/admin/brands/create"),

@@ -8,7 +8,7 @@
 class m130830_115831_email_initial extends CDbMigration
 {
     // таблицы к удалению, можно использовать '{{table}}'
-	private $dropped = array('{{email_templates}}', '{{email_vars}}');
+	private $dropped = array('{{email_templates}}', '{{email_vars}}', '{{email_recipients}}');
  
     public function __construct()
     {

@@ -8,21 +8,54 @@
 class m130811_142229_settings extends CDbMigration
 {
     // таблицы к удалению, можно использовать '{{table}}'
-	private $dropped = array('{{settings}}');
+	private $dropped = array('{{settings}}','{{settings_types}}','{{settings_string}}','{{settings_text}}');
  
     public function safeUp()
     {
         $this->_checkTables();
  
         $this->createTable('{{settings}}', array(
-			'option' => "string NOT NULL COMMENT 'Параметр'",
-			'value' => "varchar(256) COMMENT 'Значение'",
-			'label' => "string COMMENT 'Название'",
-			'type' => "varchar(20) COMMENT 'Тип поля для ввода'",
-			'ranges' => "text COMMENT 'Возможные значения'",
-			"PRIMARY KEY (`option`)",
+			'id' => 'pk',
+            'label' => 'string NOT NULL COMMENT "Название"',
+            'name' => 'string NOT NULL COMMENT "Уникальное имя"',
+            'type' => 'string COMMENT "Тип поля"',
+            'type_id' => 'int COMMENT "Значение Типа"',
         ),
         'ENGINE=MyISAM DEFAULT CHARACTER SET = utf8 COLLATE = utf8_general_ci');
+
+        $this->createIndex('uniq_name', '{{settings}}', 'name', true);
+
+        $this->createTable('{{settings_types}}', array(
+            'id' => 'pk',
+            'name' => 'string NOT NULL COMMENT "Название"',
+            'type' => 'string NOT NULL COMMENT "Тип"'
+        ),
+        'ENGINE=MyISAM DEFAULT CHARACTER SET = utf8 COLLATE = utf8_general_ci');
+
+        $this->createIndex('uniq_type', '{{settings_types}}', 'type', true);
+
+        //table values
+        $this->createTable('{{settings_string}}', array(
+            'id' => 'pk',
+            'value' => 'string NOT NULL COMMENT "Значение"',
+        ),
+        'ENGINE=MyISAM DEFAULT CHARACTER SET = utf8 COLLATE = utf8_general_ci');
+
+        $this->createTable('{{settings_text}}', array(
+            'id' => 'pk',
+            'value' => 'text NOT NULL COMMENT "Значение"',
+        ),
+        'ENGINE=MyISAM DEFAULT CHARACTER SET = utf8 COLLATE = utf8_general_ci');
+
+        //default types
+        $this->insert('{{settings_types}}', array(
+            'name' => 'Строка',
+            'type' => 'string'
+        ));
+        $this->insert('{{settings_types}}', array(
+            'name' => 'Длинный текст',
+            'type' => 'text'
+        ));
     }
  
     public function safeDown()
