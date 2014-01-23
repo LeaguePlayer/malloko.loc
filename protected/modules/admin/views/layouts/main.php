@@ -44,7 +44,8 @@
 			<div class="row-fluid">
 				<div class="span1">
 				<?php $this->widget('bootstrap.widgets.TbNav', array(
-					'type'=>'list',
+					'type' => TbHtml::NAV_TYPE_TABS,
+					'stacked' => true,
 					'items'=> $this->menu
 					)); ?>
 				</div>

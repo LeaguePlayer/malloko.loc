@@ -2,7 +2,7 @@
 <div class="span12" id="main-content">
 	<?php $this->widget('bootstrap.widgets.TbBreadcrumb', array(
 	    'links'=>$this->breadcrumbs,
-	    'homeUrl'=>CHtml::link('Главная',array('/admin')),
+	    'homeUrl'=> '/admin'
 	)); ?>
     <?php echo $content; ?>
 </div><!-- content -->
