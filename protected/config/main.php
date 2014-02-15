@@ -1,23 +1,12 @@
 <?php
 
-// uncomment the following to define a path alias
-// Yii::setPathOfAlias('local','path/to/local-folder');
-
-// This is the main Web application configuration. Any writable
-// CWebApplication properties can be configured here.
-
-//add modules and db file config
-require_once(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'modules.php');  // $modules
-require_once(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'db.php');       // $db_config
-
 return array(
     'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
-    'name'=>'Новый сайт',
+    'name'=>'Каркас приложения',
     'language' => 'ru',
     'theme'=>'default',
     // preloading 'log' component
     'preload'=>array('log'),
-
     // autoloading model and component classes
     'import'=>array(
         'application.models.*',
@@ -27,20 +16,8 @@ return array(
     'aliases'=>array(
         'appext'=>'application.extensions',
     ),
-    'modules'=>$modules,
-
     // application components
     'components'=>array(
-        'cart' => array(
-            'class' => 'appext.shoppingCart.EShoppingCart',
-            'onUpdatePosition' => array('CartNotifer', 'updatePosition'),
-            'onRemovePosition' => array('CartNotifer', 'removePosition'),
-            'discounts' => array(
-                array(
-                    'class' => 'appext.shoppingCart.discounts.TestDiscount',
-                ),
-            ),
-        ),
         'authManager' => array(
             'class' => 'CDbAuthManager',// 'auth.components.CachedDbAuthManager',
             //'cachingDuration' => 0,
@@ -90,7 +67,6 @@ return array(
             //And integer that holds the offset of hours from GMT e.g. 4 for GMT +4
             'offset' => 0,
         ),
-        'db' => $db_config,
         'errorHandler'=>array(
             'errorAction'=>'site/error',
         ),
@@ -109,8 +85,5 @@ return array(
             ),
         ),
     ),
-
-    // application-level parameters that can be accessed
-    // using Yii::app()->params['paramName']
     'params'=>array(),
 );
