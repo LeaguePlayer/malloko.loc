@@ -1,1 +1,0 @@
-<?php$mainConfig = require(dirname(__FILE__).'/main.php');return array_replace_recursive(	$mainConfig,	array(		// Здесь можно определить свои настройки	));
