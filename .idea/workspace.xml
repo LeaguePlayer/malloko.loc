@@ -50,8 +50,8 @@
     <file path="/Reportdocument.php" changelist="4bed0307-19c3-4d93-9a4b-5b19eee29c4d" time="1393224233465" ignored="false" />
     <file path="$PROJECT_DIR$/../hotel-admin.local/public_html/themes/bootstrap/views/reportdocument/admin.php" changelist="4bed0307-19c3-4d93-9a4b-5b19eee29c4d" time="1393225727164" ignored="false" />
     <file path="/admin.php" changelist="4bed0307-19c3-4d93-9a4b-5b19eee29c4d" time="1393225660351" ignored="false" />
-    <file path="$PROJECT_DIR$/../hotel-admin.local/public_html/themes/bootstrap/views/reportdocument/view.php" changelist="4bed0307-19c3-4d93-9a4b-5b19eee29c4d" time="1393225888462" ignored="false" />
-    <file path="/view.php" changelist="4bed0307-19c3-4d93-9a4b-5b19eee29c4d" time="1393225881653" ignored="false" />
+    <file path="$PROJECT_DIR$/../hotel-admin.local/public_html/themes/bootstrap/views/reportdocument/view.php" changelist="4bed0307-19c3-4d93-9a4b-5b19eee29c4d" time="1393226468646" ignored="false" />
+    <file path="/view.php" changelist="4bed0307-19c3-4d93-9a4b-5b19eee29c4d" time="1393226468242" ignored="false" />
     <file path="/dummy.xml" changelist="4bed0307-19c3-4d93-9a4b-5b19eee29c4d" time="1393225834143" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -75,7 +75,16 @@
       <file leaf-file-name="index.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="9" column="19" selection-start="410" selection-end="410" vertical-scroll-proportion="-6.107143">
+            <state line="10" column="42" selection-start="0" selection-end="454" vertical-scroll-proportion="-6.785714">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="template.index.php" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/template.index.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="10" column="42" selection-start="453" selection-end="453" vertical-scroll-proportion="0.21839081">
               <folding />
             </state>
           </provider>
@@ -90,10 +99,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="m130811_142229_settings.php" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="m130811_142229_settings.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/protected/cli/migrations/m130811_142229_settings.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="18" column="19" selection-start="456" selection-end="456" vertical-scroll-proportion="0.30124575">
+            <state line="18" column="19" selection-start="456" selection-end="456" vertical-scroll-proportion="-9.5">
               <folding />
             </state>
           </provider>
@@ -109,7 +118,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/framework/yiic.php" />
         <option value="$PROJECT_DIR$/framework/YiiBase.php" />
         <option value="$PROJECT_DIR$/protected/config/overrides/.gitignore" />
         <option value="$PROJECT_DIR$/protected/assets/.gitignore" />
@@ -125,6 +133,7 @@
         <option value="$PROJECT_DIR$/protected/config/params.php" />
         <option value="$PROJECT_DIR$/index.php" />
         <option value="$PROJECT_DIR$/protected/config/overrides/local.php" />
+        <option value="$PROJECT_DIR$/template.index.php" />
       </list>
     </option>
   </component>
@@ -204,28 +213,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="protected" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="magic_box.loc" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="magic_box.loc" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="protected" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cli" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="migrations" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -365,13 +352,6 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/protected/yiic">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="44" selection-start="70" selection-end="70" vertical-scroll-proportion="0.06440678">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/protected/yiic.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="2" column="49" selection-start="98" selection-end="98" vertical-scroll-proportion="-1.3571428">
@@ -435,13 +415,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="19" selection-start="410" selection-end="410" vertical-scroll-proportion="-6.107143">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/protected/modules/user/migrations/m110810_162301_userTimestampFix.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
@@ -472,7 +445,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/protected/cli/migrations/m130811_142229_settings.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="19" selection-start="456" selection-end="456" vertical-scroll-proportion="0.30124575">
+        <state line="18" column="19" selection-start="456" selection-end="456" vertical-scroll-proportion="-9.5">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="10" column="42" selection-start="0" selection-end="454" vertical-scroll-proportion="-6.785714">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/template.index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="10" column="42" selection-start="453" selection-end="453" vertical-scroll-proportion="0.21839081">
           <folding />
         </state>
       </provider>
