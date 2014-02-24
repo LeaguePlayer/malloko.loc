@@ -1,11 +1,8 @@
 <?php
 
-$mainConfig = require(dirname(__FILE__).'/main.php');
-unset( $mainConfig['theme'] );
-
 return array_replace_recursive(
-    $mainConfig,
     array(
+        'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
         'name'=>'Консоль',
         // preloading 'log' component
         'preload'=>array('log'),
@@ -47,5 +44,7 @@ return array_replace_recursive(
                 'class' => 'application.cli.commands.EnvironmentCommand',
             ),
         ),
-    )
+    ),
+//    (file_exists(__DIR__ . '/overrides/environment.php') ? require(__DIR__ . '/overrides/environment.php') : array()),
+    (file_exists(__DIR__ . '/overrides/local.php') ? require(__DIR__ . '/overrides/local.php') : array())
 );

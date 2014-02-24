@@ -3,8 +3,10 @@
 Capfile
 #---
 
+.idea
+
 framework
-/protected/config/db.php
+/protected/config/environment/params-local.php
 /uploads
 /gallery
 *~

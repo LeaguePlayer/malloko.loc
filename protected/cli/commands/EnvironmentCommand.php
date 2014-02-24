@@ -1,47 +1,35 @@
 <?php
-/**
- * Created by JetBrains PhpStorm.
- * User: megakuzmitch
- * Date: 15.02.14
- * Time: 17:50
- * To change this template use File | Settings | File Templates.
- */
 
 class EnvironmentCommand extends CConsoleCommand
 {
-    public function actionIndex()
-    {
-        print("Текущее окружение: ".$this->getCurrentEnvironment().".\n");
-    }
-
-    public function actionCreate($args)
+    public function run($args)
     {
         if ( empty($args) ) {
-            print("Ожидается имя окружения.\n");
-        }
-        $env_name = $args[0];
-        $conf_path = Yii::getPathOfAlias('application').DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR;
-        $file_name = $conf_path.$env_name.'.env.php';
-        if ( is_file($file_name) ) {
-            echo "Окружение с таким именем уже существует.\n";
+            print("Текущее окружение: \n");
             Yii::app()->end();
         }
-        $fp = fopen($file_name, 'w');
-        $config_text = "<?php\r".
-            "\$mainConfig = require(dirname(__FILE__).'/main.php');\r\r".
-            "return array_replace_recursive(\r".
-            "\t\$mainConfig,\r".
-            "\tarray(\r".
-            "\t\t// Здесь можно определить свои настройки\r".
-            "\t)\r".
-            ");";
-        fwrite($fp, $config_text);
-        fclose($fp);
-        echo "Готово\n";
-    }
+        $env_name = $args[0];
 
-    protected function getCurrentEnvironment()
-    {
-        return 'main';
+        if ( $env_name === 'clear' ) {
+            unlink( Yii::getPathOfAlias('application').DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'overrides'.DIRECTORY_SEPARATOR.'environment.php' );
+            Yii::app()->end();
+        }
+
+        $source_path = Yii::getPathOfAlias('application').DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'environment'.DIRECTORY_SEPARATOR;
+        $dest_path = Yii::getPathOfAlias('application').DIRECTORY_SEPARATOR.'config'.DIRECTORY_SEPARATOR.'overrides'.DIRECTORY_SEPARATOR;
+
+        $source_config = $source_path.$env_name.'.php';
+        if ( !file_exists($source_config) || !copy($source_config, $dest_path.'environment.php') ) {
+            echo "Не удалось скопировать $source_config ...\n";
+            Yii::app()->end();
+        }
+
+        $source_params = $source_path.'params-'.$env_name.'.php';
+        if ( !file_exists($source_params) || !copy($source_params, $dest_path.'params.php') ) {
+            echo "Не удалось скопировать $source_path.$env_name.php ...\n";
+            Yii::app()->end();
+        }
+
+        echo "Готово\n";
     }
 }
