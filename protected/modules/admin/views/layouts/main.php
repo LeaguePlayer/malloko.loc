@@ -2,7 +2,7 @@
 <html lang="en">
 	<head>
 	  <meta charset="utf-8">
-	  <title><?php echo CHtml::encode(Yii::app()->name).' | Admin';?></title>
+	  <title><?php echo CHtml::encode(Yii::app()->config->get('app.name')).' | Admin';?></title>
 	  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	</head>
 	<body>
@@ -19,7 +19,9 @@
 				)),
 			);
 		?>
-		<?php $this->widget('bootstrap.widgets.TbNavbar', array(
+		<?php
+        $userlogin = Yii::app()->user->name ? Yii::app()->user->name : Yii::app()->user->email;
+        $this->widget('bootstrap.widgets.TbNavbar', array(
 			'color'=>'inverse', // null or 'inverse'
 			'brandLabel'=> CHtml::encode(Yii::app()->name),
 			'brandUrl'=>'/',
@@ -34,11 +36,12 @@
 					'class'=>'bootstrap.widgets.TbNav',
 					'htmlOptions'=>array('class'=>'pull-right'),
 					'items'=>array(
-						array('label'=>'Выйти', 'url'=>'/admin/user/logout'),
+						array('label'=>'Выйти ('.$userlogin.')', 'url'=>'/admin/user/logout'),
 					),
 				),
 			),
-		)); ?>
+		));
+        ?>
 
 		<div class="container-fluid">
 			<div class="row-fluid">

@@ -9,7 +9,10 @@ return array_replace_recursive(
         'language' => 'ru',
         'theme'=>'default',
         // preloading 'log' component
-        'preload'=>array('log'),
+        'preload'=>array(
+            'log',
+            'config',
+        ),
         // autoloading model and component classes
         'import'=>array(
             'application.models.*',
@@ -38,14 +41,9 @@ return array_replace_recursive(
         ),
         // application components
         'components'=>array(
-//            'db' => array(
-//                'connectionString' => 'mysql:host=localhost;dbname=yii_magic_box',
-//                'emulatePrepare' => true,
-//                'username' => 'root',
-//                'password' => 'root',
-//                'charset' => 'utf8',
-//                'tablePrefix' => 'tbl_',
-//            ),
+            'config' => array(
+                'class' => 'DConfig'
+            ),
             'authManager' => array(
                 'class' => 'CDbAuthManager',// 'auth.components.CachedDbAuthManager',
                 //'cachingDuration' => 0,
@@ -78,10 +76,7 @@ return array_replace_recursive(
                 'rules'=>array(
                     'gii'=>'gii',
                     'admin'=>'admin/start/index',
-                    '<controller:\w+>'=>'<controller>/index',
-                    '<controller:\w+>/<id:\d+>'=>'<controller>/view',
-                    '<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
-                    '<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
+                    '/'=>'site/index'
                 ),
             ),
             'clientScript'=>array(

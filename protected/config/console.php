@@ -6,6 +6,31 @@ return array_replace_recursive(
         'name'=>'Консоль',
         // preloading 'log' component
         'preload'=>array('log'),
+        'import'=>array(
+            'application.models.*',
+            'application.components.*',
+            //'application.behaviors.*',
+        ),
+        'aliases'=>array(
+            'appext'=>'application.extensions',
+        ),
+        'modules'=>array(
+            'admin'=>array(),
+            'email'=>array(),
+            'auth'=>array(),
+            'user'=>array(
+                'hash' => 'md5',
+                'sendActivationMail' => true,
+                'loginNotActiv' => false,
+                'activeAfterRegister' => false,
+                'autoLogin' => true,
+                'registrationUrl' => array('/user/registration'),
+                'recoveryUrl' => array('/user/recovery'),
+                'loginUrl' => array('/user/login'),
+                'returnUrl' => array('/user/profile'),
+                'returnLogoutUrl' => array('/user/login'),
+            ),
+        ),
         // application components
         'components'=>array(
             'log'=>array(
@@ -15,6 +40,12 @@ return array_replace_recursive(
                         'class'=>'CFileLogRoute',
                         'levels'=>'error, warning',
                     ),
+                ),
+            ),
+            'clientScript'=>array(
+                'class'=>'EClientScript',
+                'scriptMap'=>array(
+                    //'jquery.min.js'=>'//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js',
                 ),
             ),
         ),

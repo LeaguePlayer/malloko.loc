@@ -1,59 +1,41 @@
 <?php
 /**
- * Миграция m130811_142229_settings
+ * Миграция m140224_105014_config
  *
  * @property string $prefix
  */
  
-class m130811_142229_settings extends CDbMigration
+class m140224_105014_config extends CDbMigration
 {
     // таблицы к удалению, можно использовать '{{table}}'
-	private $dropped = array('{{settings}}','{{settings_types}}','{{settings_string}}','{{settings_text}}');
+	private $dropped = array('{{config}}');
  
     public function safeUp()
     {
         $this->_checkTables();
  
-        $this->createTable('{{settings}}', array(
-			'id' => 'pk',
-            'label' => 'string NOT NULL COMMENT "Название"',
-            'name' => 'string NOT NULL COMMENT "Уникальное имя"',
-            'type' => 'string COMMENT "Тип поля"',
-            'type_id' => 'int COMMENT "Значение Типа"',
+        $this->createTable('{{config}}', array(
+            'id' => 'pk', // auto increment
+			'param' => "string not null unique COMMENT 'Уникальный идентификатор параметра'",
+			'value' => "text not null COMMENT 'Значение'",
+			'default' => "text not null COMMENT 'Значение по-умолчанию'",
+			'label' => "string not null COMMENT 'Заголовок'",
+			'type' => "varchar(128) not null default 'string' COMMENT 'Тип поля'",
+			'variants' => "text not null COMMENT 'Перечисляемые значения'",
         ),
         'ENGINE=MyISAM DEFAULT CHARACTER SET = utf8 COLLATE = utf8_general_ci');
 
-        $this->createIndex('uniq_name', '{{settings}}', 'name', true);
-
-        $this->createTable('{{settings_types}}', array(
-            'id' => 'pk',
-            'name' => 'string NOT NULL COMMENT "Название"',
-            'type' => 'string NOT NULL COMMENT "Тип"'
-        ),
-        'ENGINE=MyISAM DEFAULT CHARACTER SET = utf8 COLLATE = utf8_general_ci');
-
-        $this->createIndex('uniq_type', '{{settings_types}}', 'type', true);
-
-        //table values
-        $this->createTable('{{settings_string}}', array(
-            'id' => 'pk',
-            'value' => 'string NOT NULL COMMENT "Значение"',
-        ),
-        'ENGINE=MyISAM DEFAULT CHARACTER SET = utf8 COLLATE = utf8_general_ci');
-
-        $this->createTable('{{settings_text}}', array(
-            'id' => 'pk',
-            'value' => 'text NOT NULL COMMENT "Значение"',
-        ),
-        'ENGINE=MyISAM DEFAULT CHARACTER SET = utf8 COLLATE = utf8_general_ci');
-
-        //default types
-        $this->insert('{{settings_types}}', array(
-            'name' => 'Строка',
+        $this->insert('{{config}}', array(
+            'param' => 'app.name',
+            'value' => 'Каркас приложения',
+            'label' => 'Название сайта',
             'type' => 'string'
         ));
-        $this->insert('{{settings_types}}', array(
-            'name' => 'Длинный текст',
+
+        $this->insert('{{config}}', array(
+            'param' => 'app.description',
+            'value' => 'Это стартовый каркас',
+            'label' => 'Описание приложения',
             'type' => 'text'
         ));
     }
