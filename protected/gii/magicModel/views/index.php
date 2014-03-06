@@ -46,7 +46,6 @@ $('.form .row.model-class').toggle($('#{$class}_tableName').val().substring($('#
 <h1>Генератор MagicModel</h1>
 
 <?php $form=$this->beginWidget('CCodeForm', array('model'=>$model)); ?>
-
 	<div class="row sticky">
 		<?php echo $form->labelEx($model, 'connectionId')?>
 		<?php echo $form->textField($model, 'connectionId', array('size'=>65))?>

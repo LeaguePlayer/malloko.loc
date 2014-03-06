@@ -436,7 +436,7 @@ class MagicModelCode extends CCodeModel
 		foreach ($columns as $name=>$column) {
 			if (stripos($name, 'img_') !== false ) {
                 $smallName = ucfirst( substr($name, strlen('img_')) ) ;
-				$behaviors[] = "\t'imgBehavior{$smallName}' => array(
+				$behaviors[] = "\t\t\t'imgBehavior{$smallName}' => array(
 				'class' => 'application.behaviors.UploadableImageBehavior',
 				'attributeName' => '{$name}',
 				'versions' => array(
@@ -476,6 +476,7 @@ class MagicModelCode extends CCodeModel
 				'class' => 'zii.behaviors.CTimestampBehavior',
                 'createAttribute' => 'create_time',
                 'updateAttribute' => 'update_time',
+                'setUpdateOnCreate' => true,
 			),\n";
 		}
 

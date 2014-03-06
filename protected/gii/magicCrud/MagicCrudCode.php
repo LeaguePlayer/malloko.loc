@@ -218,7 +218,7 @@ class MagicCrudCode extends CrudCode
             if ( strpos($column->name, 'wswg_') === 0 ) {
                 $genRow = "<div class='control-group'>\n";
                 $genRow .= "\t\t<?php echo CHtml::activeLabelEx(\$model, '{$column->name}'); ?>\n";
-                $genRow .= "\t\t<?php \$this->widget('appext.ckeditor.CKEditorWidget', array('model' => \$model, 'attribute' => '{$column->name}',\n";
+                $genRow .= "\t\t<?php \$this->widget('appext.ckeditor.CKEditorWidget', array('model' => \$model, 'attribute' => '{$column->name}', 'config' => array('width' => '100%')\n";
                 $genRow .= "\t\t)); ?>\n";
                 $genRow .= "\t\t<?php echo \$form->error(\$model, '{$column->name}'); ?>\n";
                 $genRow .= "\t</div>\n";

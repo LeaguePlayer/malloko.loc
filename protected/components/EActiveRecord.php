@@ -12,6 +12,10 @@
  */
 class EActiveRecord extends CActiveRecord
 {
+    public $create_time;
+    public $update_time;
+    public $status;
+
     // Статусы в базе данных
     const STATUS_CLOSED = 0;
     const STATUS_PUBLISH = 1;

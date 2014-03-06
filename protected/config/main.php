@@ -44,6 +44,14 @@ return array_replace_recursive(
             'config' => array(
                 'class' => 'DConfig'
             ),
+            'db' => array(
+                'connectionString' => 'mysql:host=localhost;dbname=magic',
+                'emulatePrepare' => true,
+                'username' => 'root',
+                'password' => 'qwe123',
+                'charset' => 'utf8',
+                'tablePrefix' => 'tbl_',
+            ),
             'authManager' => array(
                 'class' => 'CDbAuthManager',// 'auth.components.CachedDbAuthManager',
                 //'cachingDuration' => 0,
@@ -71,12 +79,14 @@ return array_replace_recursive(
             ),
             // uncomment the following to enable URLs in path-format
             'urlManager'=>array(
+                'class' => 'EUrlManager',
                 'showScriptName'=>false,
                 'urlFormat'=>'path',
                 'rules'=>array(
                     'gii'=>'gii',
-                    'admin'=>'admin/start/index',
-                    '/'=>'site/index'
+                    'admin'=>'admin/config',
+                    '/'=>'site/index',
+                    'structure/<url:[\w_\/-]+>' => 'structure/show'
                 ),
             ),
             'clientScript'=>array(

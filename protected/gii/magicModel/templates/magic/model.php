@@ -94,12 +94,13 @@ class <?php echo $modelClass; ?> extends <?php echo $this->baseClass."\n"; ?>
     public function behaviors()
     {
         return CMap::mergeArray(parent::behaviors(), array(
-        <?php foreach ($behaviors as $behavior)
+<?php foreach ($behaviors as $behavior)
             echo $behavior;
         ?>
         ));
     }
 <?php endif; ?>
+
     public function search()
     {
         $criteria=new CDbCriteria;
@@ -135,13 +136,6 @@ foreach($columns as $name=>$column)
     {
         return parent::model($className);
     }
-<?php if ( !empty($this->translition) ): ?>
-
-    public function translition()
-    {
-        return '<?php echo $this->translition; ?>';
-    }
-<? endif; ?>
 
 <?php echo $this->generateBeforeSave($columns); ?>
 

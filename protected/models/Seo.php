@@ -10,7 +10,7 @@
     * @property string $meta_desc
     * @property string $meta_html
 */
-class Seo extends EActiveRecord
+class Seo extends CActiveRecord
 {
     public function tableName()
     {
@@ -61,15 +61,15 @@ class Seo extends EActiveRecord
         ));
     }
 
+
     public static function model($className=__CLASS__)
     {
         return parent::model($className);
     }
 
+
     public function translition()
     {
         return 'Раздел для SEO специалиста';
     }
-
-
 }

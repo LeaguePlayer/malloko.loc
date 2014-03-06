@@ -1,66 +1,32 @@
 <?php
 /**
- * Миграция m140224_105014_config
+ * Миграция m140305_085959_pages
  *
  * @property string $prefix
  */
  
-class m140224_105014_config extends CDbMigration
+class m140305_085959_pages extends CDbMigration
 {
     // таблицы к удалению, можно использовать '{{table}}'
-	private $dropped = array('{{config}}');
+	private $dropped = array('{{pages}}');
  
     public function safeUp()
     {
         $this->_checkTables();
  
-        $this->createTable('{{config}}', array(
+        $this->createTable('{{pages}}', array(
             'id' => 'pk', // auto increment
-			'param' => "string not null unique COMMENT 'Уникальный идентификатор параметра'",
-			'value' => "text not null COMMENT 'Значение'",
-			'default' => "text not null COMMENT 'Значение по-умолчанию'",
-			'label' => "string not null COMMENT 'Заголовок'",
-			'type' => "varchar(128) not null default 'string' COMMENT 'Тип поля'",
-			'variants' => "text not null COMMENT 'Перечисляемые значения'",
+			'title' => "string NOT NULL COMMENT 'Заголовок страницы'",
+			'description' => "text  COMMENT 'Краткое описание'",
+			'wswg_body' => "text COMMENT 'Тело страницы'",
+			'img_preview' => "string COMMENT 'Превью'",
+			'node_id' => "integer DEFAULT NULL COMMENT 'Ссылка на раздел'",
+			'status' => "tinyint COMMENT 'Статус'",
+			'sort' => "integer COMMENT 'Вес для сортировки'",
+            'create_time' => "datetime COMMENT 'Дата создания'",
+            'update_time' => "datetime COMMENT 'Дата последнего редактирования'",
         ),
         'ENGINE=MyISAM DEFAULT CHARACTER SET = utf8 COLLATE = utf8_general_ci');
-
-        $this->insert('{{config}}', array(
-            'param' => 'app.name',
-            'value' => 'Каркас приложения',
-            'label' => 'Название сайта',
-            'type' => 'string'
-        ));
-
-        $this->insert('{{config}}', array(
-            'param' => 'app.description',
-            'value' => 'Это стартовый каркас',
-            'label' => 'Описание приложения',
-            'type' => 'text'
-        ));
-
-        $this->insert('{{config}}', array(
-            'param' => 'temp.select',
-            'value' => '1',
-            'label' => 'Выпадающий список',
-            'type' => 'select',
-            'variants' => '1:Это тестовый пример | 2:Удали эту настройку из БД'
-        ));
-
-        $this->insert('{{config}}', array(
-            'param' => 'temp.radio',
-            'value' => '1',
-            'label' => 'Радиокнопки',
-            'type' => 'radio',
-            'variants' => '1:Это тестовый пример | 2:Удали эту настройку из БД'
-        ));
-
-        $this->insert('{{config}}', array(
-            'param' => 'temp.checkbox',
-            'value' => '1',
-            'label' => 'Пример чекбокса (правильно, его тоже удали)',
-            'type' => 'checkbox',
-        ));
     }
  
     public function safeDown()
