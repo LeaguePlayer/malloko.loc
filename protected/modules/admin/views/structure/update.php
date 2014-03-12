@@ -6,6 +6,7 @@ $this->breadcrumbs=array(
 
 $this->menu=array(
     array('label'=>'Список разделов', 'url'=>array('list')),
+    array('label'=>'Материал →', 'url'=>array('updateMaterial', 'node_id' => $model->id)),
 );
 ?>
 

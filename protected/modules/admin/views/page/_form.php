@@ -41,8 +41,6 @@
         <?php echo $form->error($model, 'wswg_body'); ?>
     </div>
 
-    <?php echo $form->dropDownListControlGroup($model, 'status', Page::getStatusAliases(), array('class'=>'span12', 'displaySize'=>1)); ?>
-
 	<div class="form-actions">
 		<?php echo TbHtml::submitButton('Сохранить', array('color' => TbHtml::BUTTON_COLOR_PRIMARY)); ?>
         <?php echo TbHtml::linkButton('Отмена', array('url'=>'/admin/page/list')); ?>

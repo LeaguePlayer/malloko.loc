@@ -29,7 +29,7 @@ class Structure extends EActiveRecord
     public function rules()
     {
         return array(
-            array('name, url', 'required'),
+            array('name, url, material_id', 'required'),
             array('url', 'match', 'pattern' => '/^[\w_-]+$/', 'message' => 'Разрешены только символы латинского алфавита и знак подчеркивания.'),
             array('url', 'unique'),
             array('material_id, level, lft, rgt, seo_id, status, sort', 'numerical', 'integerOnly'=>true),
@@ -131,6 +131,16 @@ class Structure extends EActiveRecord
     }
 
 
+    public function beforeSave()
+    {
+    	return true;
+    }
+
+    public function beforeDelete()
+    {
+        return true;
+    }
+
     public function afterDelete()
     {
         $modelName = ucfirst( $this->material->class_name );
@@ -173,13 +183,17 @@ class Structure extends EActiveRecord
     public function getUrl()
     {
         if ( $this->_url === null ) {
-            if ( $this->isRoot() )
-                $this->url = '/';
-            $component = $this->getComponent();
-            if ( !$component )
-                $this->url = '';
-            $component_name = strtolower(get_class($component));
-            $this->url = Yii::app()->createUrl($component_name.'/view', array('url'=>$this->url));
+            if ( $this->isRoot() ) {
+                $this->_url = '/';
+            } else {
+                $component = $this->getComponent();
+                if ( !$component ) {
+                    $this->_url = '';
+                } else {
+                    $component_name = strtolower(get_class($component));
+                    $this->_url = Yii::app()->createUrl($component_name.'/view', array('url'=>$this->url));
+                }
+            }
         }
         return $this->_url;
     }
@@ -199,12 +213,15 @@ class Structure extends EActiveRecord
 
     public function getTbContextMenu()
     {
-        return TbHtml::buttonDropdown(TbHtml::icon(TbHtml::ICON_TH_LIST), array(
+        $contextMenu = array(
             array('label' => '<b>Открыть</b>', 'url' => array('/admin/structure/updateMaterial', 'node_id'=>$this->id)),
             array('label' => 'Свойства раздела', 'url' => '/admin/structure/update/id/'.$this->id),
             array('label' => 'Добавить подраздел', 'url' => Yii::app()->urlManager->createUrl('/admin/structure/create/', array('parent_id'=>$this->id))),
-            array('label' => 'Удалить раздел', 'url' => array('/admin/structure/delete', 'id'=>$this->id)),
-        ), array('size'=>TbHtml::BUTTON_SIZE_MINI));
+        );
+        if ( !$this->isRoot() ) {
+            $contextMenu[] = array('label' => 'Удалить раздел', 'url' => array('/admin/structure/delete', 'id'=>$this->id));
+        }
+        return TbHtml::buttonDropdown(TbHtml::icon(TbHtml::ICON_TH_LIST), $contextMenu, array('size'=>TbHtml::BUTTON_SIZE_MINI));
     }
 
     public function getTreeName()

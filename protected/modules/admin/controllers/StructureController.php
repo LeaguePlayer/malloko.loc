@@ -12,13 +12,16 @@ class StructureController extends AdminController
 
         if ( isset($_POST['Structure']) ) {
             $model->attributes = $_POST['Structure'];
-            if ( $parent !== null ) {
-                $model->appendTo($parent);
-            } else {
-                $model->saveNode();
+            if ( $model->validate() ) {
+                if ( $parent !== null ) {
+                    $model->appendTo($parent, false);
+                } else {
+                    $model->saveNode(false);
+                }
+                $controllerID = strtolower($model->material->class_name);
+                $this->redirect(array("/admin/{$controllerID}/create", 'node_id'=>$model->id));
             }
-            $controllerID = strtolower($model->material->class_name);
-            $this->redirect(array("/admin/{$controllerID}/create", 'node_id'=>$model->id));
+
         }
         $this->layout = '/layouts/admin_columns';
         $this->render('create', array(
@@ -28,6 +31,7 @@ class StructureController extends AdminController
     }
 
 
+    // Обновление раздела
     public function actionUpdate($id)
     {
         $model = Structure::model()->findByPk($id);
@@ -61,6 +65,16 @@ class StructureController extends AdminController
     }
 
 
+    public function actionDelete($id)
+    {
+        $model = Structure::model()->findByPk($id);
+        $model->deleteNode();
+        $this->redirect(array('list'));
+    }
+
+
+    // Редактирование модели, привязанной к текущему разделу
+    // Если модели не существует, то перенаправляет на создание новой модели
     public function actionUpdateMaterial($node_id) {
         $node = Structure::model()->findByPk($node_id);
         if ( !$node ) {

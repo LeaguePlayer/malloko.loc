@@ -84,9 +84,10 @@ return array_replace_recursive(
                 'urlFormat'=>'path',
                 'rules'=>array(
                     'gii'=>'gii',
-                    'admin'=>'admin/config',
+                    'admin'=>'admin/structure',
+                    'admin/<controller:!config>' => 'admin/<controller>/list',
                     '/'=>'site/index',
-                    'structure/<url:[\w_\/-]+>' => 'structure/show'
+                    '<controller:page>/<url:[\w_-]+>' => '<controller>/view',
                 ),
             ),
             'clientScript'=>array(
