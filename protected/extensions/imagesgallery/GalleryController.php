@@ -10,12 +10,14 @@
  * @author Bogdan Savluk <savluk.bogdan@gmail.com>
  */
 
-class GalleryController extends CController
+class GalleryController extends AdminController
 {
+	public $defaultAction = 'manage';
+
     public function filters()
     {
         return array(
-            'postOnly + delete, ajaxUpload, order, changeData',
+            'postOnly + delete, ajaxUpload, order, changeData, changeMain',
         );
     }
 
@@ -47,6 +49,7 @@ class GalleryController extends CController
         $model->gallery_id = $gallery_id;
         $imageFile = CUploadedFile::getInstanceByName('image');
         $model->file_name = $imageFile->getName();
+        $model->ext = $imageFile->extensionName;
         $model->save();
 
         $model->setImage($imageFile->getTempName());
@@ -58,7 +61,10 @@ class GalleryController extends CController
                 'name' => (string)$model->name,
                 'description' => (string)$model->description,
                 'preview' => $model->getPreview(),
+                'main' => $model->main,
             ));
+		$this->disableLogRoutes();
+		Yii::app()->end();
     }
 
     /**
@@ -93,6 +99,30 @@ class GalleryController extends CController
 
     }
 
+    public function actionChangeMain(){
+        if(!empty($_POST['main_id']) && !empty($_POST[  'id'])){
+            $id = $_POST['id'];
+            $main_id = $_POST['main_id'];
+            /** @var $photos GalleryPhoto[] */
+            $photos = GalleryPhoto::model()->findAllByPk($id);
+            foreach ($photos as $photo) {
+                if ($photo !== null){
+                    $photo->main = 0;
+                    $photo->save();
+                }
+                else throw new CHttpException(400, 'Photo, not found');
+            }
+            $main = GalleryPhoto::model()->findByPk($main_id);
+            if($main !== null){
+                $main->main = 1;
+                $main->save();
+            }
+            else throw new CHttpException(400, 'Photo, not found');
+
+            echo 'OK';
+        }
+    }
+
     /**
      * Method to update images name/description via AJAX.
      * On success returns JSON array od objects with new image info.
@@ -122,8 +152,167 @@ class GalleryController extends CController
                 'name' => (string)$model->name,
                 'description' => (string)$model->description,
                 'preview' => $model->getPreview(),
+                'main' => $model->main,
             );
         }
         echo CJSON::encode($resp);
     }
+
+
+	public function actionAddGallery()
+	{
+		$response = array(
+			'widget' => '',
+			'options' => array(),
+		);
+		if ( isset($_POST['Gallery']) ) {
+			$gallery = new Gallery();
+			$gallery->attributes = $_POST['Gallery'];
+			$versions = array();
+			foreach ($_POST['Gallery']['versions'] as $i => $post) {
+				if ( empty($post['prefix']) || empty($post['methods']) ) {
+					continue;
+				}
+				foreach ( $post['methods'] as $method ) {
+					if ( empty($method['method']) )
+						continue;
+					$params = array();
+					if ( isset($method['x']) ) $params[] = is_numeric($method['x']) ? $method['x'] : 0;
+					if ( isset($method['y']) ) $params[] = is_numeric($method['y']) ? $method['y'] : 0;
+					if ( isset($method['w']) ) $params[] = is_numeric($method['w']) ? $method['w'] : 0;
+					if ( isset($method['h']) ) $params[] = is_numeric($method['h']) ? $method['h'] : 0;
+					$versions[$post['prefix']][$method['method']] = $params;
+				}
+			}
+			$gallery->versions = $versions;
+			if ( !$gallery->save() ) {
+				$response['errors'] = $gallery->errors;
+			} else {
+				$response['widget'] = $this->widget('application.extensions.imagesgallery.GalleryManager', array(
+					'gallery' => $gallery,
+					'controllerRoute' => '/admin/gallery',
+				), true);
+				$response['options'] = array(
+					'gallery_id' => $gallery->id,
+					'hasName' => $gallery->name ? true : false,
+					'hasDesc' => $gallery->description ? true : false,
+					'uploadUrl' => $this->createUrl($this->id . '/ajaxUpload', array('gallery_id' => $gallery->id)),
+					'deleteUrl' => $this->createUrl($this->id . '/delete'),
+					'updateUrl' => $this->createUrl($this->id . '/changeData'),
+					'arrangeUrl' => $this->createUrl($this->id . '/order'),
+					'changeMainUrl' => $this->createUrl($this->id . '/changeMain'),
+					'nameLabel' => Yii::t('galleryManager.main', 'Name'),
+					'descriptionLabel' => Yii::t('galleryManager.main', 'Description'),
+					'photos' => array(),
+				);
+			}
+		}
+
+		echo CJSON::encode($response);
+	}
+
+
+	public function actionSelectGallery($id)
+	{
+		$response = array(
+			'widget' => '',
+			'options' => array(),
+		);
+		$gallery = Gallery::model()->findByPk($id);
+		if ( $gallery ) {
+			$response['widget'] = $this->widget('application.extensions.imagesgallery.GalleryManager', array(
+				'gallery' => $gallery,
+				'controllerRoute' => '/admin/gallery',
+			), true);
+
+			$photos = array();
+			foreach ($gallery->galleryPhotos as $photo) {
+				$photos[] = array(
+					'id' => $photo->id,
+					'rank' => $photo->rank,
+					'name' => (string)$photo->name,
+					'description' => (string)$photo->description,
+					'preview' => $photo->getPreview(),
+					'main' => $photo->main,
+				);
+			}
+
+			$response['options'] = array(
+				'gallery_id' => $gallery->id,
+				'hasName' => $gallery->name ? true : false,
+				'hasDesc' => $gallery->description ? true : false,
+				'uploadUrl' => $this->createUrl($this->id . '/ajaxUpload', array('gallery_id' => $gallery->id)),
+				'deleteUrl' => $this->createUrl($this->id . '/delete'),
+				'updateUrl' => $this->createUrl($this->id . '/changeData'),
+				'arrangeUrl' => $this->createUrl($this->id . '/order'),
+				'changeMainUrl' => $this->createUrl($this->id . '/changeMain'),
+				'nameLabel' => Yii::t('galleryManager.main', 'Name'),
+				'descriptionLabel' => Yii::t('galleryManager.main', 'Description'),
+				'photos' => $photos,
+			);
+		}
+		echo CJSON::encode($response);
+	}
+
+
+	public function actionDeleteGallery()
+	{
+		$id = $id = isset($_POST['id']) ? $_POST['id'] : ( isset($_GET['id']) ? $_GET['id'] : 0 );;
+		$gallery = Gallery::model()->findByPk($id);
+		if ( $gallery )
+			$gallery->delete();
+		echo 'OK';
+	}
+
+
+	public function actionUnlinkGallery()
+	{
+		$entity_type = $_GET['entity_type'];
+		$entity_id = $_GET['entity_id'];
+		$gallery_id = $_GET['id'];
+		if ( $entity_type && $entity_id ) {
+			EntityGallery::model()->deleteAllByAttributes(array(
+				'gallery_id' => $gallery_id,
+				'entity_type' => $entity_type,
+				'entity_id' => $entity_id,
+			));
+		}
+		echo 'OK';
+	}
+
+
+	protected function disableLogRoutes()
+	{
+		foreach (Yii::app()->log->routes as $route)
+		{
+			if ($route instanceof CLogRoute)
+			{
+				$route->enabled = false;
+			}
+		}
+	}
+
+
+	public function actionManage()
+	{
+		$model = new Gallery('search');
+		$model->unsetAttributes();
+
+		if ( isset($_GET['Gallery']) )
+			$model->attributes = $_GET['Gallery'];
+
+		$this->render('manage', array(
+			'model' => $model
+		));
+	}
+
+
+	public function actionView($id)
+	{
+		$model = $this->loadModel('Gallery', $id);
+
+		$this->render('view', array(
+			'model' => $model
+		));
+	}
 }
