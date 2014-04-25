@@ -4,6 +4,13 @@
 
   $grid = $('#structure-grid');
 
+  $('a.delete-node', $grid).on('click', function(e) {
+    if (!confirm('Вы уверены, что хотите удалить раздел?')) {
+      $(this).closest('.btn-group').removeClass('open');
+      return false;
+    }
+  });
+
   $('a.expand-button', $grid).on('click', function(e) {
     var childrenlist, _this;
     _this = $(this);

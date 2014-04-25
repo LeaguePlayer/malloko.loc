@@ -1,12 +1,13 @@
 <?php
 $this->breadcrumbs=array(
-    "Структура сайта"=>array('/admin/structure/list'),
+    "Структура сайта"=>array('/admin/structure/list', 'opened' => $model->node->id),
     'Редактирование',
 );
 
 $this->menu=array(
-    array('label'=>'Структура сайта','url'=>array('/admin/structure/list')),
+    array('label'=>'Структура сайта','url'=>array('/admin/structure/list', 'opened' => $model->node->id)),
     array('label'=>'Добавить новую','url'=>array('create', 'node_id'=>$model->node->id)),
+	array('label'=>'← Раздел', 'url'=>array('/admin/structure/update', 'id'=>$model->node->id)),
 );
 ?>
 

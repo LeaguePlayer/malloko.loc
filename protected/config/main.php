@@ -13,14 +13,15 @@ return array_replace_recursive(
             'log',
             'config',
         ),
+		'aliases'=>array(
+			'appext'=>'application.extensions',
+		),
         // autoloading model and component classes
         'import'=>array(
             'application.models.*',
             'application.components.*',
-            //'application.behaviors.*',
-        ),
-        'aliases'=>array(
-            'appext'=>'application.extensions',
+            'application.behaviors.*',
+			'appext.imagesgallery.models.*'
         ),
         'modules'=>array(
             'admin'=>array(),
@@ -84,16 +85,18 @@ return array_replace_recursive(
                 'urlFormat'=>'path',
                 'rules'=>array(
                     'gii'=>'gii',
+					'/'=>'site/index',
+					'<controller:page>/<url:[\w_-]+>' => '<controller>/view',
                     'admin'=>'admin/config',
-                    '/'=>'site/index',
-                    'structure/<url:[\w_\/-]+>' => 'structure/show'
+					'admin/<controller>'=>'admin/<controller>/list',
                 ),
             ),
             'clientScript'=>array(
                 'class'=>'EClientScript',
-                'scriptMap'=>array(
-                    //'jquery.min.js'=>'//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js',
-                ),
+				'scriptMap'=>array(
+					'jquery.js'=>'http://code.jquery.com/jquery-1.11.0.js',
+					'jquery.min.js'=>'http://code.jquery.com/jquery-1.11.0.min.js',
+				),
             ),
             'date' => array(
                 'class'=>'application.components.Date',

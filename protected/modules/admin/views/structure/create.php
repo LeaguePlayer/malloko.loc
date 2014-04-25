@@ -1,11 +1,11 @@
 <?php
 $this->breadcrumbs=array(
-    "Разделы сайта"=>array('list'),
+    "Разделы сайта"=>array('list', 'opened' => $parent->id),
     'Создание',
 );
 
 $this->menu=array(
-    array('label'=>'Список разделов','url'=>array('list')),
+    array('label'=>'Список разделов','url'=>array('list', 'opened' => $parent->id)),
 );
 ?>
 

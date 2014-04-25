@@ -35,9 +35,9 @@ class Structure extends EActiveRecord
     public function rules()
     {
         return array(
-            array('name, url', 'required'),
+            array('name, url, material_id', 'required'),
             array('url', 'match', 'pattern' => '/^[\w_-]+$/', 'message' => 'Разрешены только символы латинского алфавита и знак подчеркивания.'),
-            array('url', 'url_unique'),
+            array('url', 'unique'),
             array('material_id, level, lft, rgt, seo_id, status, sort', 'numerical', 'integerOnly'=>true),
             array('name, url', 'length', 'max'=>255),
             array('create_time, update_time', 'safe'),
@@ -95,7 +95,7 @@ class Structure extends EActiveRecord
                 'updateAttribute' => 'update_time',
                 'setUpdateOnCreate' => true,
 			),
-            'nestedset'=>array(
+            'NestedSetBehavior'=>array(
                 'class'=>'application.behaviors.NestedSetBehavior',
                 'leftAttribute'=>'lft',
                 'rightAttribute'=>'rgt',
@@ -156,13 +156,9 @@ class Structure extends EActiveRecord
     public function getComponent()
     {
         if ( $this->_component === null ) {
-            $component_name = ucfirst( $this->material->class_name );
+            $component_name = $this->material->class_name;
             $model = $component_name::model();
-            if ( !is_subclass_of($model, 'StructureMaterial') ) {
-//                throw new CHttpException(403, "Класс $component_name не наследует интерфейс StructureMaterial");
-            } else {
-                $this->_component = $model->findByAttributes(array('node_id'=>$this->id));
-            }
+			$this->_component = $model->findByAttributes(array('node_id'=>$this->id));
         }
         return $this->_component;
     }
@@ -176,19 +172,24 @@ class Structure extends EActiveRecord
     private $_url;
     public function getUrl()
     {
-        if ( $this->_url === null ) {
-            $this->_url = Yii::app()->createUrl('structure/show', array('url'=>$this->url));
-        }
-        return $this->_url;
+//        if ( $this->_url === null ) {
+//            $this->_url = Yii::app()->createUrl('structure/show', array('url'=>$this->url));
+//        }
+//        return $this->_url;
 
-//        if ( $this->isRoot() )
-//            return '/';
-//        $component = $this->getComponent();
-//        if ( !$component )
-//            return '';
-//        $component_name = strtolower(get_class($component));
-//        return Yii::app()->createUrl($component_name.'/view', array('url'=>$this->url));
+		if ( $this->_url === null ) {
+			if ( $this->isRoot() )
+				return Yii::app()->createUrl('site/index');
+			$component = $this->getComponent();
+			if ( !$component )
+				return '';
+			$component_name = lcfirst(get_class($component));
+			$this->_url = Yii::app()->createUrl($component_name.'/view', array('url'=>$this->url));
+		}
+
+        return $this->_url;
     }
+
 
     public function getBreadcrumbs()
     {
@@ -200,55 +201,5 @@ class Structure extends EActiveRecord
         }
         $breadcrumbs[] = $this->name;
         return $breadcrumbs;
-    }
-
-
-    public function getTbContextMenu()
-    {
-        return TbHtml::buttonDropdown(TbHtml::icon(TbHtml::ICON_TH_LIST), array(
-            array('label' => '<b>Открыть</b>', 'url' => array('/admin/structure/updateMaterial', 'node_id'=>$this->id)),
-            array('label' => 'Свойства раздела', 'url' => '/admin/structure/update/id/'.$this->id),
-            array('label' => 'Добавить подраздел', 'url' => Yii::app()->urlManager->createUrl('/admin/structure/create/', array('parent_id'=>$this->id))),
-            array('label' => 'Удалить раздел', 'url' => array('/admin/structure/delete', 'id'=>$this->id)),
-        ), array('size'=>TbHtml::BUTTON_SIZE_MINI));
-    }
-
-    public function getTreeName()
-    {
-        $out = "";
-        $out .= str_repeat('<span class="offset"></span>', $this->level - 1);
-        if ( !$this->isRoot() && !$this->isLeaf() ) {
-//            if ( $this->level == 2 )
-            $out .= TbHtml::link(TbHtml::icon(TbHtml::ICON_PLUS), '#', array('class'=>'expand-button'));
-//            else
-//                $out .= TbHtml::link(TbHtml::icon(TbHtml::ICON_MINUS), '#', array('class'=>'expand-button open'));
-        }
-        $out .= CHtml::link($this->name, array('updateMaterial',"node_id"=>$this->id));
-        return $out;
-    }
-
-    public function renderAdminHeadRow()
-    {
-        echo "<div class='row head'>".
-            "<span class='cell menu'></span>".
-            "<span class='cell name'><b>Раздел</b></span>".
-            "<span class='cell link'><b>Ссылка</b></span>".
-            "<span class='cell type'><b>Тип</b></span>".
-            "</div>";
-    }
-
-    public function renderAdminRow()
-    {
-        $out = "<div class='row' data-id='".$this->id."'>";
-        if ( !$this->isRoot() )
-            $out .= "<span class='cell check'>".CHtml::checkBox('')."</span>";
-        else
-            $out .= "<span class='cell check'></span>";
-        $out .= "<span class='cell menu'>".$this->getTbContextMenu()."</span>".
-            "<span class='cell name'>".$this->getTreeName()."</span>".
-            "<span class='cell link'>".CHtml::link($this->getUrl(), $this->getUrl(), array("target"=>"_blank"))."</span>".
-            "<span class='cell type'>".$this->material->name."</span>".
-            "</div>";
-        echo $out;
     }
 }

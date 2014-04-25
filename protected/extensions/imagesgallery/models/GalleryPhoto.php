@@ -19,9 +19,9 @@
 class GalleryPhoto extends CActiveRecord
 {
     /** @var string Extensions for gallery images */
-    public $galleryExt = 'jpg';
+    public $galleryExt = 'png';
     /** @var string directory in web root for galleries */
-    public $galleryDir = 'gallery';
+    public $galleryDir = 'media/gallery';
 
     /**
      * Returns the static model of the specified AR class.
@@ -129,15 +129,24 @@ class GalleryPhoto extends CActiveRecord
         return Yii::app()->request->baseUrl . '/' . $this->galleryDir . '/_' . $this->getFileName('') . '.' . $this->galleryExt;
     }
 
+
     private function getFileName($version = '')
     {
         return $this->id . $version;
     }
 
+
     public function getUrl($version = '')
     {
         return Yii::app()->request->baseUrl . '/' . $this->galleryDir . '/' . $this->getFileName($version) . '.' . $this->galleryExt;
     }
+
+
+	public function getImage($version = '', $alt = '', $htmlOptions = array())
+	{
+		return CHtml::image($this->getUrl($version), $alt, $htmlOptions);
+	}
+
 
     public function setImage($path)
     {
@@ -168,6 +177,7 @@ class GalleryPhoto extends CActiveRecord
         }
     }
 
+
     public function delete()
     {
         $this->removeFile($this->galleryDir . '/' . $this->getFileName('') . '.' . $this->galleryExt);
@@ -180,11 +190,13 @@ class GalleryPhoto extends CActiveRecord
         return parent::delete();
     }
 
+
     private function removeFile($fileName)
     {
         if (file_exists($fileName))
             @unlink($fileName);
     }
+
 
     public function removeImages()
     {
@@ -208,6 +220,4 @@ class GalleryPhoto extends CActiveRecord
             $image->save($this->galleryDir . '/' . $this->getFileName($version) . '.' . $this->galleryExt);
         }
     }
-
-
 }

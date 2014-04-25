@@ -3,6 +3,11 @@ $ () ->
 	checkboxes = $('input:checkbox', grid)
 	moveButtons = $('.actions .btn')
 
+	$('a.delete-node', grid).on 'click', (e) ->
+		if !confirm 'Вы уверены, что хотите удалить пункт меню?'
+			$(@).closest('.btn-group').removeClass('open')
+			return false
+
 	checkboxes.click (e) ->
 		self = $(@)
 		if self.prop 'checked'

@@ -77,7 +77,6 @@ class Controller extends CController
 
     public function beforeRender($view)
     {
-        $this->renderPartial('//layouts/clips/_main_menu');
         return parent::beforeRender($view);
     }
 
@@ -154,4 +153,16 @@ class Controller extends CController
             $baseUrl = Yii::app()->request->baseUrl;
         return $baseUrl . '/' . ltrim($url, '/');
     }
+
+
+	protected function disableLogRoutes()
+	{
+		foreach (Yii::app()->log->routes as $route)
+		{
+			if ($route instanceof CLogRoute)
+			{
+				$route->enabled = false;
+			}
+		}
+	}
 }

@@ -4,6 +4,18 @@ class StructureController extends AdminController
 {
     public $layout = '/layouts/structure';
 
+
+	public function actionList($opened = false)
+	{
+		$openNode = Structure::model()->findByPk($opened);
+//		var_dump( $openNode ); die();
+
+		$this->render('list', array(
+			'openNode' => $openNode
+		));
+	}
+
+
     public function actionCreate($parent_id = null)
     {
         $model = new Structure;
@@ -15,12 +27,11 @@ class StructureController extends AdminController
             $success = $model->validate();
             if ( $success ) {
                 if ( $parent ) {
-                    $model->url = $parent->url.'/'.$model->url;
                     $model->appendTo($parent, false);
                 } else {
                     $model->saveNode(false);
                 }
-                $controllerID = strtolower($model->material->class_name);
+                $controllerID = lcfirst($model->material->class_name);
                 $this->redirect(array("/admin/{$controllerID}/create", 'node_id'=>$model->id));
             }
         }
@@ -39,12 +50,11 @@ class StructureController extends AdminController
             throw new CHttpException(404, 'Раздел не найден');
         }
 
-        $mathes = array();
-        preg_match('/[\w_]+$/', $model->url, $mathes);
-        $model->url = $mathes[0];
+//        $mathes = array();
+//        preg_match('/[\w_]+$/', $model->url, $mathes);
+//        $model->url = $mathes[0];
 
         $parent = $model->parent()->find();
-        $model->parent = $parent;
 
         $oldMaterialId = $model->material_id;
         if ( isset($_POST['Structure']) ) {
@@ -52,9 +62,9 @@ class StructureController extends AdminController
 
             $success = $model->validate();
             if ( $success ) {
-                if ( $parent ) {
-                    $model->url = $parent->url.'/'.$model->url;
-                }
+//                if ( $parent ) {
+//                    $model->url = $parent->url.'/'.$model->url;
+//                }
                 if ( $model->saveNode(false) ) {
                     if ( $model->material_id !== $oldMaterialId ) {
                         $component = $model->getComponent();
@@ -62,10 +72,10 @@ class StructureController extends AdminController
                             $component->delete();
                         }
                         $model->refresh();
-                        $controllerID = strtolower($model->material->class_name);
+                        $controllerID = lcfirst($model->material->class_name);
                         $this->redirect(array("/admin/{$controllerID}/create", 'node_id'=>$model->id));
                     }
-                    $this->redirect( array('list') );
+                    $this->redirect( array('list', 'opened' => $model->id) );
                 }
             }
         }
@@ -77,17 +87,25 @@ class StructureController extends AdminController
     }
 
 
+	public function actionDelete($id)
+	{
+		$model = $this->loadModel('Structure', $id);
+		$model->deleteNode();
+		$this->redirect(array('list'));
+	}
+
+
     public function actionUpdateMaterial($node_id) {
         $node = Structure::model()->findByPk($node_id);
         if ( !$node ) {
             throw new CHttpException(404, 'Раздел не найден');
         }
 
-        $modelName = ucfirst($node->material->class_name);
+        $modelName = $node->material->class_name;
         $model = $modelName::model()->findByAttributes(array(
             'node_id'=>$node_id
         ));
-        $controllerID = strtolower($modelName);
+        $controllerID = lcfirst($modelName);
         if ( !$model )
             $this->redirect(array("/admin/{$controllerID}/create", 'node_id'=>$node_id));
         $this->redirect(array("/admin/{$controllerID}/update", 'id'=>$model->id, 'node_id'=>$node_id));

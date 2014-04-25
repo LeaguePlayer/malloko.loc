@@ -21,57 +21,12 @@ class FrontController extends Controller
 
     public function beforeRender($view)
     {
-        $this->renderPartial('//layouts/clips/_main_menu');
+		$this->buildMenu();
         return parent::beforeRender($view);
     }
 
     public function buildMenu($currentNode = null)
     {
-        $root = Menu::model()->cache(3600)->findByAttributes(array(
-            'level' => 1
-        ));
-        if ( !$root ) return;
-        $criteria = new CDbCriteria();
-        $criteria->compare('status', 1);
-        $criteria->addCondition('level<4');
-
-        $items = $root->descendants()->cache(3600)->findAll($criteria);
-        $mainActiveId = 0;
-        $subActiveId = 0;
-
-        if ( $currentNode ) {
-            foreach ( $items as $item ) {
-                if ( $item->level == 2 && $item->node_id == $currentNode->id ) {
-                    $mainActiveId = $item->id;
-                    break;
-                }
-                if ( $item->level == 3 && $item->node_id == $currentNode->id ) {
-                    $subActiveId = $item->id;
-                    $mainActiveId = $item->parent_id;
-                    break;
-                }
-            }
-        }
-
-        foreach ( $items as $item ) {
-            if ( $item->level == 2 ) {
-                $this->mainMenu[] = array(
-                    'active' => $item->id === $mainActiveId,
-                    'label' => $item->name,
-                    'url' => $item->getUrl(),
-                    'class' => $item->item_class,
-                );
-                continue;
-            }
-            if ( $item->level == 3 && $item->parent_id === $mainActiveId ) {
-                $this->subMenu[] = array(
-                    'active' => $item->id === $subActiveId,
-                    'label' => $item->name,
-                    'url' => $item->getUrl(),
-                    'class' => $item->item_class,
-                );
-                continue;
-            }
-        }
+        $this->menu = Menu::model()->getMenuList();
     }
 }

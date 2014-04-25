@@ -28,7 +28,7 @@ class EWebModule extends CWebModule
     {
         // Reset the front-end's client script because we don't want
         // both front-end styles being applied in this module.
-        Yii::app()->clientScript->reset();
+//        Yii::app()->clientScript->reset();
     }
 
 

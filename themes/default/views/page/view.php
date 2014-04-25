@@ -1,23 +1,30 @@
-<?php
-$this->breadcrumbs=array(
-	'Pages'=>array('index'),
-	$model->title,
-);
+<div>
+	<h2><?php echo $node->name ?></h2>
+	<?php $this->widget('zii.widgets.CBreadcrumbs', array(
+		'separator'=>' → ',
+		'links'=>$this->breadcrumbs,
+	)); ?>
+</div>
 
-<h1>View Page #<?php echo $model->id; ?></h1>
 
-<?php $this->widget('bootstrap.widgets.TbDetailView',array(
-	'data'=>$model,
-	'attributes'=>array(
-		'id',
-		'title',
-		'description',
-		'wswg_body',
-		'img_preview',
-		'node_id',
-		'status',
-		'sort',
-		'create_time',
-		'update_time',
-	),
-)); ?>
+<div>
+	<?php echo $page->wswg_body ?>
+
+	<?php
+		$galleries = $page->getGalleries();
+	?>
+	<?php if ( count($galleries) ): ?>
+		<div class="object-gallery">
+			<div class="seasons">
+				<?php $counter = 0; foreach ( $galleries as $gallery ): ?>
+					<div class="season">
+						<?php foreach ( $gallery->galleryPhotos as $photo ): ?>
+							<a href="<?= $photo->getUrl() ?>" rel="season<?= $counter ?>"><?= $photo->getImage() ?></a>
+						<?php endforeach ?>
+					</div>
+					<?php $counter++ ?>
+				<?php endforeach ?>
+			</div>
+		</div>
+	<?php endif ?>
+</div>

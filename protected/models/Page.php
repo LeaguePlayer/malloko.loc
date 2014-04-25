@@ -15,7 +15,7 @@
     * @property string $create_time
     * @property string $update_time
 */
-class Page extends StructureMaterial
+class Page extends EActiveRecord
 {
     public function tableName()
     {
@@ -26,7 +26,6 @@ class Page extends StructureMaterial
     public function rules()
     {
         return array(
-            array('title', 'required'),
             array('node_id, status, sort', 'numerical', 'integerOnly'=>true),
             array('title, img_preview', 'length', 'max'=>255),
             array('description, wswg_body, create_time, update_time', 'safe'),
@@ -75,11 +74,17 @@ class Page extends StructureMaterial
 					)
 				),
 			),
+			'GalleryManager' => array(
+				'class' => 'application.extensions.imagesgallery.GalleryBehavior',
+			),
 			'CTimestampBehavior' => array(
 				'class' => 'zii.behaviors.CTimestampBehavior',
                 'createAttribute' => 'create_time',
                 'updateAttribute' => 'update_time',
                 'setUpdateOnCreate' => true,
+			),
+			'StructureComponent' => array(
+				'class' => 'application.behaviors.StructureComponentBehavior',
 			),
         ));
     }

@@ -13,6 +13,7 @@
                 array('label'=>'Меню сайта', 'url'=>array('/admin/menu')),
                 array('label'=>'Материалы', 'url'=>array('/admin/material')),
                 array('label'=>'Настройки', 'url'=>array('/admin/config')),
+                array('label'=>'Галереи', 'url'=>array('/admin/gallery/manage')),
             );
         ?>
         <?php

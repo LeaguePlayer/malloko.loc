@@ -5,6 +5,12 @@
     grid = $('#structure-grid');
     checkboxes = $('input:checkbox', grid);
     moveButtons = $('.actions .btn');
+    $('a.delete-node', grid).on('click', function(e) {
+      if (!confirm('Вы уверены, что хотите удалить пункт меню?')) {
+        $(this).closest('.btn-group').removeClass('open');
+        return false;
+      }
+    });
     checkboxes.click(function(e) {
       var self;
       self = $(this);

@@ -43,14 +43,24 @@ class Menu extends EActiveRecord
     public function behaviors()
     {
         return array(
-            'nestedSetBehavior'=>array(
+            'NestedSetBehavior'=>array(
                 'class'=>'application.behaviors.NestedSetBehavior',
                 'leftAttribute'=>'lft',
                 'rightAttribute'=>'rgt',
                 'levelAttribute'=>'level',
             ),
+			'category'=>array(
+				'class'=>'ECategoryNSTreeBehavior',
+				'titleAttribute'=>'name',
+			)
         );
     }
+
+
+	public function getLinkActive()
+	{
+		return false;
+	}
 
 
     public function attributeLabels()
@@ -101,56 +111,33 @@ class Menu extends EActiveRecord
         return parent::model($className);
     }
 
-    public function getOffset()
-    {
-        return str_repeat('<span class="offset"></span>', $this->level - 1);
-    }
-
-    public function getName()
-    {
-        if ( $this->level == 2 )
-            return $this->getOffset().'<b>'.$this->name.'</b>';
-        return $this->getOffset().$this->name;
-    }
-
-    public function getTbContextMenu()
-    {
-        return TbHtml::buttonDropdown(TbHtml::icon(TbHtml::ICON_TH_LIST), array(
-            array("label" => "<b>Свойства</b>", "url" => array("/admin/menu/update", "id"=>$this->id)),
-            array("label" => "Добавить подпункт", "url" => array("/admin/menu/create", "parent_id"=>$this->id), "visible" => $this->level<3),
-            array("label" => "Удалить", "url" => array("/admin/menu/delete", "id"=>$this->id), "visible" => !$this->isRoot()),
-        ), array("size"=>TbHtml::BUTTON_SIZE_MINI));
-    }
-
-    public function renderAdminRow()
-    {
-        $out = "<div class='row' data-id='".$this->id."'>";
-        if ( !$this->isRoot() )
-            $out .= "<span class='cell check'>".CHtml::checkBox('')."</span>";
-        else
-            $out .= "<span class='cell check'></span>";
-        $out .= "<span class='cell menu'>".$this->getTbContextMenu()."</span>".
-            "<span class='cell name'>".$this->getName()."</span>".
-            "<span class='cell link'>".CHtml::link($this->getUrl(), $this->getUrl(), array("target"=>"_blank"))."</span>".
-            "<span class='cell type'>".Menu::getStatusAliases($this->status)."</span>".
-            "</div>";
-        echo $out;
-    }
-
+	private $_url;
     public function getUrl()
     {
-        if ( !empty($this->external_link) )
-            return $this->external_link;
+		if ( $this->_url === null ) {
+			if ( !empty($this->external_link) ) {
+				$this->_url = $this->external_link;
+			} else {
+				$node = null;
+				// Поведение, при котором меню будет возвращать ссылку на первый дочерний элемент ( раскомментируй для включения )
+				/*
+				$subMenu = $this->children()->find();
+				if ( $subMenu ) {
+					$node = $subMenu->node;
+				}
+				*/
 
-        $subMenu = $this->children()->find();
-        if ( $subMenu ) {
-            $node = $subMenu->node;
-            if ( $node )
-                return $node->getUrl();
-        }
+				//if ( $node === null ) {
+					$node = $this->node;
+				//}
 
-        if ( $this->node )
-            return $this->node->getUrl();
-        return '';
+				if ( $node !== null ) {
+					$this->_url = $node->getUrl();
+				} else {
+					$this->_url = '';
+				}
+			}
+		}
+        return $this->_url;
     }
 }

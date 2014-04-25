@@ -1,7 +1,27 @@
+<?php
+
+$js = <<< EOT
+	$(document).ready(function() {
+		var alias_input = $('#Structure_url');
+		$('#Structure_name').keyup(function(e) {
+			alias_input.val( transliterate($(this).val()) );
+		});
+
+		$('#Structure_name').change(function(e) {
+			alias_input.val( transliterate($(this).val()) );
+		});
+	});
+EOT;
+Yii::app()->clientScript->registerScript('STRUCTURE_FORM', $js);
+
+?>
+
+
+
 <?= $form->textFieldControlGroup($model, 'name',array('class'=>'span12','maxlength'=>255)); ?>
 
 <?php
-    $prependText = $parent ? strtr($parent->url.'/', array('/' => ' / ')) : ' / ';
+//    $prependText = $parent ? strtr($parent->url.'/', array('/' => ' / ')) : ' / ';
 ?>
 <?= $form->textFieldControlGroup($model, 'url',array('class'=>'span12','maxlength'=>255, 'prepend' => $prependText)); ?>
 

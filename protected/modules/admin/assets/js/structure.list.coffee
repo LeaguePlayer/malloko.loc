@@ -1,6 +1,14 @@
 
 $grid = $('#structure-grid')
 
+
+$('a.delete-node', $grid).on 'click', (e) ->
+	if !confirm 'Вы уверены, что хотите удалить раздел?'
+		$(@).closest('.btn-group').removeClass('open')
+		return false
+
+
+
 $('a.expand-button', $grid).on 'click', (e) ->
 	_this = $(@)
 	childrenlist = _this.closest('li').children('ul')

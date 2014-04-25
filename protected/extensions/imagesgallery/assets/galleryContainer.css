@@ -1,0 +1,40 @@
+.GalleriesContainer .GalleryEditor {
+    margin-bottom: 20px;
+}
+
+.GalleriesContainer .gallery-box {
+    text-align: center;
+    padding: 10px 0;
+}
+
+.GalleriesContainer table.thumbs-settings {
+    margin-bottom: 5px;
+}
+
+.GalleriesContainer table.thumbs-settings input,
+.GalleriesContainer table.thumbs-settings select {
+    font-size: 12px;
+    margin-bottom: 0;
+}
+
+.GalleriesContainer table.thumbs-settings .thumb-prefix {
+    width: 80px;
+}
+
+.GalleriesContainer table.thumbs-settings .thumb-method select {
+    width: 150px;
+}
+
+.GalleriesContainer table.thumbs-settings .thumb-method input {
+    width: 40px;
+}
+
+.GalleriesContainer table.thumbs-settings .thumb-method {
+    margin-bottom: 5px;
+}
+
+.GalleriesContainer table.thumbs-settings .add-method {
+    padding: 5px 0;
+    font-size: 12px;
+}
+

@@ -12,6 +12,8 @@ class GalleryManager extends CWidget
     /** @var string Route to gallery controller */
     public $controllerRoute = false;
     public $assets;
+	public $enableDeleteButton = true;
+	public $enableUnlinkButton = true;
 
     public function init()
     {
@@ -56,6 +58,7 @@ class GalleryManager extends CWidget
         }
 
         $opts = array(
+			'gallery_id' => $this->gallery->id,
             'hasName' => $this->gallery->name ? true : false,
             'hasDesc' => $this->gallery->description ? true : false,
             'uploadUrl' => Yii::app()->createUrl($this->controllerRoute . '/ajaxUpload', array('gallery_id' => $this->gallery->id)),

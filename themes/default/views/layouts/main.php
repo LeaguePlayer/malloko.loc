@@ -24,12 +24,12 @@
 	    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 	    <![endif]-->
 	</head>
-	<body <?php $this->is_home() ? print 'class="background"' : print '';?>>
+	<body>
 		<header id="header">
 		</header>
 
 		<div id="layout" class="fix_width">
-		<?php echo $content;?>
+			<?php echo $content;?>
 		</div>
 
 		<footer id="footer" class="fix-width">

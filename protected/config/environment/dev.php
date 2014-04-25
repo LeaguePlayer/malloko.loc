@@ -12,6 +12,16 @@ return array(
         ),
     ),
     'components' => array(
+		'clientScript'=>array(
+			'scriptMap'=>array(
+				'jquery.js'=>'/lib/jquery/jquery.js',
+				'jquery.min.js'=>'/lib/jquery/jquery.min.js',
+			),
+		),
+		'db'=>array(
+			'enableProfiling'=>true,
+			'enableParamLogging' => true,
+		),
         'log'=>array(
             'class'=>'CLogRouter',
             'routes'=>array(
@@ -19,11 +29,15 @@ return array(
                     'class'=>'CFileLogRoute',
                     'levels'=>'error, warning',
                 ),
-                array(
-                    'class'=>'CWebLogRoute',
-                    'levels'=>'error, warning, trace, profile, info',
-                    'enabled'=>true,
-                ),
+				array(
+					'class'=>'application.extensions.yii-debug-toolbar.YiiDebugToolbarRoute',
+					'ipFilters'=>array('127.0.0.1'),
+				),
+//                array(
+//                    'class'=>'CWebLogRoute',
+//                    'levels'=>'error, warning, trace, profile, info',
+//                    'enabled'=>true,
+//                ),
             ),
         ),
     ),

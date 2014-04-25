@@ -2,9 +2,9 @@
 
 class PageController extends AdminController
 {
-    public function actionCreate()
+    public function actionCreate($node_id)
     {
-        $model = new Page();
+		$model = new Page();
 
         if(isset($_POST['Page']))
         {
@@ -13,7 +13,7 @@ class PageController extends AdminController
             if( $success ) {
                 $message = 'Страница успешно сохранена. Теперь вы можете добавить '.TbHtml::link('галерею', '#');
                 Yii::app()->user->setFlash('PAGE_SAVED', $message);
-                $this->redirect(array('update', 'id' => $model->id));
+                $this->redirect(array('/admin/structure/list', 'opened' => $model->node_id));
             }
         }
         $this->render('create', array('model' => $model));
@@ -27,7 +27,7 @@ class PageController extends AdminController
             $model->attributes = $_POST['Page'];
             $success = $model->save();
             if( $success ) {
-                $this->redirect(array('/admin/structure/list'));
+                $this->redirect(array('/admin/structure/list', 'opened' => $model->node_id));
             }
         }
 //        Yii::import('appext.imagesmultigallery.GalleryManager');

@@ -3,6 +3,7 @@
 return array_replace_recursive(
     array(
         'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
+		'commandPath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'cli'.DIRECTORY_SEPARATOR.'commands',
         'name'=>'Консоль',
         // preloading 'log' component
         'preload'=>array('log'),

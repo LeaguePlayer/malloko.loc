@@ -86,7 +86,7 @@ class UploadableImageBehavior extends CActiveRecordBehavior
         if(in_array($owner->scenario,$this->scenarios)){
             // добавляем валидатор файла
             $fileValidator=CValidator::createValidator('file',$owner,$this->attributeName,
-                array('types'=>$this->fileTypes,'allowEmpty'=>true));
+                array('types'=>$this->fileTypes,'allowEmpty'=>true,'safe'=>false));
             $owner->validatorList->add($fileValidator);
         }
     }

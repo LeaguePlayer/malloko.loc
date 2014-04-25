@@ -7,8 +7,31 @@
  */
 ?>
 <?php echo CHtml::openTag('div', $this->htmlOptions); ?>
+	<?php echo CHtml::hiddenField('Galleries['.$this->gallery->id.'][id]', $this->gallery->id) ?>
+
     <!-- Gallery Toolbar -->
     <div class="btn-toolbar gform">
+		<div>
+			<h3 class="gallery_name"><?= $this->gallery->gallery_name ?></h3>
+			<div class="btn-group pull-right actions">
+				<span class="btn edit-gallery">
+					<i class="icon-edit"></i>
+				</span>
+				<?php if ( $this->enableUnlinkButton ): ?>
+					<span class="btn unlink-gallery" data-id="<?= $this->gallery->id ?>">
+						<i class="icon-remove"></i>
+					</span>
+				<?php endif ?>
+
+				<?php if ( $this->enableDeleteButton ): ?>
+					<span class="btn remove-gallery btn-danger" data-id="<?= $this->gallery->id ?>">
+						<i class="icon-trash icon-white"></i>
+					</span>
+				<?php endif ?>
+			</div>
+		</div>
+		<hr/>
+
         <span class="btn btn-success fileinput-button">
             <i class="icon-plus icon-white"></i>
             <?php echo Yii::t('galleryManager.main', 'Add…');?>

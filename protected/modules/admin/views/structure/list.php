@@ -52,7 +52,9 @@
                     <span class='cell type'><b>Тип</b></span>
                 </div>
             </li>
-            <li><?php echo $rootNode->renderAdminRow() ?>
+            <li><?php echo $this->renderPartial('_list_row', array(
+					'node'=>$rootNode
+				)) ?>
                 <?php
                     $descendants = $rootNode->descendants()->findAll();
                     $lastLevel = $rootNode->level;
@@ -64,11 +66,18 @@
                                 echo str_repeat('</ul></li>', $lastLevel - $node->level);
                             } ?>
                             <?php $lastLevel = $node->level ?>
-                            <?php if ( $node->isLeaf() ): ?>
-                                <li><? $node->renderAdminRow() ?></li>
-                            <?php else: ?>
-                                <li><? $node->renderAdminRow() ?><ul style="display: none;">
-                            <?php endif ?>
+							<li> <!-- Вывод одной строки -->
+								<?php
+									$isOpen = $openNode && ( $openNode->id == $node->id || $openNode->isDescendantOf($node) );
+								?>
+								<?php echo $this->renderPartial('_list_row', array(
+									'node'=>$node,
+									'isOpen' => $isOpen
+								)) ?>
+								<?php if ( !$node->isLeaf() ): ?>
+									<ul<? if ( !$isOpen ) echo ' style="display: none;"' ?>>
+								<?php endif ?>
+							</li>
                         <?php endforeach ?>
                     </ul>
                 <?php endif ?>

@@ -30,4 +30,8 @@ return array(
     'Select all' => 'Выбрать все',
     'Drop Files Here…' => 'Перетащите файлы сюда…',
     'Uploading images…' => 'Картинки загружаются…',
+	'New Gallery' => 'Создать галерею',
+	'Params gallery' => 'Параметры галереи',
+	'Adding gallery' => 'Добавление галереи',
+	'Select Gallery' => 'Выбрать галерею',
 );

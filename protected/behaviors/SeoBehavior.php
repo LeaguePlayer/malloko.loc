@@ -4,7 +4,7 @@ class SeoBehavior extends CActiveRecordBehavior
 {
     public function attach($owner) {
         parent::attach($owner);
-        $owner->metaData->addRelation('seo', array($owner::BELONGS_TO, 'Seo', 'seo_id'));
+        $owner->metaData->addRelation('seo', array(CActiveRecord::BELONGS_TO, 'Seo', 'seo_id'));
     }
 
     public function beforeSave($event) {

@@ -7,6 +7,8 @@
         nameLabel: 'Name',
         descriptionLabel: 'Description',
 
+        gallery_id: 0,
+
         hasName: true,
         hasDesc: true,
 
@@ -15,6 +17,9 @@
         updateUrl: '',
         arrangeUrl: '',
         changeMainUrl: '',
+        editGalleryUrl: '',
+        unlinkGalleryUrl: '',
+        deleteGalleryUrl: '',
 
         photos: []
     };
@@ -95,6 +100,7 @@
         }
 
 
+
         function editPhotos(ids) {
             var l = ids.length;
             var form = $editorForm.empty();
@@ -108,6 +114,8 @@
             }
             if (l > 0)$editorModal.modal('show');
         }
+
+
 
         function removePhotos(ids) {
             $.ajax({
@@ -135,6 +143,8 @@
             return false;
         }
 
+
+
         function editClick(e) {
             e.preventDefault();
             var photo = $(this).closest('.photo');
@@ -142,6 +152,8 @@
             editPhotos([id]);
             return false;
         }
+
+
 
         function mainClick(e) {
             e.preventDefault();
@@ -344,6 +356,8 @@
             });
         }
 
+
+
         $('.save-changes', $editorModal).click(function (e) {
             e.preventDefault();
             $.post(opts.updateUrl, $('input, textarea', $editorForm).serialize() + csrfParams, function (data) {
@@ -368,6 +382,8 @@
 
         });
 
+
+
         $('.edit_selected', $gallery).click(function (e) {
             e.preventDefault();
             var ids = [];
@@ -378,6 +394,8 @@
             return false;
         });
 
+
+
         $('.remove_selected', $gallery).click(function (e) {
             e.preventDefault();
             var ids = [];
@@ -385,8 +403,9 @@
                 ids.push($(this).data('id'));
             });
             removePhotos(ids);
-
         });
+
+
 
         $('.select_all', $gallery).change(function () {
             if ($(this).prop('checked')) {
