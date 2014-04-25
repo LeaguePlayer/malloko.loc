@@ -38,6 +38,7 @@ class Page extends EActiveRecord
     public function relations()
     {
         return array(
+            'node' => array(self::BELONGS_TO, 'Structure', 'node_id'),
         );
     }
 

@@ -1,6 +1,6 @@
 <?php
 
-$yii=dirname(__FILE__).'/framework/yii.php';
+$yii=dirname(__FILE__).'/../../framework/yii.php';
 $params = (file_exists(__DIR__ . '/protected/config/params.php') ? require(__DIR__ . '/protected/config/params.php') : array());
 $config = dirname(__FILE__).'/protected/config/main.php';
 

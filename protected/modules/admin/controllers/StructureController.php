@@ -19,14 +19,13 @@ class StructureController extends AdminController
     public function actionCreate($parent_id = null)
     {
         $model = new Structure;
-        $parent = Structure::model()->findByPk($parent_id);
-        $model->parent = $parent;
+        if ( $parent_id )
+            $parent = Structure::model()->findByPk($parent_id);
 
         if ( isset($_POST['Structure']) ) {
             $model->attributes = $_POST['Structure'];
-            $success = $model->validate();
-            if ( $success ) {
-                if ( $parent ) {
+            if ( $model->validate() ) {
+                if ( $parent !== null ) {
                     $model->appendTo($parent, false);
                 } else {
                     $model->saveNode(false);
@@ -34,6 +33,7 @@ class StructureController extends AdminController
                 $controllerID = lcfirst($model->material->class_name);
                 $this->redirect(array("/admin/{$controllerID}/create", 'node_id'=>$model->id));
             }
+
         }
         $this->layout = '/layouts/admin_columns';
         $this->render('create', array(
@@ -43,40 +43,29 @@ class StructureController extends AdminController
     }
 
 
+    // Обновление раздела
     public function actionUpdate($id)
     {
         $model = Structure::model()->findByPk($id);
         if ( !$model ) {
             throw new CHttpException(404, 'Раздел не найден');
         }
-
-//        $mathes = array();
-//        preg_match('/[\w_]+$/', $model->url, $mathes);
-//        $model->url = $mathes[0];
-
         $parent = $model->parent()->find();
 
         $oldMaterialId = $model->material_id;
         if ( isset($_POST['Structure']) ) {
             $model->attributes = $_POST['Structure'];
-
-            $success = $model->validate();
-            if ( $success ) {
-//                if ( $parent ) {
-//                    $model->url = $parent->url.'/'.$model->url;
-//                }
-                if ( $model->saveNode(false) ) {
-                    if ( $model->material_id !== $oldMaterialId ) {
-                        $component = $model->getComponent();
-                        if ( $component ) {
-                            $component->delete();
-                        }
-                        $model->refresh();
-                        $controllerID = lcfirst($model->material->class_name);
-                        $this->redirect(array("/admin/{$controllerID}/create", 'node_id'=>$model->id));
+            if ( $model->saveNode() ) {
+                if ( $model->material_id !== $oldMaterialId ) {
+                    $component = $model->getComponent();
+                    if ( $component ) {
+                        $component->delete();
                     }
-                    $this->redirect( array('list', 'opened' => $model->id) );
+                    $model->refresh();
+                    $controllerID = strtolower($model->material->class_name);
+                    $this->redirect(array("/admin/{$controllerID}/create", 'node_id'=>$model->id));
                 }
+                $this->redirect( array('list') );
             }
         }
         $this->layout = '/layouts/admin_columns';
@@ -87,12 +76,12 @@ class StructureController extends AdminController
     }
 
 
-	public function actionDelete($id)
-	{
-		$model = $this->loadModel('Structure', $id);
-		$model->deleteNode();
-		$this->redirect(array('list'));
-	}
+    public function actionDelete($id)
+    {
+        $model = Structure::model()->findByPk($id);
+        $model->deleteNode();
+        $this->redirect(array('list'));
+    }
 
 
     public function actionUpdateMaterial($node_id) {

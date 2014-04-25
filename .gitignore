@@ -3,7 +3,7 @@
 Capfile
 #---
 
-/.idea
+.idea
 
 framework
 /protected/config/environment/params-local.php
