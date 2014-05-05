@@ -71,6 +71,79 @@
             <a href="#" class="btn" data-dismiss="modal"><?php echo Yii::t('galleryManager.main', 'Close')?></a>
         </div>
     </div>
+	<!-- Modal window to edit gallery params -->
+	<div class="modal hide change_gallery-modal">
+		<div class="modal-header">
+			<a class="close" data-dismiss="modal">×</a>
+			<h3><?php echo Yii::t('GalleryContainer.main', 'Editing gallery')?></h3>
+		</div>
+		<div class="modal-body">
+			<div class="gform">
+
+				<?php echo TbHtml::activeTextFieldControlGroup($this->gallery, 'gallery_name') ?>
+				<?php echo TbHtml::activeTextFieldControlGroup($this->gallery, 'alias', array('disabled'=>true)) ?>
+				<?php echo TbHtml::activeCheckBoxControlGroup($this->gallery, 'name', array('disabled'=>true)) ?>
+				<?php echo TbHtml::activeCheckBoxControlGroup($this->gallery, 'description', array('disabled'=>true)) ?>
+
+				<div class="control-group">
+					<table class="table thumbs-settings">
+						<thead>
+						<th>Префикс</th>
+						<th>Метод</th>
+						</thead>
+						<tbody>
+						<? //foreach ( $this->gallery->getVersions() as $version ): ?>
+							<tr>
+								<td>
+									<input name="Gallery[versions][0][prefix]" type="text" value="small" placeholder="Префикс" class="thumb-prefix" />
+								</td>
+								<td>
+									<div class="thumb-methods">
+										<div class="thumb-method">
+											<?php echo CHtml::dropDownList('Gallery[versions][0][methods][0][method]', '', Gallery::getMethods(), array(
+												'empty'=>'Выберите метод обработки',
+												'class'=>'select_method',
+												'disabled'=>true,
+											)) ?>
+											<input name="Gallery[versions][0][methods][0][x]" type="text" class="thumb_param-x" placeholder="x" disabled="disabled" />
+											<input name="Gallery[versions][0][methods][0][y]" type="text" class="thumb_param-y" placeholder="y" disabled="disabled" />
+											<input name="Gallery[versions][0][methods][0][w]" type="text" class="thumb_param-w" placeholder="Ширина" disabled="disabled" />
+											<input name="Gallery[versions][0][methods][0][h]" type="text" class="thumb_param-h" placeholder="Высота" disabled="disabled" />
+											<a href="#" class="remove-method"><i class="icon icon-remove"></i></a>
+										</div>
+									</div>
+									<a class="btn btn-link add-method" href="#"><b>+ </b>Еще метод</a>
+								</td>
+							</tr>
+						<? //endforeach ?>
+						</tbody>
+					</table>
+					<a class="btn btn-link add-thumb" href="#"><b>+ </b>Добавить версию картинки</a>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<a href="#" class="btn btn-primary save-changes"><?php echo Yii::t('GalleryContainer.main', 'Save changes')?></a>
+			<a href="#" class="btn" data-dismiss="modal"><?php echo Yii::t('GalleryContainer.main', 'Close')?></a>
+		</div>
+
+
+		<div class="hide">
+			<div class="thumb-method method-tpl">
+				<?php echo CHtml::dropDownList('Gallery[versions][0][methods][0][method]', '', Gallery::getMethods(), array(
+					'empty'=>'Выберите метод обработки',
+					'class'=>'select_method',
+					'id'=>'',
+					'disabled'=>true,
+				)) ?>
+				<input name="Gallery[versions][0][methods][0][params][x]" type="text" class="thumb_param-x" placeholder="x" disabled="disabled" />
+				<input name="Gallery[versions][0][methods][0][params][y]" type="text" class="thumb_param-y" placeholder="y" disabled="disabled" />
+				<input name="Gallery[versions][0][methods][0][params][w]" type="text" class="thumb_param-w" placeholder="Ширина" disabled="disabled" />
+				<input name="Gallery[versions][0][methods][0][params][h]" type="text" class="thumb_param-h" placeholder="Высота" disabled="disabled" />
+				<a href="#" class="remove-method"><i class="icon icon-remove"></i></a>
+			</div>
+		</div>
+	</div>
     <div class="overlay">
         <div class="overlay-bg">&nbsp;</div>
         <div class="drop-hint">
@@ -91,4 +164,21 @@
             </div>
         </div>
     </div>
+
+	<!-- Tpl to gallery methods -->
+	<div class="hide">
+		<div class="thumb-method method-tpl">
+			<?php echo CHtml::dropDownList('Gallery[versions][0][methods][0][method]', '', Gallery::getMethods(), array(
+				'empty'=>'Выберите метод обработки',
+				'class'=>'select_method',
+				'id'=>'',
+				'disabled'=>true,
+			)) ?>
+			<input name="Gallery[versions][0][methods][0][params][x]" type="text" class="thumb_param-x" placeholder="x" disabled="disabled" />
+			<input name="Gallery[versions][0][methods][0][params][y]" type="text" class="thumb_param-y" placeholder="y" disabled="disabled" />
+			<input name="Gallery[versions][0][methods][0][params][w]" type="text" class="thumb_param-w" placeholder="Ширина" disabled="disabled" />
+			<input name="Gallery[versions][0][methods][0][params][h]" type="text" class="thumb_param-h" placeholder="Высота" disabled="disabled" />
+			<a href="#" class="remove-method"><i class="icon icon-remove"></i></a>
+		</div>
+	</div>
 <?php echo CHtml::closeTag('div'); ?>

@@ -33,11 +33,21 @@
             $('#Gallery_gallery_name', $createGalleryForm).val('');
             $('.thumbs-settings tbody tr', $createGalleryForm).remove();
             createThumb();
+            var row = $('.thumbs-settings tbody tr', $createGalleryForm).first();
+            $('input.thumb-prefix', row).val('small');
+            var medium = row.clone();
+            $('input.thumb-prefix', medium).val('medium');
+            $('.thumbs-settings tbody', $createGalleryModal).append(medium);
+            var big = row.clone();
+            $('input.thumb-prefix', big).val('big');
+            $('.thumbs-settings tbody', $createGalleryModal).append(big);
         }
+
 
         var createMethod = function(row) {
             $('.thumb-methods', row).append( $method_tpl.clone().removeClass('method-tpl') );
         }
+
 
         var createThumb = function() {
             var row = $('<tr></tr>');
@@ -64,6 +74,9 @@
                 }
             }
         }
+
+
+
 
 
         $createGalleryModal.on('hide.bs.modal', function(e) {
