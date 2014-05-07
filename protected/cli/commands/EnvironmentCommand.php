@@ -5,7 +5,7 @@ class EnvironmentCommand extends CConsoleCommand
     public function run($args)
     {
         if ( empty($args) ) {
-            print("Текущее окружение: \n");
+            print("Current environment: \n");
             Yii::app()->end();
         }
         $env_name = $args[0];
@@ -20,16 +20,16 @@ class EnvironmentCommand extends CConsoleCommand
 
         $source_config = $source_path.$env_name.'.php';
         if ( !file_exists($source_config) || !copy($source_config, $dest_path.'environment.php') ) {
-            echo "Не удалось скопировать $source_config ...\n";
+            echo "Can't copy the file $source_config ...\n";
             Yii::app()->end();
         }
 
         $source_params = $source_path.'params-'.$env_name.'.php';
         if ( !file_exists($source_params) || !copy($source_params, $dest_path.'params.php') ) {
-            echo "Не удалось скопировать $source_path.$env_name.php ...\n";
+            echo "Can't copy the file $source_path.$env_name.php ...\n";
             Yii::app()->end();
         }
 
-        echo "Готово\n";
+        echo "Success\n";
     }
 }

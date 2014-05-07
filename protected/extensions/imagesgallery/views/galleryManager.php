@@ -75,7 +75,7 @@
 	<div class="modal hide change_gallery-modal">
 		<div class="modal-header">
 			<a class="close" data-dismiss="modal">×</a>
-			<h3><?php echo Yii::t('GalleryContainer.main', 'Editing gallery')?></h3>
+			<h3><?php echo Yii::t('GalleryManager.main', 'Editing gallery')?></h3>
 		</div>
 		<div class="modal-body">
 			<div class="gform">
@@ -123,8 +123,8 @@
 			</div>
 		</div>
 		<div class="modal-footer">
-			<a href="#" class="btn btn-primary save-changes"><?php echo Yii::t('GalleryContainer.main', 'Save changes')?></a>
-			<a href="#" class="btn" data-dismiss="modal"><?php echo Yii::t('GalleryContainer.main', 'Close')?></a>
+			<a href="#" class="btn btn-primary save-changes"><?php echo Yii::t('GalleryManager.main', 'Save changes')?></a>
+			<a href="#" class="btn" data-dismiss="modal"><?php echo Yii::t('GalleryManager.main', 'Close')?></a>
 		</div>
 
 
