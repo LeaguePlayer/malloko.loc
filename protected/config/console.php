@@ -6,7 +6,7 @@ return array_replace_recursive(
 		'commandPath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'cli'.DIRECTORY_SEPARATOR.'commands',
         'name'=>'Консоль',
         // preloading 'log' component
-        'preload'=>array('log'),
+        'preload'=>array(),
         'import'=>array(
             'application.models.*',
             'application.components.*',
